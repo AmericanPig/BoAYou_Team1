@@ -52,6 +52,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -180,11 +182,11 @@
 
 				<!-- 우리 movie_list2 포스터 -->
 				<div class="row gy-4 justify-content-center">
-					<h3>주간 ? 일간? 박스 오피스</h3>
-					<div class="col-xl-3 col-lg-4 col-md-6">
+					<h3 id="test1">주간 ? 일간? 박스 오피스 테스트 해볼꺼다</h3>
+					<div class="col-xl-2 col-lg-4 col-md-6">
 						<div class="gallery-item h-100">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-1.jpg"
+								src="${Movie_List.get(0).getPosters()}"
 								class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
@@ -198,15 +200,15 @@
 						</div>
 					</div>
 					<!-- End Gallery Item -->
-					<div class="col-xl-3 col-lg-4 col-md-6">
+					<div class="col-xl-2 col-lg-4 col-md-6">
 						<div class="gallery-item h-100">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-2.jpg"
+								src="${Movie_List.get(0).getPosters()}"
 								class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
 								<a
-									href="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-2.jpg"
+									href="${Movie_List.get(0).getPosters()}"
 									title="Gallery 2" class="glightbox preview-link"><i
 									class="bi bi-arrows-angle-expand"></i></a> <a
 									href="movieInfoPage.html" class="details-link"><i
@@ -215,15 +217,15 @@
 						</div>
 					</div>
 					<!-- End Gallery Item -->
-					<div class="col-xl-3 col-lg-4 col-md-6">
+					<div class="col-xl-2 col-lg-4 col-md-6">
 						<div class="gallery-item h-100">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-3.jpg"
+								src="${Movie_List.get(0).getPosters()}"
 								class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
 								<a
-									href="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-3.jpg"
+									href="${Movie_List.get(0).getPosters()}"
 									title="Gallery 3" class="glightbox preview-link"><i
 									class="bi bi-arrows-angle-expand"></i></a> <a
 									href="movieInfoPage.html" class="details-link"><i
@@ -232,15 +234,15 @@
 						</div>
 					</div>
 					<!-- End Gallery Item -->
-					<div class="col-xl-3 col-lg-4 col-md-6">
+					<div class="col-xl-2 col-lg-4 col-md-6">
 						<div class="gallery-item h-100">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-4.jpg"
+								src="${Movie_List.get(0).getPosters()}"
 								class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
 								<a
-									href="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-4.jpg"
+									href="${Movie_List.get(0).getPosters()}"
 									title="Gallery 4" class="glightbox preview-link"><i
 									class="bi bi-arrows-angle-expand"></i></a> <a
 									href="movieInfoPage.html" class="details-link"><i
@@ -249,15 +251,15 @@
 						</div>
 					</div>
 					<!-- End Gallery Item -->
-					<div class="col-xl-3 col-lg-4 col-md-6">
+					<div class="col-xl-2 col-lg-4 col-md-6">
 						<div class="gallery-item h-100">
 							<img
-								src="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-5.jpg"
+								src="${Movie_List.get(0).getPosters()}"
 								class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
 								<a
-									href="${pageContext.request.contextPath}/resources/assets/img/gallery/gallery-5.jpg"
+									href="${Movie_List.get(0).getPosters()}"
 									title="Gallery 5" class="glightbox preview-link"><i
 									class="bi bi-arrows-angle-expand"></i></a> <a
 									href="movieInfoPage.html" class="details-link"><i

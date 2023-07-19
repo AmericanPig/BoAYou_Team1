@@ -48,8 +48,9 @@ public class MovieController {
       return "movie";
    }
    @GetMapping("homePage")
-      public void movie() {
+      public void movie(Model model) {
          log.info("movie");
+         model.addAttribute("Movie_List", service.getMovieList());
    }
    @GetMapping("community")
       public void community(Model model) {

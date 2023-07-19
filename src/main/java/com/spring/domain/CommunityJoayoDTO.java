@@ -11,5 +11,5 @@ public class CommunityJoayoDTO {
 
 	private int community_no;		// number
 	private String user_id;			// varchar2(30)
-	private int joayo;				// number
+	private int joayo = 1;				// number
 }
