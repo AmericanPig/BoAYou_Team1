@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.JoayoMapper">
+<!--커뮤니티 글에 특정 user_id 조아요 있는지 확인 select -->
+	<select id="selectCommunityJoayoById" resultType="Integer">
+		select count(*) from community_joayo where user_id=#{user_id} and community_no=#{community_no}
+	</select>
+
+<!--커뮤니티 글에 특정 user_id가 조아요 insert -->
+	<insert id="insertCommunityJoayoById">
+		insert into community_joayo(community_no, user_id, joayo) values (#{community_no}, #{user_id}, 1)
+	</insert>
+
+<!--커뮤니티 글에 특정 user_id가 조아요 delete -->
+	<delete id="deleteCommunityJoayoById">
+		delete from community_joayo where user_id = #{user_id} and community_no=#{community_no}
+	</delete>
+
+<!--커뮤니티 페이지에서 해당 글의 누적조아요 select -->
+	<select id="selectCommunityJoayoCnt" resultType="Integer">
+		select count(*) from community_joayo where community_no = #{community_no} 
+	</select>
+
+<!--comment에 특정 user_id 조아요 select -->
+	<select id="selectCommentJoayoById" resultType="Integer">
+		select count(*) from comment_joayo where user_id=#{user_id} and comment_no=#{comment_no}
+	</select>
+
+<!--comment에 특정 user_id가 조아요 insert -->
+	<insert id="insertCommentJoayoById">
+		insert into comment_joayo(comment_no, user_id, joayo) values (#{comment_no}, #{user_id}, 1)
+	</insert>
+
+<!--comment에 특정 user_id 조아요 delete -->
+	<delete id="deleteCommentJoayoById">
+		delete from comment_joayo where user_id = #{user_id} and comment_no=#{comment_no}
+	</delete>
+
+<!--커뮤니티의 comment열람 시 각 comment들의 누적 조아요 select -->
+	<select id="selectCommentJoayoCnt" resultType="Integer">
+		select count(*) from comment_joayo where comment_no = #{comment_no} 
+	</select>
+
+<!--(추후추가기능)마이페이지 특정 user_id가 조아요한 community 목록 select -->
+	<select id="selectCommunityJoayoList" resultType="com.spring.domain.CommunityDTO">
+		select community_no, docid, user_id, community_content from community 
+			where community_no in (select community_no from community_joayo where user_id=#{user_id})
+	</select>
+
+
+<!--(추후추가기능)마이페이지 특정 user_id가 조아요한 comment 목록 select -->
+	<select id="selectCommentJoayoList" resultType="com.spring.domain.CommentDTO">
+		select comment_no, docid, user_id, community_no, comment_content from comment_tb 
+			where comment_no in (select comment_no from comment_joayo where user_id=#{user_id})
+	</select>
+	</mapper>
