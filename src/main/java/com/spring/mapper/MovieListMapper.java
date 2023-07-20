@@ -28,4 +28,6 @@ public interface MovieListMapper {
    List<MovieListDTO> genre3MovieList();
    List<MovieListDTO> genre4MovieList();
    List<MovieListDTO> genre5MovieList();
+   
+   List<String> getTitleSearchResults(String title);
 }

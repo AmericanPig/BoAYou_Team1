@@ -24,6 +24,15 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+	crossorigin="anonymous">
+</head>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/main2.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
 
@@ -184,9 +193,14 @@
 									<h3>${community.community_title}</h3>
 									<p>${community.community_content}</p>
 									<div class="profile mt-auto">
-										<!-- <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> -->
-										<p>영화포스터 자리</p>
-										<h4>${community.user_id}</h4>
+										<img src="${community.posters}" class="testimonial-img" alt="">
+
+										<h4>${community.user_id}</h4>													
+					<ul class="stats">
+						<li style="float: left;"><a href="#" class="icon solid fa-thumbs-up">28</a></li>
+						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down">28</a></li>
+						<li style="float: center;"><a href="#" class="icon solid fa-comment">128</a></li>
+					</ul>
 									</div>
 								</div>
 							</div>
@@ -202,22 +216,36 @@
 		</section>
 		<!-- End Testimonials Section -->
 		<!-- ======= Services Section ======= -->
-		
-						<c:forEach var="community" items="${community_List}">
-							
-								<div class="testimonial-item">
-									<h3>${community.community_title}</h3>
-									<p>${community.community_content}</p>
-									<div class="profile mt-auto">
-										<!-- <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> -->
-										<p>영화포스터 자리</p>
-										<h4>${community.user_id}</h4>
-									</div>
-								</div>
-							
-							<!-- End testimonial item -->
-						</c:forEach>
+		<c:forEach var="community" items="${community_List}">
+			<article class="post">
+				<header>
+					<div class="title">
+						<h2>${community.community_title}</h2>
+					</div>
+					<div class="meta">
+						<a href="#" class="author"><span class="name">${community.user_id}</span><img
+							src="" alt="" /></a>
+					</div>
+				</header>
+				<c:if test="${not empty community.posters}">
+					<a href="single.html" class="image featured"> <img
+						src="${community.posters}" alt="" />
+					</a>
+				</c:if>
+				<p>${community.community_content}</p>
+				<footer>
+					<ul class="actions">
+						<li><a href="single.html" class="button large">Boayou</a></li>
+					</ul>
+					<ul class="stats">
 
+						<li><a href="#" class="icon solid fa-thumbs-up">28</a></li>
+						<li><a href="#" class="icon solid fa-thumbs-down">28</a></li>
+						<li><a href="#" class="icon solid fa-comment">128</a></li>
+					</ul>
+				</footer>
+			</article>
+		</c:forEach>
 
 
 

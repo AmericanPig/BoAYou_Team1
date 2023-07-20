@@ -14,5 +14,6 @@ public class CommunityDTO {
 	private String docid;
 	private String community_title;
 	private String community_content;
+	private String posters;
 
 }

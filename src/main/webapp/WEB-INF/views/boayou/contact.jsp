@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -47,6 +47,22 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script>
+    function fetchSearchResults() {
+        var title = document.getElementById('movie_title_search').value;
+        document.getElementById('search_results').innerHTML = "Loading...";
+        fetch("search?title=" + title)
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('search_results').innerHTML = text;
+            });
+    }
+
+    function selectDocId(docId) {
+        document.getElementById('selected_docid').value = docId;
+        alert("선택된 영화의 docid: " + docId);
+    }
+</script>
 </head>
 
 <body>
@@ -191,11 +207,22 @@
 					<div class="col-lg-9">
 						<form action="community-insert" method="post" role="form"
 							class="php-email-form">
+							<!-- Search movie -->
+							<div class="form-group mt-3">
+								<input type="text" class="form-control" id="movie_title_search"
+									placeholder="Search movie title">
+								<button type="button" onclick="fetchSearchResults();">Search</button>
+							</div>
+							<div id="search_results" style="padding: 10px;"></div>
+
+							<!-- Hidden input field for selected docid -->
+							<input type="hidden" id="selected_docid" name="docid">
 							<div class="row">
 								<div class="form-group mt-3">
 									<input type="text" name="user_id" class="form-control"
 										id=user_id value=${sessionScope.loginUser.user_id
-										} placeholder="${sessionScope.loginUser.user_id}" required
+										}
+										placeholder="${sessionScope.loginUser.user_id}" required
 										readonly>
 								</div>
 							</div>
