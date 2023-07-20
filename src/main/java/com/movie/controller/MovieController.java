@@ -1,5 +1,7 @@
 package com.movie.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.spring.domain.CommunityDTO;
+import com.spring.domain.MovieListDTO;
 import com.spring.domain.UserDTO;
 import com.spring.mapper.UserMapper;
 import com.spring.service.CommunityService;
+import com.spring.service.JoayoService;
 import com.spring.service.MovieListService;
+import com.spring.service.ReviewService;
+import com.spring.service.SiroyoService;
 import com.spring.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,9 +42,32 @@ public class MovieController {
    private UserMapper mapper;
    @Autowired
    private CommunityService communityservice;
+   @Autowired
+   private JoayoService joayoService;
+   @Autowired
+   private SiroyoService siroyoService;
+   @Autowired
+   private ReviewService reviewService;
    
-   private final MovieListService service;
+   private static MovieListService service;
    
+   public List<MovieListDTO> movie = service.getMovieList();
+   public List<MovieListDTO> koreaMovie = service.getKoreaMovieList();
+   public List<MovieListDTO> foreignMovie = service.getForeignMovieList();
+   public List<MovieListDTO> ratingAllMovie = service.getRatingAllMovieList();
+   public List<MovieListDTO> rating12Movie = service.getRating12MovieList();
+   public List<MovieListDTO> rating15Movie = service.getRating15MovieList();
+   public List<MovieListDTO> rating18Movie = service.getRating18MovieList();
+   public List<MovieListDTO> ratingEtcMovie = service.getRatingEtcMovieList();
+   public List<MovieListDTO> repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
+   public List<MovieListDTO> repRlsDate2022Movie = service.getRepRlsDate2022MovieList();
+   public List<MovieListDTO> repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
+   public List<MovieListDTO> repRlsDateBeforeMovie = service.getRepRlsDateBeforeMovieList();
+   public List<MovieListDTO> genre1Movie = service.getGenre1MovieList();
+   public List<MovieListDTO> genre2Movie = service.getGenre2MovieList();
+   public List<MovieListDTO> genre3Movie = service.getGenre3MovieList();
+   public List<MovieListDTO> genre4Movie = service.getGenre4MovieList();
+   public List<MovieListDTO> genre5Movie = service.getGenre5MovieList();
    //  http://localhost:8080/controller/movie/movie
    @GetMapping("movie")
    public String boardAll(Model model) {
@@ -129,33 +158,68 @@ public class MovieController {
 
       @GetMapping("movieListPage")
       public void movieListPage(Model model) {
-         model.addAttribute("getMovie", service.getMovieList());
+//    	 List<MovieListDTO> movie = service.getMovieList();
+//    	 List<MovieListDTO> koreaMovie = service.getKoreaMovieList();
+//    	 List<MovieListDTO> foreignMovie = service.getForeignMovieList();
+//    	 List<MovieListDTO> ratingAllMovie = service.getRatingAllMovieList();
+//    	 List<MovieListDTO> rating12Movie = service.getRating12MovieList();
+//    	 List<MovieListDTO> rating15Movie = service.getRating15MovieList();
+//    	 List<MovieListDTO> rating18Movie = service.getRating18MovieList();
+//    	 List<MovieListDTO> ratingEtcMovie = service.getRatingEtcMovieList();
+//    	 List<MovieListDTO> repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
+//    	 List<MovieListDTO> repRlsDate2022Movie = service.getRepRlsDate2022MovieList();
+//    	 List<MovieListDTO> repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
+//    	 List<MovieListDTO> repRlsDateBeforeMovie = service.getRepRlsDateBeforeMovieList();
+//    	 List<MovieListDTO> genre1Movie = service.getGenre1MovieList();
+//    	 List<MovieListDTO> genre2Movie = service.getGenre2MovieList();
+//    	 List<MovieListDTO> genre3Movie = service.getGenre3MovieList();
+//    	 List<MovieListDTO> genre4Movie = service.getGenre4MovieList();
+//    	 List<MovieListDTO> genre5Movie = service.getGenre5MovieList();
+    	  
+         model.addAttribute("getMovie", movie);
          
-         model.addAttribute("getKoreaMovie", service.getKoreaMovieList());
-         model.addAttribute("getForeignMovie", service.getForeignMovieList());
+         model.addAttribute("getKoreaMovie", koreaMovie);
+         model.addAttribute("getForeignMovie", foreignMovie);
          
-         model.addAttribute("getRatingAllMovie", service.getRatingAllMovieList());
-         model.addAttribute("getRating12Movie", service.getRating12MovieList());
-         model.addAttribute("getRating15Movie", service.getRating15MovieList());
-         model.addAttribute("getRating18Movie", service.getRating18MovieList());
-         model.addAttribute("getRatingEtcMovie", service.getRatingEtcMovieList());
+         model.addAttribute("getRatingAllMovie", ratingAllMovie);
+         model.addAttribute("getRating12Movie", rating12Movie);
+         model.addAttribute("getRating15Movie", rating15Movie);
+         model.addAttribute("getRating18Movie", rating18Movie);
+         model.addAttribute("getRatingEtcMovie", ratingEtcMovie);
          
-         model.addAttribute("getRepRlsDate2023Movie", service.getRepRlsDate2023MovieList());
-         model.addAttribute("getRepRlsDate2022Movie", service.getRepRlsDate2022MovieList());
-         model.addAttribute("getRepRlsDate2021Movie", service.getRepRlsDate2021MovieList());
-         model.addAttribute("getRepRlsDateBeforeMovie", service.getRepRlsDateBeforeMovieList());
+         model.addAttribute("getRepRlsDate2023Movie", repRlsDate2023Movie);
+         model.addAttribute("getRepRlsDate2022Movie", repRlsDate2022Movie);
+         model.addAttribute("getRepRlsDate2021Movie", repRlsDate2021Movie);
+         model.addAttribute("getRepRlsDateBeforeMovie", repRlsDateBeforeMovie);
          
-         model.addAttribute("getGenre1Movie", service.getGenre1MovieList());
-         model.addAttribute("getGenre2Movie", service.getGenre2MovieList());
-         model.addAttribute("getGenre3Movie", service.getGenre3MovieList());
-         model.addAttribute("getGenre4Movie", service.getGenre4MovieList());
-         model.addAttribute("getGenre5Movie", service.getGenre5MovieList());
+         model.addAttribute("getGenre1Movie", genre1Movie);
+         model.addAttribute("getGenre2Movie", genre2Movie);
+         model.addAttribute("getGenre3Movie", genre3Movie);
+         model.addAttribute("getGenre4Movie", genre4Movie);
+         model.addAttribute("getGenre5Movie", genre5Movie);
                
       }
       
       @GetMapping("movieInfoPage")
       public void movieInfoPage(@RequestParam("Index") int index,Model model) {
-         
+//    	  List<MovieListDTO> movie = service.getMovieList();
+//     	 List<MovieListDTO> koreaMovie = service.getKoreaMovieList();
+//     	 List<MovieListDTO> foreignMovie = service.getForeignMovieList();
+//     	 List<MovieListDTO> ratingAllMovie = service.getRatingAllMovieList();
+//     	 List<MovieListDTO> rating12Movie = service.getRating12MovieList();
+//     	 List<MovieListDTO> rating15Movie = service.getRating15MovieList();
+//     	 List<MovieListDTO> rating18Movie = service.getRating18MovieList();
+//     	 List<MovieListDTO> ratingEtcMovie = service.getRatingEtcMovieList();
+//     	 List<MovieListDTO> repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
+//     	 List<MovieListDTO> repRlsDate2022Movie = service.getRepRlsDate2022MovieList();
+//     	 List<MovieListDTO> repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
+//     	 List<MovieListDTO> repRlsDateBeforeMovie = service.getRepRlsDateBeforeMovieList();
+//     	 List<MovieListDTO> genre1Movie = service.getGenre1MovieList();
+//     	 List<MovieListDTO> genre2Movie = service.getGenre2MovieList();
+//     	 List<MovieListDTO> genre3Movie = service.getGenre3MovieList();
+//     	 List<MovieListDTO> genre4Movie = service.getGenre4MovieList();
+//     	 List<MovieListDTO> genre5Movie = service.getGenre5MovieList();
+    	  
          model.addAttribute("getKoreaMovie", service.getKoreaMovieList().get(index));
          model.addAttribute("getForeignMovie", service.getForeignMovieList().get(index));
       
