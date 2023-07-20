@@ -116,6 +116,10 @@
       and genre not LIKE '%판타지%'
    </select>
 
-
+   <select id="getTitleSearchResults" resultType="String">
+        SELECT docid
+        FROM movie_list2
+        WHERE title = #{title}
+    </select>
 </mapper>
   

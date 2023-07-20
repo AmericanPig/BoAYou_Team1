@@ -641,8 +641,8 @@ h6 {
 }
 
 .testimonials .testimonial-item .testimonial-img {
-  width: 90px;
-  border-radius: 50%;
+  width: 250px;
+  border-radius: 15%;
   border: 5px solid #474a4d;
   margin: 0 auto;
 }
@@ -896,8 +896,8 @@ h6 {
 }
 
 .gallery-single .portfolio-description .testimonial-item .testimonial-img {
-  width: 90px;
-  border-radius: 50px;
+  width: 150px;
+  border-radius: 300px;
   border: 6px solid #2e3133;
   float: left;
   margin: 0 10px 0 0;

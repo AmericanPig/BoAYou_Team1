@@ -8,7 +8,7 @@ import com.spring.domain.CommunityDTO;
 public interface JoayoMapper {
 	
 	//커뮤니티 글에 특정 user_id 조아요 있는지 확인 select
-	int selectCommunityJoayoById(String user_id);
+	int selectCommunityJoayoById(int community_no, String user_id);
 	
 	//커뮤니티 글에 특정 user_id가 조아요 insert
 	int insertCommunityJoayoById(int community_no, String user_id);

@@ -27,5 +27,8 @@ public List<MovieListDTO> getMovieList();
    public List<MovieListDTO> getGenre3MovieList();
    public List<MovieListDTO> getGenre4MovieList();
    public List<MovieListDTO> getGenre5MovieList();
+   
+   List<String> getTitleSearchResults(String title);
+
 
 }

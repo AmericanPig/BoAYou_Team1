@@ -188,7 +188,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getKoreaMovie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -202,7 +202,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getKoreaMovie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -289,7 +289,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getForeignMovie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -303,7 +303,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getForeignMovie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -389,7 +389,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRatingAllMovie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -403,7 +403,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRatingAllMovie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -489,7 +489,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRating12Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -503,7 +503,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRating12Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -589,7 +589,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRating15Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -603,7 +603,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRating15Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -689,7 +689,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRating18Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -703,7 +703,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRating18Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -789,7 +789,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRatingEtcMovie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -803,7 +803,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRatingEtcMovie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -889,7 +889,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRepRlsDate2023Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -903,7 +903,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRepRlsDate2023Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -989,7 +989,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRepRlsDate2022Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1003,7 +1003,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRepRlsDate2022Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1089,7 +1089,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRepRlsDate2021Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1103,7 +1103,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRepRlsDate2021Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1189,7 +1189,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getRepRlsDateBeforeMovie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1203,7 +1203,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getRepRlsDateBeforeMovie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1289,7 +1289,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getGenre1Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1303,7 +1303,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getGenre1Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1389,7 +1389,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getGenre2Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1403,7 +1403,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getGenre2Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1489,7 +1489,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getGenre3Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1503,7 +1503,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getGenre3Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1589,7 +1589,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getGenre4Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1603,7 +1603,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getGenre4Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">
@@ -1689,7 +1689,7 @@
 					<div style="text-align: right;" class="container-fluid">
 
 						<!-- 페이지 변수 선언 -->
-						<c:set var="pageSize" value="8" />
+						<c:set var="pageSize" value="12" />
 						<c:set var="totalCount" value="${fn:length(getGenre5Movie)}" />
 						<c:set var="totalPages"
 							value="${(totalCount + pageSize - 1) / pageSize}" />
@@ -1703,7 +1703,7 @@
 						<div class="row gy-4 justify-content-center">
 							<c:forEach var="i" begin="${start}" end="${end}" step="1">
 								<c:if test="${i < totalCount}">
-									<div class="col-xl-3 col-lg-4 col-md-6">
+									<div class="col-xl-2 col-lg-4 col-md-6">
 										<div class="gallery-item h-100">
 											<img src="${getGenre5Movie.get(i).getPosters() }"
 												class="img-fluid" alt="">

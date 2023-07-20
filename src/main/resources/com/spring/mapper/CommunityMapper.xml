@@ -4,13 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.CommunityMapper">
   	<select id="SelectCommunityList" resultType="com.spring.domain.CommunityDTO">
-  		SELECT * FROM community
+  		SELECT user_id, c.community_no, c.community_title, c.community_content, m.posters
+		FROM community c
+		JOIN movie_list2 m
+		ON c.docid = m.docid
   	</select> 
   	<insert id="InsertCommunity">
   		INSERT INTO community(user_id, docid, community_title, community_content)
   		VALUES(
 		  #{user_id},
-		  ' F49438 ',
+		  #{docid},
 		  #{community_title},
 		  #{community_content}
 		  )

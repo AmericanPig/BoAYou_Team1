@@ -270,7 +270,7 @@ $(function(){
 	</header>
 	<!-- End Header -->
 
-    <form action="${pageContext.servletContext.contextPath  }/boayou/InsertJoin" method="post" role="form" class="php-email-form">
+    <form action="${pageContext.servletContext.contextPath  }/boayou/InsertJoin" method="post">
         <div class="col-lg-12 text-center">
             <div class="header" >
                 <h3>로그인</h3>

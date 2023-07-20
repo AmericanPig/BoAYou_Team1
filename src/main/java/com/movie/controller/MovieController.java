@@ -1,5 +1,7 @@
 package com.movie.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +50,9 @@ public class MovieController {
       return "movie";
    }
    @GetMapping("homePage")
-      public void movie() {
+      public void movie(Model model) {
          log.info("movie");
+         model.addAttribute("Movie_List", service.getMovieList());
    }
    @GetMapping("community")
       public void community(Model model) {
@@ -79,7 +82,7 @@ public class MovieController {
       public String InsertJoin(UserDTO user, RedirectAttributes redirectAttributes) {
           
           int message = UserService.InsertJoin(user);
-
+          System.out.println(UserService.InsertJoin(user));
           redirectAttributes.addFlashAttribute("message", message);
           return "redirect:/boayou/login";
       }
@@ -176,6 +179,29 @@ public class MovieController {
          model.addAttribute("getGenre5Movie", service.getGenre5MovieList().get(index));
       
       }
+      
+      @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")
+      @ResponseBody
+      public String search(@RequestParam("title") String title, Model model) {
+          List<String> searchResults = service.getTitleSearchResults(title);
+          model.addAttribute("searchResults", searchResults);
+          return generateSearchResultsHtml(searchResults);
+      }
+      
+      private String generateSearchResultsHtml(List<String> searchResults) {
+    	    StringBuilder searchResultsHtml = new StringBuilder();
+    	    searchResultsHtml.append("<ul>");
+    	    for (String docId : searchResults) {
+    	        searchResultsHtml.append("<li onclick=\"selectDocId('")
+    	                .append(docId)
+    	                .append("')\">")
+    	                .append(docId)
+    	                .append("</li>");
+    	    }
+    	    searchResultsHtml.append("</ul>");
+    	    return searchResultsHtml.toString();
+    	}
+
    
 
 }

@@ -85,7 +85,10 @@ public class MovieListServiceImpl implements MovieListService {
       return mapper.genre5MovieList();
    }
    
-      
+   @Override
+   public List<String> getTitleSearchResults(String title) {
+       return mapper.getTitleSearchResults(title);
+   }
       
    
 }
