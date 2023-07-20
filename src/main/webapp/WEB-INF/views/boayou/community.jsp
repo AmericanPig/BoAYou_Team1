@@ -60,6 +60,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script>
+        function openCommentPopup(event) {
+            event.preventDefault();
+            window.open("comment", "popupWindow", "width=800,height=600");
+        }
+    </script>
 </head>
 
 <body>
@@ -197,9 +203,9 @@
 
 										<h4>${community.user_id}</h4>													
 					<ul class="stats">
-						<li style="float: left;"><a href="#" class="icon solid fa-thumbs-up">28</a></li>
-						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down">28</a></li>
-						<li style="float: center;"><a href="#" class="icon solid fa-comment">128</a></li>
+						<li style="float: left; "><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
+						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
+						<li style="float: center;"><a href="#" class="icon solid fa-comment" style="color: white;" onclick="openCommentPopup(event);">128</a></li>
 					</ul>
 									</div>
 								</div>
@@ -239,9 +245,9 @@
 					</ul>
 					<ul class="stats">
 
-						<li><a href="#" class="icon solid fa-thumbs-up">28</a></li>
-						<li><a href="#" class="icon solid fa-thumbs-down">28</a></li>
-						<li><a href="#" class="icon solid fa-comment">128</a></li>
+						<li><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
+						<li><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
+						<li><a href="#" class="icon solid fa-comment" style="color: white;">128</a></li>
 					</ul>
 				</footer>
 			</article>

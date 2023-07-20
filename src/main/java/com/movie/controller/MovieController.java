@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.UserDTO;
 import com.spring.mapper.UserMapper;
+import com.spring.service.CommentService;
 import com.spring.service.CommunityService;
 import com.spring.service.MovieListService;
 import com.spring.service.UserService;
@@ -38,6 +39,8 @@ public class MovieController {
    private UserMapper mapper;
    @Autowired
    private CommunityService communityservice;
+   @Autowired
+   private CommentService commentservice;
    
    private final MovieListService service;
    
@@ -201,7 +204,13 @@ public class MovieController {
     	    searchResultsHtml.append("</ul>");
     	    return searchResultsHtml.toString();
     	}
+      	
 
+      @GetMapping("comment")
+	   public void comment(Model model) {
+		 
+    	  model.addAttribute("CommentList", commentservice.SelectCommentList());
+	 }
    
 
 }
