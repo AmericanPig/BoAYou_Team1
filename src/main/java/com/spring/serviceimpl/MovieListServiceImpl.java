@@ -99,5 +99,12 @@ public class MovieListServiceImpl implements MovieListService {
 		return mapper.getTitleSearchResults(title);
 	}
       
-   
+	@Override
+	public MovieListDTO getDocid(String docid) {
+	      return mapper.selectDocid(docid);
+	}
+	      
+	public List<MovieListDTO> getTitlePostersMovieList(){
+	         return mapper.titlePostersMovieList();
+	}
 }

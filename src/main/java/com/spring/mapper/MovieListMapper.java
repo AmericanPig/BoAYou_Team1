@@ -30,4 +30,8 @@ public interface MovieListMapper {
    List<MovieListDTO> genre5MovieList();
    
    List<String> getTitleSearchResults(String title);
+   
+   List<MovieListDTO> titlePostersMovieList();
+   
+   MovieListDTO selectDocid(String docid);
 }

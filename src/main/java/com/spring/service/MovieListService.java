@@ -28,6 +28,10 @@ public interface MovieListService {
 	public List<MovieListDTO> getGenre5MovieList();
    
 	List<String> getTitleSearchResults(String title);
+	
+	public List<MovieListDTO> getTitlePostersMovieList();
+	   
+	public MovieListDTO getDocid(String docid);
 
 
 }

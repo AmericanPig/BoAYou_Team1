@@ -4,7 +4,7 @@
 
 
 <html lang="en">
-
+<head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -29,7 +29,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 	crossorigin="anonymous">
-</head>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main2.css">
@@ -60,6 +59,13 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <script>
+  function openCommentPopup(event, community_no) {
+	    event.preventDefault();
+	    window.open("/controller/boayou/comments?community_no=" + community_no, "popupWindow", "width=800,height=800");
+	}
+
+</script>
 </head>
 
 <body>
@@ -88,59 +94,63 @@
 							<li class="dropdown"><a href="#"><span>영화목록</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">한국영화</a></li>
-									<li><a href="#">외국영화</a></li>
-
-								</ul></li>
-
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
+									
+								</ul>
+							</li>
+							
 							<li class="dropdown"><a href="#"><span>관람등급</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">전체관람가</a></li>
-									<li><a href="#">12세관람가</a></li>
-									<li><a href="#">15세관람가</a></li>
-									<li><a href="#">18세관람가(청소년관람불가)</a></li>
-									<li><a href="#">미성년자관람불가</a></li>
-
-								</ul></li>
-
-							<li class="dropdown"><a href="#"><span>개봉연도</span> <i
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
+									
+								</ul>
+							</li>
+							
+								<li class="dropdown"><a href="#"><span>개봉연도</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">2023</a></li>
-									<li><a href="#">2022</a></li>
-									<li><a href="#">2021</a></li>
-									<li><a href="#">이전</a></li>
-
-								</ul></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
+									
+																		
+								</ul>
+							</li>
 							<li class="dropdown"><a href="#"><span>장르</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="#">드라마</a></li>
-									<li><a href="#">범죄 액션</a></li>
-									<li><a href="#">로맨스 멜로</a></li>
-									<li><a href="#">공포</a></li>
-									<li><a href="#">판타지 SF</a></li>
-
-								</ul></li>
-
-
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마, 가족, 코메디</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로, 로맨스</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포, 스릴러, 범죄, 전쟁</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션, SF, 판타지</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
+																		
+								</ul>
+							</li>
+							
+							
 
 						</ul></li>
-
 					<c:choose>
-						<c:when test="${not empty sessionScope.loginUser}">
-						      ${sessionScope.loginUser.name}님
+						   <c:when test="${not empty sessionScope.loginUser}">
+						        ${sessionScope.loginUser.name} 님
 						       <a href="logout">로그아웃</a>
-							<li><a href="myProfilePage">마이페이지</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="login">로그인</a></li>
-							<li><a href="join">회원가입</a></li>
-						</c:otherwise>
-					</c:choose>
-
-					<li><a href="community">커뮤니티</a></li>
+						       <li><a href="myPage">마이페이지</a></li>
+							  </c:when>
+							  <c:otherwise>
+						      <li><a href="login">로그인</a></li>
+						      <li><a href="join">회원가입</a></li>
+						   </c:otherwise>
+						</c:choose>
+						
+						<li><a href="community">커뮤니티</a></li>				
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -197,9 +207,9 @@
 
 										<h4>${community.user_id}</h4>													
 					<ul class="stats">
-						<li style="float: left;"><a href="#" class="icon solid fa-thumbs-up">28</a></li>
-						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down">28</a></li>
-						<li style="float: center;"><a href="#" class="icon solid fa-comment">128</a></li>
+						<li style="float: left; "><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
+						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
+						<li style="float: center;"><a href="#" class="icon solid fa-comment" style="color: white;" onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
 					</ul>
 									</div>
 								</div>
@@ -239,9 +249,9 @@
 					</ul>
 					<ul class="stats">
 
-						<li><a href="#" class="icon solid fa-thumbs-up">28</a></li>
-						<li><a href="#" class="icon solid fa-thumbs-down">28</a></li>
-						<li><a href="#" class="icon solid fa-comment">128</a></li>
+						<li><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
+						<li><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
+						<li><a href="#" class="icon solid fa-comment" style="color: white;" onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
 					</ul>
 				</footer>
 			</article>
