@@ -40,7 +40,7 @@
 
    <select id="ratingEtcMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating like '  '
+      select * from movie_list2 where rating is null
    </select>
 
    <select id="repRlsDate2023MovieList"

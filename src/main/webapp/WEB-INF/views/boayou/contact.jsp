@@ -91,79 +91,63 @@
 							<li class="dropdown"><a href="#"><span>영화목록</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
-
-								</ul></li>
-
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
+									
+								</ul>
+							</li>
+							
 							<li class="dropdown"><a href="#"><span>관람등급</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
-
-								</ul></li>
-
-							<li class="dropdown"><a href="#"><span>개봉연도</span> <i
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
+									
+								</ul>
+							</li>
+							
+								<li class="dropdown"><a href="#"><span>개봉연도</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
-
-
-								</ul></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
+									
+																		
+								</ul>
+							</li>
 							<li class="dropdown"><a href="#"><span>장르</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마,
-											가족, 코메디</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로,
-											로맨스</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포,
-											스릴러, 범죄, 전쟁</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션,
-											SF, 판타지</a></li>
-									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
-
-								</ul></li>
-
-
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마, 가족, 코메디</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로, 로맨스</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포, 스릴러, 범죄, 전쟁</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션, SF, 판타지</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
+																		
+								</ul>
+							</li>
+							
+							
 
 						</ul></li>
 					<c:choose>
-						<c:when test="${not empty sessionScope.loginUser}">
-						      ${sessionScope.loginUser.name}님
+						   <c:when test="${not empty sessionScope.loginUser}">
+						        ${sessionScope.loginUser.name} 님
 						       <a href="logout">로그아웃</a>
-							<li><a href="myProfilePage">마이페이지</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="login">로그인</a></li>
-							<li><a href="join">회원가입</a></li>
-						</c:otherwise>
-					</c:choose>
-
-					<li><a href="community">커뮤니티</a></li>
+						       <li><a href="myPage">마이페이지</a></li>
+							  </c:when>
+							  <c:otherwise>
+						      <li><a href="login">로그인</a></li>
+						      <li><a href="join">회원가입</a></li>
+						   </c:otherwise>
+						</c:choose>
+						
+						<li><a href="community">커뮤니티</a></li>				
 				</ul>
 			</nav>
 			<!-- .navbar -->

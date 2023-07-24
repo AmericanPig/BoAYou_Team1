@@ -128,7 +128,7 @@
 						</ul></li>
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
-						      ${sessionScope.loginUser.name}님
+						        ${sessionScope.loginUser.name} 님
 						       <a href="logout">로그아웃</a>
 						       <li><a href="myPage">마이페이지</a></li>
 							  </c:when>
