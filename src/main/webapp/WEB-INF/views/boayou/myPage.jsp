@@ -159,7 +159,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
           
-				   <h2>mypage</h2>   
+				   <h2>마이페이지</h2>   
 
           </div>
         </div>
@@ -224,7 +224,7 @@
             <div class="portfolio-info">
 				<c:choose>
 					<c:when test="${not empty sessionScope.loginUser}">
-						<h3>${sessionScope.loginUser.name}님의정보</h3>
+						<h3>${sessionScope.loginUser.name}님의 정보</h3>
 						<ul>
 							<li><strong>아이디</strong> <span>${sessionScope.loginUser.user_id}</span></li>
 							<li><strong>이름</strong> <span>${sessionScope.loginUser.name}</span></li>
