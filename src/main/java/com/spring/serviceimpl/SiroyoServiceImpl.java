@@ -19,38 +19,37 @@ public class SiroyoServiceImpl implements SiroyoService{
 	//커뮤니티 페이지 특정 글의 좋아요 버튼 toggle
 	@Override
 	public int pushCommunitySiroyo(int community_no, String user_id) {
-		int result = 0;
 		int SiroyoFlag = mapper.selectCommunitySiroyoById(community_no, user_id);
 		
 		switch(SiroyoFlag) {
 			
 		case 0:
-			result = mapper.insertCommunitySiroyoById(community_no, user_id);
+			mapper.insertCommunitySiroyoById(community_no, user_id);
 			break;
 		case 1:
-			result = mapper.deleteCommunitySiroyoById(community_no, user_id);
+			mapper.deleteCommunitySiroyoById(community_no, user_id);
 			break;
 		}
-		
-		return result;
+		 int newSoroyoCount = mapper.selectCommunitySiroyoCnt(community_no);
+		    return newSoroyoCount;
 	}
 	
 	//커뮤니티 특정 글 페이지 특정 댓글의 좋아요 버튼 toggle
 	@Override
 	public int pushCommentSiroyo(int comment_no, String user_id) {
-		int result = 0;
 		int SiroyoFlag = mapper.selectCommentSiroyoById(comment_no, user_id);
 		
 		switch(SiroyoFlag) {
 			
 		case 0:
-			result = mapper.insertCommentSiroyoById(comment_no, user_id);
+			mapper.insertCommentSiroyoById(comment_no, user_id);
 			break;
 		case 1:
-			result = mapper.deleteCommunitySiroyoById(comment_no, user_id);
+			mapper.deleteCommentSiroyoById(comment_no, user_id);
 			break;
 		}
-		return result;
+		int newSoroyoCount = mapper.selectCommentSiroyoCnt(comment_no);
+	    return newSoroyoCount;
 	}
 	
 	//커뮤니티 페이지 특정 글의 누적 시러요 개수 출력

@@ -1,11 +1,15 @@
 package com.movie.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +39,7 @@ import com.spring.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/boayou/*")
@@ -57,6 +62,11 @@ public class MovieController {
    private MovieListService service;
    @Autowired
    private CommentService commentservice;
+   @Autowired
+   private JoayoService joayoservice;
+   @Autowired
+   private SiroyoService siroyoservice;
+ 
 
    public List<MovieListDTO> movie;
 
@@ -136,9 +146,16 @@ public class MovieController {
 
    @GetMapping("community")
    public void community(Model model) {
- 
-      model.addAttribute("community_List", communityservice.SelectCommunityList());
+       List<CommunityDTO> communityList = communityservice.SelectCommunityList();
 
+       for (CommunityDTO community : communityList) {
+           int joayoCount = joayoservice.getCommunityJoayoAmount(community.getCommunity_no());
+           int siroyoCount = siroyoservice.getCommunitySiroyoAmount(community.getCommunity_no());
+           community.setJoayo(joayoCount);
+           community.setSiroyo(siroyoCount);
+       }
+
+       model.addAttribute("community_List", communityList);
    }
 
    @GetMapping("join")
@@ -292,6 +309,12 @@ public class MovieController {
        List<CommentDTO> comments = commentservice.getCommentList(community_no);
        model.addAttribute("comments", comments);
        model.addAttribute("community_no", community_no);
+       for (CommentDTO comment : comments) {
+           int joayoCount = joayoservice.getCommentJoayoAmount(comment.getComment_no());
+           int siroyoCount = siroyoservice.getCommentSiroyoAmount(comment.getComment_no());
+           comment.setJoayo(joayoCount);
+           comment.setSiroyo(siroyoCount);
+       }
        return "/boayou/comment";
    }
 
@@ -300,5 +323,47 @@ public class MovieController {
        commentservice.addComment(user_id, community_no, comment_content);
        return "댓글이 성공적으로 추가되었습니다.";
    }
+   @PostMapping("deletecommunity")
+   public String DeleteCommunity(CommunityDTO communityDTO) {
+	   communityservice.DeleteCommunity(communityDTO);
+	   return "redirect:/boayou/community";
+   }
+   @PostMapping("pushcommunityjoayo")
+   public ResponseEntity<Map<String, Integer>> pushcommunityjoayo(@RequestParam("community_no") int community_no, @RequestParam("user_id") String user_id) {     
+     int newJoayoCount = joayoservice.pushCommunityJoayo(community_no, user_id);
+     
+
+     Map<String, Integer> response = new HashMap<>();
+     response.put("newJoayoCount", newJoayoCount);
+     return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+   @PostMapping("pushcommunitysiroyo")
+   public ResponseEntity<Map<String, Integer>> pushcommunitysiroyo(@RequestParam("community_no") int community_no, @RequestParam("user_id") String user_id) {
+     int newSiroyoCount = siroyoservice.pushCommunitySiroyo(community_no, user_id);
+
+
+     Map<String, Integer> response = new HashMap<>();
+     response.put("newSiroyoCount", newSiroyoCount);
+     return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+   @PostMapping("pushcommentjoayo")
+   public ResponseEntity<Map<String, Integer>> pushcommentjoayo(@RequestParam("comment_no") int comment_no, @RequestParam("user_id") String user_id) {     
+     int newJoayoCount = joayoservice.pushCommentJoayo(comment_no, user_id);
+     
+
+     Map<String, Integer> response = new HashMap<>();
+     response.put("newJoayoCount", newJoayoCount);
+     return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+   @PostMapping("pushcommentsiroyo")
+   public ResponseEntity<Map<String, Integer>> pushcommentsiroyo(@RequestParam("comment_no") int comment_no, @RequestParam("user_id") String user_id) {     
+     int newJoayoCount = siroyoservice.pushCommentSiroyo(comment_no, user_id);
+     
+
+     Map<String, Integer> response = new HashMap<>();
+     response.put("newJoayoCount", newJoayoCount);
+     return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+   
 
 }

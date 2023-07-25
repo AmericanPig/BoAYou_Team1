@@ -2,16 +2,18 @@ package com.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.CommentDTO;
 import com.spring.domain.CommunityDTO;
 
 public interface JoayoService {
 	
 	//커뮤니티 페이지 특정 글의 좋아요 버튼 toggle
-	int pushCommunityJoayo(int community_no, String user_id);
+	int pushCommunityJoayo(@Param("community_no") int community_no, @Param("user_id") String user_id);
 	
 	//커뮤니티 특정 글 페이지 특정 댓글의 좋아요 버튼 toggle
-	int pushCommentJoayo(int comment_no, String user_id);
+	int pushCommentJoayo(@Param("comment_no")int comment_no, @Param("user_id") String user_id);
 	
 	//커뮤니티 페이지 특정 글의 누적 조아요 개수 출력
 	int getCommunityJoayoAmount(int community_no);
