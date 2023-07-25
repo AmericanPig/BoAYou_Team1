@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>PhotoFolio Bootstrap Template - Gallery Single</title>
+  <title>My Page</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -158,10 +158,8 @@
       <div class="container position-relative">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
-            <h2>id님의 소개</h2>
-            <p>간단 소개글 작성, 본인이 접속하면 글 작성하기 만들고 바로 화면에 띄워놓기 </p>
-
-            
+          
+				   <h2>마이페이지</h2>   
 
           </div>
         </div>
@@ -171,88 +169,77 @@
     <!-- ======= Gallery Single Section ======= -->
     <section id="gallery-single" class="gallery-single">
       <div class="container">
-
+		<!--  
+		
         <div class="position-relative h-100">
           <div class="slides-1 portfolio-details-slider swiper">
             <div class="swiper-wrapper align-items-center">
-              <!-- 사진 업로드 폼 해서 띄워주고 -->
               <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-8.jpg" alt="">
+                <img src="../resources/assets/img/gallery/gallery-1.jpg" alt="">
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-9.jpg" alt="">
+                <img src="../resources/assets/img/gallery/gallery-2.jpg" alt="">
               </div>
               <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-10.jpg" alt="">
+                <img src="../resources/assets/img/gallery/gallery-3.jpg" alt="">
               </div>
-              <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-11.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-12.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/img/gallery/gallery-13.jpg" alt="">
-              </div>
-
             </div>
             <div class="swiper-pagination"></div>
           </div>
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
 
-        </div>
+        </div>	
+		-->
+
 
         <div class="row justify-content-between gy-4 mt-4">
 
           <div class="col-lg-8">
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-              <p>
-                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
-              </p>
-
+              <h2>회원님의 프로필 변경하기</h2>
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                 	오늘도 즐거운 하루되세여 :)
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <div>
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
+                  <img src="../resources/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+				<c:choose>
+					<c:when test="${not empty sessionScope.loginUser}">
+						<h3>' ${sessionScope.loginUser.user_id} 님 '</h3>
+						<h4 >회원등급 : ${sessionScope.loginUser.user_level} </h4>
+					</c:when>
+				</c:choose>
+				<br>
+				<br>
+                  	<a href="#">프로필 변경</a>
                 </div>
               </div>
-
-              <p>
-                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
-
-              <p>
-                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
-              </p>
-
             </div>
           </div>
 
           <div class="col-lg-3">
             <div class="portfolio-info">
-              <h3>id님의 정보</h3>
-              <ul>
-                <li><strong>이름</strong> <span>하용운</span></li>
-                <li><strong>나이</strong> <span>24살</span></li>
-                <li><strong>생년월일</strong> <span>00년01월01일</span></li>
-                
-                
-              </ul>
+				<c:choose>
+					<c:when test="${not empty sessionScope.loginUser}">
+						<h3>${sessionScope.loginUser.name}님의 정보</h3>
+						<ul>
+							<li><strong>아이디</strong> <span>${sessionScope.loginUser.user_id}</span></li>
+							<li><strong>이름</strong> <span>${sessionScope.loginUser.name}</span></li>
+							<li><strong>나이</strong> <span>${sessionScope.loginUser.age}</span></li>
+							<li><strong>생년월일</strong> <span>${sessionScope.loginUser.jumin.substring(0,2)}년 
+							${sessionScope.loginUser.jumin.substring(2,4)}월 
+							${sessionScope.loginUser.jumin.substring(4,6)}일</span></li>
+							<!-- DB에 저장 된 가입정보 넣기 -->
+						</ul>
+						<a href="logout">로그아웃</a>
+					</c:when>
+				</c:choose>
             </div>
           </div>
-
         </div>
-
       </div>
     </section><!-- End Gallery Single Section -->
 

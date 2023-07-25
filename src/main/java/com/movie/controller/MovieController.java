@@ -260,28 +260,11 @@ public class MovieController {
    }
 
    @GetMapping("movieInfoPage")
-   public void movieInfoPage(@RequestParam("Index") int index, Model model) {
+   public void movieInfoPage(@RequestParam("Docid") String docid, Model model) {
       listInit();
-      model.addAttribute("getKoreaMovie", koreaMovie.get(index));
-      model.addAttribute("getForeignMovie", foreignMovie.get(index));
-
-      model.addAttribute("getRatingAllMovie", ratingAllMovie.get(index));
-      model.addAttribute("getRating12Movie", rating12Movie.get(index));
-      model.addAttribute("getRating15Movie", rating15Movie.get(index));
-      model.addAttribute("getRating18Movie", rating18Movie.get(index));
-      model.addAttribute("getRatingEtcMovie", ratingEtcMovie.get(index));
-
-      model.addAttribute("getRepRlsDate2023Movie", repRlsDate2023Movie.get(index));
-      model.addAttribute("getRepRlsDate2022Movie", repRlsDate2022Movie.get(index));
-      model.addAttribute("getRepRlsDate2021Movie", repRlsDate2021Movie.get(index));
-      model.addAttribute("getRepRlsDateBeforeMovie", repRlsDateBeforeMovie.get(index));
-
-      model.addAttribute("getGenre1Movie", genre1Movie.get(index));
-      model.addAttribute("getGenre2Movie", genre2Movie.get(index));
-      model.addAttribute("getGenre3Movie", genre3Movie.get(index));
-      model.addAttribute("getGenre4Movie", genre4Movie.get(index));
-      model.addAttribute("getGenre5Movie", genre5Movie.get(index));
-
+      
+      MovieListDTO movieList = service.getDocid(docid);
+      model.addAttribute("movieList", movieList);
    }
 
    @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")

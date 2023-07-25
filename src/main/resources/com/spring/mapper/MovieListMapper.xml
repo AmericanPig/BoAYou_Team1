@@ -121,5 +121,18 @@
         FROM movie_list2
         WHERE title = #{title}
     </select>
+    
+    <select id="selectDocid" resultType="com.spring.domain.MovieListDTO">
+        SELECT *
+        FROM movie_list2 where docid = #{docid}
+        
+    </select>
+    
+      <select id="titlePostersMovieList"
+      resultType="com.spring.domain.MovieListDTO">
+       
+      select * from movie_list2 where reprlsdate like '2023%'
+    
+   </select>
 </mapper>
   
