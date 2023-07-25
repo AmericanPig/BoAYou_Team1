@@ -1,7 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script>
+	function openPopup(event) {
+	  event.preventDefault();
+	 
+	  let popupWindow = window.open("", "popupWindow", "width=800,height=0");
+	  let newUrl = "/controller/boayou/updateProfile;
+	  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
 
+	  slideUpWindow(popupWindow);
+	}
+
+	window.addEventListener('focus', function() {
+    if (sessionStorage.getItem('profileUpdated') === 'yes') {
+        sessionStorage.removeItem('profileUpdated');
+        location.reload();
+    }
+});
+</script>
 <html lang="en">
 
 <head>
@@ -124,7 +141,7 @@
 						   <c:when test="${not empty sessionScope.loginUser}">
 						      ${sessionScope.loginUser.name}님
 						       <a href="logout">로그아웃</a>
-						       <li><a href="myProfilePage">마이페이지</a></li>
+						       <li><a href="myPage">마이페이지</a></li>
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>
@@ -214,7 +231,7 @@
 				</c:choose>
 				<br>
 				<br>
-                  	<a href="#">프로필 변경</a>
+                  	<a href="#" onclick="openPopup(event)">프로필 변경</a>
                 </div>
               </div>
             </div>

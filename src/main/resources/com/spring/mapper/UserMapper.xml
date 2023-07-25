@@ -25,7 +25,7 @@
         SELECT * FROM user_tb WHERE user_id = #{user_id}
     </select>
     
-  	<update id="changeUserByIdPwd">
+  	<update id="changeUserByIdPwd" parameterType="String">
 		update user_tb set pwd = #{pwd} where user_id=#{user_id}
 	</update>
 

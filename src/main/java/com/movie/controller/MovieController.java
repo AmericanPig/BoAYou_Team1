@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -159,6 +160,29 @@ public class MovieController {
    @GetMapping("myPage")
    public void myPage() {
 
+   }
+
+   @GetMapping("updateProfile")
+   public void updateProfile(Model model, HttpSession session) {
+	   UserDTO user = (UserDTO) session.getAttribute("loginUser");
+	   model.addAttribute("user", user);
+   }
+
+   @PostMapping("/updateUserProfile")
+   public void updateUserProfile(UserDTO user, HttpSession session) {
+	   BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	   UserDTO currentUser = (UserDTO)session.getAttribute("loginUser");
+	   System.out.println("이게유저다 "+currentUser.toString());
+	   String user_id = currentUser.getUser_id();
+	   String pwd = passwordEncoder.encode(user.getPwd());
+	   System.out.println("유저아디 " +user_id);
+	   System.out.println("유저비번 "+pwd);
+	   
+	   int result = UserService.updateUser(user_id, pwd);
+	   currentUser.setPwd(pwd);
+	   
+	   System.out.println(result+"명의 회원정보 수정완료");
+       session.setAttribute("loginUser", currentUser);
    }
 
    @PostMapping(value = "/InsertJoin", produces = MediaType.APPLICATION_JSON_VALUE)

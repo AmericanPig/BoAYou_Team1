@@ -2,6 +2,8 @@ package com.spring.mapper;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.UserDTO;
 
 public interface UserMapper {
@@ -14,7 +16,7 @@ public interface UserMapper {
 
 	UserDTO selectUserById(String user_id);
 	
-	int changeUserByIdPwd(String user_id, String pwd);
+	int changeUserByIdPwd(@Param("user_id") String user_id, @Param("pwd") String pwd);
 	
 	int deleteUserById(String user_id);
 }

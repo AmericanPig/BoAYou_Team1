@@ -72,7 +72,7 @@
       //외부 api
       const param = {
          key : "7b9e724f14695b5a04b7ad76a02309fd",
-         targetDt : dateString-1
+         targetDt : dateString-3
 
       };
 
@@ -150,7 +150,7 @@
                                     
                                  }else if(movieNm2 == title){
                                     var posterSrc = document.getElementById("weeklyImgPoster2");
-                                    var posterHref = document.getElementById("weeklyAPoster0");
+                                    var posterHref = document.getElementById("weeklyAPoster2");
                                     var docidHref = document.getElementById("weeklyADocid2");
                                     posterSrc.src = poster;
                                     posterHref.href = poster;
@@ -559,7 +559,7 @@
          <div class="container-fluid">
             <div  class="row gy-4 justify-content-center">
                <h3 >일간박스오피스 TOP 10</h3>
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster0" class="img-fluid" alt="">
@@ -574,7 +574,7 @@
                   </div>
                </div>
  
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster1" class="img-fluid" alt="">
@@ -589,7 +589,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster2" class="img-fluid" alt="">
@@ -606,7 +606,7 @@
 
 
 
-         <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+         <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster3" class="img-fluid" alt="">
@@ -621,7 +621,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster4" class="img-fluid" alt="">
@@ -636,7 +636,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster5" class="img-fluid" alt="">
@@ -651,7 +651,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster6" class="img-fluid" alt="">
@@ -666,7 +666,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster7" class="img-fluid" alt="">
@@ -681,7 +681,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster8" class="img-fluid" alt="">
@@ -696,7 +696,7 @@
                   </div>
                </div>
 
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="dayImgPoster9" class="img-fluid" alt="">
@@ -716,13 +716,13 @@
       </section>
       <!-- End일간박스오피스 -->
    
-
+      <br>
       <!-- 주간박스오피스 -->
       <section id="gallery" class="gallery">
          <div class="container-fluid">
             <div class="row gy-4 justify-content-center">
                <h3>주간박스오피스 TOP 10</h3>
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster0" class="img-fluid" alt="">
@@ -737,7 +737,7 @@
                   </div>
                </div>
  
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster1" class="img-fluid" alt="">
@@ -752,7 +752,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster2" class="img-fluid" alt="">
@@ -767,7 +767,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster3" class="img-fluid" alt="">
@@ -782,7 +782,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster4" class="img-fluid" alt="">
@@ -797,7 +797,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster5" class="img-fluid" alt="">
@@ -812,7 +812,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster6" class="img-fluid" alt="">
@@ -827,7 +827,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster7" class="img-fluid" alt="">
@@ -842,7 +842,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster8" class="img-fluid" alt="">
@@ -857,7 +857,7 @@
                   </div>
                </div>
                
-               <div style="text-align: center;" class="col-xl-2 col-lg-4 col-md-6">
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
                   <div class="gallery-item h-100">
 
                      <img id="weeklyImgPoster9" class="img-fluid" alt="">
