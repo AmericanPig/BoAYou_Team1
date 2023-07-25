@@ -235,15 +235,15 @@ $(function(){
 																		
 								</ul>
 							</li>
-							
-							
-
 						</ul></li>
+						
+					<li><a href="community">커뮤니티</a></li>	
+						
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
-						      ${sessionScope.loginUser.name}님
-						       <a href="logout">로그아웃</a>
 						       <li><a href="myProfilePage">마이페이지</a></li>
+						       <a href="logout">로그아웃</a>
+						       ${sessionScope.loginUser.name}님
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>
@@ -251,7 +251,7 @@ $(function(){
 						   </c:otherwise>
 						</c:choose>
 						
-						<li><a href="community">커뮤니티</a></li>				
+			
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -320,14 +320,13 @@ $(function(){
     <footer id="footer" class="footer">
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>PhotoFolio</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>Boayou</span></strong> All Rights Reserved
             </div>
-            <div class="credits">
                 <!-- All the links in the footer should remain intact. -->
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Designed by <a href="https://bootstrapmade.com/">Boayou</a>
             </div>
         </div>
     </footer><!-- End Footer -->

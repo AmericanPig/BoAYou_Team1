@@ -247,6 +247,7 @@ public class MovieController {
       listInit();
       
       MovieListDTO movieList = service.getDocid(docid);
+      System.out.println(movieList);
       model.addAttribute("movieList", movieList);
    }
 
