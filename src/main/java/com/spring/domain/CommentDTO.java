@@ -13,4 +13,6 @@ public class CommentDTO {
 	private String user_id;				// varchar2(30)
 	private int community_no;			// number
 	private String comment_content;		// number
+	private int joayo;					// number
+    private int siroyo;					// number
 }

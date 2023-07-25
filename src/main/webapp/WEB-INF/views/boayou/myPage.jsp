@@ -120,6 +120,20 @@
 							
 
 						</ul></li>
+<<<<<<< HEAD
+=======
+					<c:choose>
+						   <c:when test="${not empty sessionScope.loginUser}">
+						      <a>${sessionScope.loginUser.name} 님</a>
+						       <a href="logout">로그아웃</a>
+						       <li><a href="myProfilePage">마이페이지</a></li>
+							  </c:when>
+							  <c:otherwise>
+						      <li><a href="login">로그인</a></li>
+						      <li><a href="join">회원가입</a></li>
+						   </c:otherwise>
+						</c:choose>
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 						
 						<li><a href="community">커뮤니티</a></li>		
 						

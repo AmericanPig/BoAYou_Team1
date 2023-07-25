@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <html lang="en">
 
@@ -126,6 +125,10 @@
 						
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
+<<<<<<< HEAD
+=======
+						      <a>${sessionScope.loginUser.name} 님</a>
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 						       <a href="logout">로그아웃</a>
 						       <li><a href="myProfilePage">마이페이지</a></li>
 						       ${sessionScope.loginUser.name}님

@@ -69,10 +69,17 @@
 
 		console.log(dateString - 1);
 
+<<<<<<< HEAD
 		//외부 api
 		const param = {
 			key : "7b9e724f14695b5a04b7ad76a02309fd",
 			targetDt : dateString - 3
+=======
+      //외부 api
+      const param = {
+         key : "7b9e724f14695b5a04b7ad76a02309fd",
+         targetDt : dateString-3
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 		};
 
@@ -104,6 +111,7 @@
 						var movieNm8 = movieNmTag[8].textContent;
 						var movieNm9 = movieNmTag[9].textContent;
 
+<<<<<<< HEAD
 						$
 								.ajax({
 									url : "http://localhost:8080/controller/api/MovieListAPI",
@@ -116,6 +124,118 @@
 									dataType : "xml" // 수신타입
 									,
 									success : function(data2, textStatus) {
+=======
+                              for (var i = 0; i < item.length; i++) {
+                                 var title = titleTag[i].textContent;
+                                 var poster = posterTag[i].textContent;
+                                 var docid = docidTag[i].textContent;
+                                 
+                                 if (movieNm0 == title) {
+                                    var posterSrc = document.getElementById("weeklyImgPoster0");
+                                    var posterHref = document.getElementById("weeklyAPoster0");
+                                    var docidHref = document.getElementById("weeklyADocid0");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                    
+                                 } else if(movieNm1 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster1");
+                                    var posterHref = document.getElementById("weeklyAPoster1");
+                                    var docidHref = document.getElementById("weeklyADocid1");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;                                    
+                                    
+                                 }else if(movieNm2 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster2");
+                                    var posterHref = document.getElementById("weeklyAPoster2");
+                                    var docidHref = document.getElementById("weeklyADocid2");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;                                    
+                                 }else if(movieNm3 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster3");
+                                    var posterHref = document.getElementById("weeklyAPoster3");
+                                    var docidHref = document.getElementById("weeklyADocid3");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;                                    
+                                    
+                                 }else if(movieNm4 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster4");
+                                    var posterHref = document.getElementById("weeklyAPoster4");
+                                    var docidHref = document.getElementById("weeklyADocid4");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;                                    
+                                    
+                                 }else if(movieNm5 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster5");
+                                    var posterHref = document.getElementById("weeklyAPoster5");
+                                    var docidHref = document.getElementById("weeklyADocid5");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                 }
+                                 else if(movieNm6 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster6");
+                                    var posterHref = document.getElementById("weeklyAPoster6");
+                                    var docidHref = document.getElementById("weeklyADocid6");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                    
+                                 }else if(movieNm7 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster7");
+                                    var posterHref = document.getElementById("weeklyAPoster7");
+                                    var docidHref = document.getElementById("weeklyADocid7");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                    
+                                 }else if(movieNm8 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster8");
+                                    var posterHref = document.getElementById("weeklyAPoster8");
+                                    var docidHref = document.getElementById("weeklyADocid8");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                 }else if(movieNm9 == title){
+                                    var posterSrc = document.getElementById("weeklyImgPoster9");
+                                    var posterHref = document.getElementById("weeklyAPoster9");
+                                    var docidHref = document.getElementById("weeklyADocid9");
+                                    posterSrc.src = poster;
+                                    posterHref.href = poster;
+                                    docidHref.href = "${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=주간박스오피스&Docid="+docid;
+                                 }
+                                 
+                                 else {
+                           
+                                 }
+                              }
+                           },
+                           error : function(jqXHR, textStatus,
+                                 errorThrown) {
+                              console.log(jqXHR);
+                              console.log(textStatus);
+                              console.log(errorThrown);
+                           }
+                        });
+               },
+               error : function(jqXHR, textStatus, errorThrown) {
+                  console.log(jqXHR);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+               }
+            });
+   }
+      function getDailyMovieList() {
+          var today = new Date();
+            var year = today.getFullYear();
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
+            var dateString = year  + month  + day;
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 										var item = data2
 												.getElementsByTagName("item");
@@ -802,6 +922,7 @@
 					<p>Boayou는 영화 정보 알려드리고 커뮤니티 소통을 통해</p>
 					<p>서로의 정보를 공유하는 커뮤니티 사이트입니다 !</p>
 
+<<<<<<< HEAD
 				</div>
 			</div>
 		</div>
@@ -809,6 +930,32 @@
 	<!-- End Hero Section -->
 
 	<main id="main" data-aos="fade" data-aos-delay="1500">
+=======
+   <main id="main" data-aos="fade" data-aos-delay="1500">
+   
+      <!-- 일간박스오피스 -->
+      <section id="gallery" class="gallery">
+         <div class="container-fluid">
+            <div  class="row gy-4 justify-content-center">
+               <h3 >일간박스오피스 TOP 10</h3>
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="dayImgPoster0" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="dayAPoster0">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="dayADocid0" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+ 
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 		<!-- 일간박스오피스 -->
 		<section id="gallery" class="gallery">
@@ -822,7 +969,12 @@
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 
+<<<<<<< HEAD
 						<div class="gallery-item h-80">
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="dayImgPoster0" class="img-fluid" alt="">
 							<div
@@ -875,10 +1027,15 @@
 
 
 
+<<<<<<< HEAD
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
+=======
+         <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="dayImgPoster3" class="img-fluid" alt="">
 							<div
@@ -893,10 +1050,15 @@
 						<div id="audiChange3"></div>
 					</div>
 
+<<<<<<< HEAD
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="dayImgPoster4" class="img-fluid" alt="">
 							<div
@@ -911,10 +1073,15 @@
 						<div id="audiChange4"></div>
 					</div>
 
+<<<<<<< HEAD
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="dayImgPoster5" class="img-fluid" alt="">
 							<div
@@ -929,10 +1096,15 @@
 						<div id="audiChange5"></div>
 					</div>
 
+<<<<<<< HEAD
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="dayImgPoster6" class="img-fluid" alt="">
 							<div
@@ -947,6 +1119,7 @@
 						<div id="audiChange6"></div>
 					</div>
 
+<<<<<<< HEAD
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
@@ -964,12 +1137,32 @@
 						<div id="audiCnt7"></div>
 						<div id="audiChange7"></div>
 					</div>
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="dayImgPoster7" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="dayAPoster7">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="dayADocid7" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
 
+<<<<<<< HEAD
 							<img id="dayImgPoster8" class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
@@ -982,12 +1175,17 @@
 						<div id="audiCnt8"></div>
 						<div id="audiChange8"></div>
 					</div>
+=======
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 					<div
 						style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
 						class="col-xl-auto col-lg-auto col-md-auto">
 						<div class="gallery-item h-80">
 
+<<<<<<< HEAD
 							<img id="dayImgPoster9" class="img-fluid" alt="">
 							<div
 								class="gallery-links d-flex align-items-center justify-content-center">
@@ -1069,6 +1267,156 @@
 
 					<div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
 						<div class="gallery-item h-80">
+=======
+            </div>
+         </div>
+      </section>
+      <!-- End일간박스오피스 -->
+   
+      <br>
+      <!-- 주간박스오피스 -->
+      <section id="gallery" class="gallery">
+         <div class="container-fluid">
+            <div class="row gy-4 justify-content-center">
+               <h3>주간박스오피스 TOP 10</h3>
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster0" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster0">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid0" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+ 
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster1" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster1">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid1" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster2" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster2">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid2" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster3" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster3">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid3" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster4" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster4">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid4" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster5" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster5">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid5" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster6" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster6">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid6" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster7" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster7">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid7" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+
+                     <img id="weeklyImgPoster8" class="img-fluid" alt="">
+                     <div
+                        class="gallery-links d-flex align-items-center justify-content-center">
+                        <a id="weeklyAPoster8">
+                         <i
+                           class="bi bi-arrows-angle-expand"></i>
+                        </a> <a id="weeklyADocid8" class="details-link"><i
+                           class="bi bi-link-45deg"></i></a>
+                     </div>
+                  </div>
+               </div>
+               
+               <div style="text-align: center;" class="col-xl-1 col-lg-4 col-md-6">
+                  <div class="gallery-item h-100">
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 
 							<img id="weeklyImgPoster4" class="img-fluid" alt="">
 							<div

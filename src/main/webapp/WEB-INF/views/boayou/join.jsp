@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <html lang="en">
 
@@ -171,7 +170,7 @@ $(function(){
 
 <body>
 
-   	<!-- ======= Header ======= -->
+   <!-- ======= Header ======= -->
 	<header id="header" class="header d-flex align-items-center fixed-top">
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
@@ -241,9 +240,15 @@ $(function(){
 						
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
+<<<<<<< HEAD
 						       <li><a href="myProfilePage">마이페이지</a></li>
 						       <a href="logout">로그아웃</a>
 						       ${sessionScope.loginUser.name}님
+=======
+						        <a>${sessionScope.loginUser.name} 님</a>
+						       <a href="logout">로그아웃</a>
+						       <li><a href="myPage">마이페이지</a></li>
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>

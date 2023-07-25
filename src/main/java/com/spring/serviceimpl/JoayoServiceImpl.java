@@ -2,6 +2,7 @@ package com.spring.serviceimpl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,38 +20,40 @@ public class JoayoServiceImpl implements JoayoService{
 	//커뮤니티 페이지 특정 글의 좋아요 버튼 toggle
 	@Override
 	public int pushCommunityJoayo(int community_no, String user_id) {
-		int result = 0;
-		int joayoFlag = mapper.selectCommunityJoayoById(community_no, user_id);
-		
-		switch(joayoFlag) {
-			
-		case 0:
-			result = mapper.insertCommunityJoayoById(community_no, user_id);
-			break;
-		case 1:
-			result = mapper.deleteCommunityJoayoById(community_no, user_id);
-			break;
-		}
-		
-		return result;
+	    int joayoFlag = mapper.selectCommunityJoayoById(community_no, user_id);
+
+	    switch(joayoFlag) {
+	        case 0:
+	            mapper.insertCommunityJoayoById(community_no, user_id);
+	            break;
+	        case 1:
+	            mapper.deleteCommunityJoayoById(community_no, user_id);
+	            break;
+	    }
+
+	    int newJoayoCount = mapper.selectCommunityJoayoCnt(community_no);
+	    return newJoayoCount;
 	}
 	
 	//커뮤니티 특정 글 페이지 특정 댓글의 좋아요 버튼 toggle
 	@Override
 	public int pushCommentJoayo(int comment_no, String user_id) {
-		int result = 0;
 		int joayoFlag = mapper.selectCommentJoayoById(comment_no, user_id);
 		
 		switch(joayoFlag) {
 			
 		case 0:
-			result = mapper.insertCommentJoayoById(comment_no, user_id);
+			mapper.insertCommentJoayoById(comment_no, user_id);
+			System.out.println(0);
 			break;
 		case 1:
-			result = mapper.deleteCommunityJoayoById(comment_no, user_id);
+			mapper.deleteCommentJoayoById(comment_no, user_id);
+			System.out.println(1);
 			break;
 		}
-		return result;
+		int newJoayoCount = mapper.selectCommentJoayoCnt(comment_no);
+		System.out.println("service- "+newJoayoCount);
+		return newJoayoCount;
 	}
 	
 	//커뮤니티 페이지 특정 글의 누적 조아요 개수 출력

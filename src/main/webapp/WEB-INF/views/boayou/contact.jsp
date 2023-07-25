@@ -137,6 +137,11 @@
 						
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
+<<<<<<< HEAD
+=======
+						       <a>${sessionScope.loginUser.name} 님</a>
+						       <a href="logout">로그아웃</a>
+>>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 						       <li><a href="myPage">마이페이지</a></li>
 						       <a href="logout">로그아웃</a>
 						       <a>${sessionScope.loginUser.name} 님</a>

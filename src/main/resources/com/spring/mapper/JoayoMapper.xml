@@ -5,7 +5,7 @@
   <mapper namespace="com.spring.mapper.JoayoMapper">
 <!--커뮤니티 글에 특정 user_id 조아요 있는지 확인 select -->
 	<select id="selectCommunityJoayoById" resultType="Integer">
-		select count(*) from community_joayo where user_id=#{user_id} and community_no=#{community_no}
+		select count(*) from community_joayo where user_id= #{user_id} and community_no= #{community_no}
 	</select>
 
 <!--커뮤니티 글에 특정 user_id가 조아요 insert -->
@@ -15,7 +15,7 @@
 
 <!--커뮤니티 글에 특정 user_id가 조아요 delete -->
 	<delete id="deleteCommunityJoayoById">
-		delete from community_joayo where user_id = #{user_id} and community_no=#{community_no}
+		delete from community_joayo where user_id = #{user_id} and community_no = #{community_no}
 	</delete>
 
 <!--커뮤니티 페이지에서 해당 글의 누적조아요 select -->
