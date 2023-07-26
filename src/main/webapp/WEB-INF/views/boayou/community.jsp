@@ -52,6 +52,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
 
+
 <!-- =======================================================
   * Template Name: PhotoFolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -59,12 +60,98 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <script>
-  function openCommentPopup(event, community_no) {
-	    event.preventDefault();
-	    window.open("/controller/boayou/comments?community_no=" + community_no, "popupWindow", "width=800,height=800");
-	}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+function openCommentPopup(event, community_no) {
+	  event.preventDefault();
+	 
+	  let popupWindow = window.open("", "popupWindow", "width=800,height=0");
+	  let newUrl = "/controller/boayou/comments?community_no=" + community_no;
+	  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
+
+	  slideUpWindow(popupWindow);
+	}
+	  
+	function slideUpWindow(popupWindow) {
+	  let currentHeight = 0;
+	  let increment = 20;
+	  let screenHeight = window.innerHeight;
+	  let windowWidth = 800;
+	  
+	  let slideUpInterval = setInterval(function() {
+	    currentHeight += increment;
+	    let newYPosition = window.screenY + (screenHeight - currentHeight) / 2;
+	    let centerXPosition = window.screenX + (screen.width - windowWidth) / 2;
+	    popupWindow.resizeTo(windowWidth, currentHeight);
+	    popupWindow.moveTo(centerXPosition, newYPosition);
+
+	    if (currentHeight >= screenHeight) {
+	      clearInterval(slideUpInterval);
+	      popupWindow.resizeTo(windowWidth, screenHeight);
+	    }
+	  }, 10);
+	}
+	  function confirmDelete() {
+          var confirmation = confirm("정말로 삭제하시겠습니까?");
+          if (confirmation) {
+              document.getElementById("deleteForm").submit();
+          }
+      }	 
+	  function submitJoayoForm(element) {
+		  var community_no = $(element).data('community-no');
+		  var user_id = $(element).data('user-id');
+
+		  $.ajax({
+		    type: 'POST',
+		    url: 'pushcommunityjoayo',
+		    data: { community_no: community_no, user_id: user_id },
+		    dataType: 'json',
+		    beforeSend: function() {
+		      console.log('Request:', { community_no: community_no, user_id: user_id });
+		    },
+		    success: function(response) {
+		      console.log('Response:', response);
+
+		      if (response.hasOwnProperty('newJoayoCount')) {
+		        $(element).text(response.newJoayoCount);
+		      } else {
+		        console.error('Invalid response. Please check the server.');
+		      }
+		    },
+		    error: function(xhr, status, error) {
+		      alert('로그인 후 이용가능한 서비스입니다.');
+		      console.error('Error:', error);
+		    },
+		  });
+		}
+	  function submitSiroyoForm(element) {
+		  var community_no = $(element).data('community-no');
+		  var user_id = $(element).data('user-id');
+
+		  $.ajax({
+		    type: 'POST',
+		    url: 'pushcommunitysiroyo',
+		    data: { community_no: community_no, user_id: user_id },
+		    dataType: 'json',
+		    beforeSend: function() {
+		      console.log('Request:', { community_no: community_no, user_id: user_id });
+		    },
+		    success: function(response) {
+		      console.log('Response:', response);
+
+		      if (response.hasOwnProperty('newSiroyoCount')) {
+		        $(element).text(response.newSiroyoCount);
+		      } else {
+		        console.error('Invalid response. Please check the server.');
+		      }
+		    },
+		    error: function(xhr, status, error) {
+		      alert('로그인 후 이용가능한 서비스입니다.');
+		      console.error('Error:', error);
+		    },
+		  });
+		}
 </script>
 </head>
 
@@ -94,63 +181,79 @@
 							<li class="dropdown"><a href="#"><span>영화목록</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
-									
-								</ul>
-							</li>
-							
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
+
+								</ul></li>
+
 							<li class="dropdown"><a href="#"><span>관람등급</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
-									
-								</ul>
-							</li>
-							
-								<li class="dropdown"><a href="#"><span>개봉연도</span> <i
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
+
+								</ul></li>
+
+							<li class="dropdown"><a href="#"><span>개봉연도</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
-									
-																		
-								</ul>
-							</li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
+
+
+								</ul></li>
 							<li class="dropdown"><a href="#"><span>장르</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마, 가족, 코메디</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로, 로맨스</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포, 스릴러, 범죄, 전쟁</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션, SF, 판타지</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
-																		
-								</ul>
-							</li>
-							
-							
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마,
+											가족, 코메디</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로,
+											로맨스</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포,
+											스릴러, 범죄, 전쟁</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션,
+											SF, 판타지</a></li>
+									<li><a
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
+
+								</ul></li>
+
+
 
 						</ul></li>
 					<c:choose>
-						   <c:when test="${not empty sessionScope.loginUser}">
-						        ${sessionScope.loginUser.name} 님
+						<c:when test="${not empty sessionScope.loginUser}">
+						        <a>${sessionScope.loginUser.name} 님</a>
 						       <a href="logout">로그아웃</a>
-						       <li><a href="myPage">마이페이지</a></li>
-							  </c:when>
-							  <c:otherwise>
-						      <li><a href="login">로그인</a></li>
-						      <li><a href="join">회원가입</a></li>
-						   </c:otherwise>
-						</c:choose>
-						
-						<li><a href="community">커뮤니티</a></li>				
+							<li><a href="myPage">마이페이지</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="login">로그인</a></li>
+							<li><a href="join">회원가입</a></li>
+						</c:otherwise>
+					</c:choose>
+
+					<li><a href="community">커뮤니티</a></li>
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -205,12 +308,23 @@
 									<div class="profile mt-auto">
 										<img src="${community.posters}" class="testimonial-img" alt="">
 
-										<h4>${community.user_id}</h4>													
-					<ul class="stats">
-						<li style="float: left; "><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
-						<li style="float: right;"><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
-						<li style="float: center;"><a href="#" class="icon solid fa-comment" style="color: white;" onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
-					</ul>
+										<h4>${community.user_id}</h4>
+										<ul class="stats">
+											<li style="float: left;"><a href="javascript:void(0)"
+												class="icon solid fa-thumbs-up" style="color: white;"
+												onclick="submitJoayoForm(this);"
+												data-community-no="${community.community_no}"
+												data-user-id="${sessionScope.loginUser.user_id}">${community.joayo}</a></li>
+											<li style="float: right;"><a href="javascript:void(0)"
+												class="icon solid fa-thumbs-down" style="color: white;"
+												onclick="submitSiroyoForm(this);"
+												data-community-no="${community.community_no}"
+												data-user-id="${sessionScope.loginUser.user_id}">${community.siroyo}</a></li>
+											<li style="float: center;"><a href="#"
+												class="icon solid fa-comment" style="color: white;"
+												onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count}</a></li>
+										</ul>
+
 									</div>
 								</div>
 							</div>
@@ -233,25 +347,41 @@
 						<h2>${community.community_title}</h2>
 					</div>
 					<div class="meta">
-						<a href="#" class="author"><span class="name">${community.user_id}</span><img
-							src="" alt="" /></a>
+						<a href="javascript:void(0)" class="author"><span class="name">${community.user_id}</span></a>
 					</div>
 				</header>
 				<c:if test="${not empty community.posters}">
-					<a href="single.html" class="image featured"> <img
+					<a href="javascript:void(0)" class="image featured"> <img
 						src="${community.posters}" alt="" />
 					</a>
 				</c:if>
 				<p>${community.community_content}</p>
 				<footer>
+
 					<ul class="actions">
-						<li><a href="single.html" class="button large">Boayou</a></li>
+						<li><button type="button" onclick="confirmDelete()"
+								class="button large">삭제</button></li>
 					</ul>
+					<form id="deleteForm" action="deletecommunity" method="POST">
+						<input type="hidden" name="community_no"
+							value="${community.community_no}">
+					</form>
 					<ul class="stats">
 
-						<li><a href="#" class="icon solid fa-thumbs-up" style="color: white;">28</a></li>
-						<li><a href="#" class="icon solid fa-thumbs-down" style="color: white;">28</a></li>
-						<li><a href="#" class="icon solid fa-comment" style="color: white;" onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
+						<li><a href="javascript:void(0)"
+							class="icon solid fa-thumbs-up" style="color: white;"
+							onclick="submitJoayoForm(this);"
+							data-community-no="${community.community_no}"
+							data-user-id="${sessionScope.loginUser.user_id}">${community.joayo}</a>
+						</li>
+						<li><a href="javascript:void(0)"
+							class="icon solid fa-thumbs-down" style="color: white;"
+							onclick="submitSiroyoForm(this);"
+							data-community-no="${community.community_no}"
+							data-user-id="${sessionScope.loginUser.user_id}">${community.siroyo}</a></li>
+						<li><a href="javascript:void(0)"
+							class="icon solid fa-comment" style="color: white;"
+							onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
 					</ul>
 				</footer>
 			</article>
