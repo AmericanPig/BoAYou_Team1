@@ -128,10 +128,12 @@
         
     </select>
     
-      <select id="titlePostersMovieList"
+     <select id="titlePostersMovieList"
       resultType="com.spring.domain.MovieListDTO">
        
       select * from movie_list2 where reprlsdate like '2023%'
+      or reprlsdate like '2022%'
+      or reprlsdate like '2021%'
     
    </select>
 </mapper>

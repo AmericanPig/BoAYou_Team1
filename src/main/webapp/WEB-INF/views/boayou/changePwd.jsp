@@ -28,7 +28,7 @@ function done(){
 	crossorigin="anonymous">
 <style>
 body {
-	color: black;
+	color: white;
 	background-Color: black;
 	width:100%;
 	height:100%;
@@ -41,13 +41,13 @@ body {
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-  <h1>패스워드 변경하기</h1>
-  <form id="updateForm" action="${pageContext.request.contextPath}/boayou//updateUserPwd" method="post">
-    <label for="pwd">변경할 패스워드</label>
-    <input name="pwd" value="변경할 비밀번호 입력" />
-    <br/><br/>
-    <input type="submit" value="변경사항 적용" onclick="done()">
+<body onresize="resizeTo(500, 500);">
+<br>
+  <h1 style=" text-align : center; font-size : 15pt;">패스워드 변경하기</h1><br><br>
+  <form id="updateForm" action="${pageContext.request.contextPath}/boayou/updateUserPwd" method="post">
+    <label for="pwd">변경할 패스워드 : </label>
+    <input name="pwd" placeholder="변경할 비밀번호 입력" />
+    <input style = "float: right" type="submit" value="변경사항 적용" onclick="done()">
 </form>
 </body>
 </html>
