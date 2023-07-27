@@ -9,16 +9,20 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,6 +33,7 @@ import com.spring.domain.CommunityDTO;
 import com.spring.domain.MovieListDTO;
 import com.spring.domain.ReviewDTO;
 import com.spring.domain.UserDTO;
+import com.spring.domain.UserProfileDTO;
 import com.spring.mapper.UserMapper;
 import com.spring.service.CommentService;
 import com.spring.service.CommunityService;
@@ -36,6 +41,7 @@ import com.spring.service.JoayoService;
 import com.spring.service.MovieListService;
 import com.spring.service.ReviewService;
 import com.spring.service.SiroyoService;
+import com.spring.service.UserProfileService;
 import com.spring.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -63,6 +69,8 @@ public class MovieController {
    private JoayoService joayoservice;
    @Autowired
    private SiroyoService siroyoservice;
+   @Autowired
+   private UserProfileService userProfileService;
  
 
    public List<MovieListDTO> movie;
@@ -182,11 +190,58 @@ public class MovieController {
 
    }
 
+   @GetMapping("changePwd")
+   public void changePwd(Model model, HttpSession session) {
+	   UserDTO user = (UserDTO) session.getAttribute("loginUser");
+	   model.addAttribute("user", user);
+   }
+
+   @PostMapping("/updateUserPwd")
+   public String updateUserPwd(UserDTO user, HttpSession session) {
+	   BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	   UserDTO currentUser = (UserDTO)session.getAttribute("loginUser");
+	   String user_id = currentUser.getUser_id();
+	   String pwd = passwordEncoder.encode(user.getPwd());
+	  
+	   int result = UserService.updateUser(user_id, pwd);
+	   currentUser.setPwd(pwd);
+	   
+	   System.out.println(result+"명의 회원정보 수정완료");
+       session.setAttribute("loginUser", currentUser);
+       
+       return "redirect:/boayou/changePwd";
+   }
+   
+   @GetMapping("updateProfile")
+   public void updateProfile(Model model, HttpSession session) {
+	   UserProfileDTO userProfile = (UserProfileDTO)session.getAttribute("loginUserProfile");
+	   model.addAttribute("userProfile", userProfile);
+   }
+   @RequestMapping(value = "/updateProfileProcess", method = RequestMethod.POST)
+   @ResponseBody
+   public HashMap<String, Object> updateProfileProcess(@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
+                                                       @RequestParam(name = "profileMessage", defaultValue = "") String profileMessage,
+                                                       HttpSession session) {
+       HashMap<String, Object> result = new HashMap<>();
+       
+       // 이미지 업로드 처리 등 필요한 로직 구현
+       
+       result.put("success", true);
+       return result;
+   }
+//   @PostMapping("/updateProfileProcess")
+//   public String updateProfileProcess(UserProfileDTO userProfile, HttpSession session) {
+//	   
+//	   
+//	   return "redirect:/boayou/updateProfile";
+//   }
+
    @PostMapping(value = "/InsertJoin", produces = MediaType.APPLICATION_JSON_VALUE)
    public String InsertJoin(UserDTO user, RedirectAttributes redirectAttributes) {
 
       int message = UserService.InsertJoin(user);
       System.out.println(UserService.InsertJoin(user));
+      System.out.println("프로필 생성 : " + userProfileInit(user.getUser_id(), user.getName()));
       redirectAttributes.addFlashAttribute("message", message);
       return "redirect:/boayou/login";
    }
@@ -203,12 +258,14 @@ public class MovieController {
    @PostMapping("/loginProcess")
    public String loginProcess(UserDTO userDTO, HttpSession session, Model model) {
       UserDTO storedUser = UserService.selectUserById(userDTO.getUser_id());
-
+      
       if (storedUser == null || !UserService.isPasswordMatched(userDTO.getPwd(), storedUser.getPwd())) {
          model.addAttribute("msg", "아이디나 비밀번호를 확인해주세요.");
          return "boayou/login";
       }
+      UserProfileDTO storedUserProfile = userProfileInit(storedUser.getUser_id(), storedUser.getName());
       session.setAttribute("loginUser", storedUser);
+      session.setAttribute("loginUserProfile", storedUserProfile);
       return "redirect:/boayou/homePage";
    }
 
@@ -216,6 +273,7 @@ public class MovieController {
    public String logout(HttpSession session) {
 
       session.removeAttribute("loginUser");
+      session.removeAttribute("loginUserProfile");
 
       return "redirect:/boayou/homePage";
    }
@@ -268,6 +326,7 @@ public class MovieController {
       listInit();
       List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
       MovieListDTO movieList = service.getDocid(docid);
+      System.out.println(movieList);
       model.addAttribute("movieList", movieList);
       model.addAttribute("reviewList", reviewList);
    }
@@ -370,5 +429,35 @@ public class MovieController {
    }
    
    
+//   public UserProfileDTO makeUserProfile(String user_id) {
+//	  UserProfileDTO user = new UserProfileDTO(); 
+//	  user.setUser_id(user_id);
+//	  int result = userProfileService.setUserProfile(user);
+//	  System.out.println(user.toString());
+//	  System.out.println(result + "명의 프로필 생성됨");
+//	  
+//	  return userProfileService.getUserProfile(user_id);
+//   }
+   
+   public UserProfileDTO userProfileInit(String user_id, String name) {
+	  UserProfileDTO user = new UserProfileDTO(); 
+	  user.setUser_id(user_id);
+	  user.setName(name);
+	  
+	  int result = userProfileService.setUserProfile(user);
+	  user = userProfileService.getUserProfile(user_id);
+	  System.out.println(user);
+	  
+	  switch(result) {
+	  case 0:
+		  System.out.println(user.getUser_id() + " 님의 프로필 로드");
+		  break;
+	  case 1:
+		  System.out.println(user.getUser_id() + " 님의 프로필 생성");
+		  break;
+	  }
+	  
+	  return user;
+   }
 
 }

@@ -1,7 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script>
+	function openPopup() {
+		  //event.preventDefault();
+		 
+		  let popupWidth = window.innerWidth * 0.2;
+		  let popupHeight = window.innerHeight * 0.2;
+		  let left = (window.innerWidth - popupWidth) / 2;
+		  let top = (window.innerHeight - popupHeight) / 2;
+		 
+		  let options = 'width='+popupWidth+',height='+popupHeight+',top='+top+',left='+left;
+	
+		  let popupWindow = window.open("", "popupWindow", options);
+		  let newUrl = "/controller/boayou/changePwd";
+	
+		  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
+		  }
+	
+	
+		window.addEventListener('focus', function() {
+	    if (sessionStorage.getItem('profileUpdated') === 'yes') {
+	        sessionStorage.removeItem('profileUpdated');
+	        location.reload();
+	    }
+	});
+	
+	function openProfilePopup() {
 
+		  let popupWidth = window.innerWidth * 0.8;
+		  let popupHeight = window.innerHeight * 0.8;
+		  let left = (window.innerWidth - popupWidth) / 2;
+		  let top = (window.innerHeight - popupHeight) / 2;
+		 
+		  let options = 'width='+popupWidth+',height='+popupHeight+',top='+top+',left='+left;
+
+		  let popupWindow = window.open("", "profilePopupWindow", options);
+		  let newUrl = "/controller/boayou/updateProfile";
+
+		  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
+		}
+
+</script>
 <html lang="en">
 
 <head>
@@ -124,7 +164,7 @@
 						   <c:when test="${not empty sessionScope.loginUser}">
 						      <a>${sessionScope.loginUser.name} 님</a>
 						       <a href="logout">로그아웃</a>
-						       <li><a href="myProfilePage">마이페이지</a></li>
+						       <li><a href="myPage">마이페이지</a></li>
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>
@@ -169,30 +209,6 @@
     <!-- ======= Gallery Single Section ======= -->
     <section id="gallery-single" class="gallery-single">
       <div class="container">
-		<!--  
-		
-        <div class="position-relative h-100">
-          <div class="slides-1 portfolio-details-slider swiper">
-            <div class="swiper-wrapper align-items-center">
-              <div class="swiper-slide">
-                <img src="../resources/assets/img/gallery/gallery-1.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="../resources/assets/img/gallery/gallery-2.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="../resources/assets/img/gallery/gallery-3.jpg" alt="">
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-
-        </div>	
-		-->
-
-
         <div class="row justify-content-between gy-4 mt-4">
 
           <div class="col-lg-8">
@@ -201,11 +217,16 @@
               <div class="testimonial-item">
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                 	오늘도 즐거운 하루되세여 :)
+<!--                  	오늘도 즐거운 하루되세여 :) -->
+					<c:choose>
+					<c:when test="${not empty sessionScope.loginUser}">
+						<h3>' ${sessionScope.loginUserProfile.intro} '</h3>
+					</c:when>
+				</c:choose>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
                 <div>
-                  <img src="../resources/assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <img src="${pageContext.request.contextPath}/resources/assets/img/default.jpg" class="testimonial-img" alt="">
 				<c:choose>
 					<c:when test="${not empty sessionScope.loginUser}">
 						<h3>' ${sessionScope.loginUser.user_id} 님 '</h3>
@@ -214,7 +235,7 @@
 				</c:choose>
 				<br>
 				<br>
-                  	<a href="#">프로필 변경</a>
+                  	<a href="#" onclick = "openProfilePopup()">프로필 변경</a>
                 </div>
               </div>
             </div>
@@ -234,6 +255,7 @@
 							${sessionScope.loginUser.jumin.substring(4,6)}일</span></li>
 							<!-- DB에 저장 된 가입정보 넣기 -->
 						</ul>
+						<a href="#" onclick="openPopup()">비밀번호 변경</a><br><br>
 						<a href="logout">로그아웃</a>
 					</c:when>
 				</c:choose>

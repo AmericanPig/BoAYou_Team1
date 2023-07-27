@@ -128,7 +128,7 @@
         
     </select>
     
-      <select id="titlePostersMovieList"
+     <select id="titlePostersMovieList"
       resultType="com.spring.domain.MovieListDTO">
        
       select * from movie_list2 where reprlsdate like '2023%'
