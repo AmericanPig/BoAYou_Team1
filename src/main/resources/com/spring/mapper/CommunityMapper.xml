@@ -3,16 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.CommunityMapper">
-	<select id="SelectCommunityList"
-		resultType="com.spring.domain.CommunityDTO">
-		SELECT c.user_id, c.community_no, c.community_title, c.community_content,
-		m.posters,
-		(SELECT COUNT(com.community_no) FROM comment_tb com WHERE com.community_no =
-		c.community_no) as comment_count
-		FROM community c
-		JOIN movie_list2 m ON c.docid = m.docid
-		ORDER BY c.community_no DESC
+	<select id="SelectCommunityList" resultType="com.spring.domain.CommunityDTO">
+	    SELECT c.user_id, c.community_no, c.community_title, c.community_content, m.posters,
+	           c.docid,
+	           (SELECT COUNT(com.community_no) FROM comment_tb com WHERE com.community_no = c.community_no) as comment_count
+	    FROM community c
+	    JOIN movie_list2 m ON c.docid = m.docid
+	    ORDER BY c.community_no DESC
 	</select>
+
 	<insert id="InsertCommunity">
 		INSERT INTO community(user_id, docid, community_title, community_content)
 		VALUES(

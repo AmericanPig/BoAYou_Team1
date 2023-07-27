@@ -303,13 +303,13 @@ function openCommentPopup(event, community_no) {
 						<c:forEach var="rank" items="${communityRank}" varStatus="status">
 							<div class="swiper-slide">
 								<div class="testimonial-item">
+									<h4 style="text-align:right;">${rank.user_id}</h4>
 									<h2>${status.count}위</h2>
-									<h3>${rank.community_title}</h3>
-									<p>${rank.community_content}</p>
+									<h3>${rank.community_title}</h3>																	
 									<div class="profile mt-auto">			
-										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${community.docid}" class="image featured">																		
+										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${rank.docid}" class="image featured">																		
 										<img src="${rank.posters}" class="testimonial-img" alt=""></a>							
-										<h4>${rank.user_id}</h4>
+										<p>${rank.community_content}</p>
 										<ul class="stats">
 											<li style="float: left;"><a href="javascript:void(0)"
 												class="icon solid fa-thumbs-up" style="color: white;"

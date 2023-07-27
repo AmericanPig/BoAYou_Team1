@@ -278,7 +278,7 @@ $(function(){
             <div class="box-input">
                <label for="user_id"></label> <input type="text"
 								id="user_id" name="user_id" placeholder="아이디">
-							<input type="button" id="checkId" value="중복검사"><br/>
+							<input style="text-align:right;"type="button" id="checkId" value="중복검사"><br/>
   							<div><span id="id_feedback" style="font-size:12px;"></span></div>
 							<div class="box-line-height"></div>
              			    <br>
