@@ -46,16 +46,17 @@ body {
 #comment_content {
 	width: 750px;
 }
- .stats {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
 
-  .stats li {
-    display: inline;
-    margin-right: 10px;
-  }
+.stats {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.stats li {
+	display: inline;
+	margin-right: 10px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -79,7 +80,7 @@ body {
                     location.reload();
                 },
                 error: function () {
-                    alert('댓글 추가에 실패했습니다. 다시 시도해주세요.');
+                    alert('로그인 후 이용가능한 서비스입니다.');
                 }
             });
         });
@@ -140,6 +141,32 @@ body {
 		    },
 		  });
 		}
+    //코멘트 삭제 ajax
+    function CommentDelete(element) {
+  var comment_no = $(element).data('comment-no');
+  var community_no = $(element).data('community-no');
+  
+  $.ajax({
+    type: 'POST',
+    url: 'deletecomment',
+    data: { comment_no: comment_no, community_no: community_no },
+    beforeSend: function() {
+      console.log('Request:', { comment_no: comment_no, community_no: community_no });
+    },
+    success: function(response) {
+      if (response) {
+        alert('삭제가 완료되었습니다.');
+        location.reload();
+      } else {
+        console.error('오류 발생.');
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Error:', error);
+    },
+  });
+}
+
     </script>
 </head>
 <body>
@@ -147,11 +174,18 @@ body {
 		<c:forEach var="comment" items="${comments}">
 			<ul class="stats">
 				<li style="float: reft;">작성자:${comment.user_id }</li>
+				<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
+				<li>
+					<button type="button" onclick="CommentDelete(this)"
+					data-comment-no="${comment.comment_no}"
+					data-community-no="${comment.community_no }" class="button large">삭제</button>
+				</li>
+				</c:if>
 				<li style="float: right;"><a href="javascript:void(0)"
 					class="icon solid fa-thumbs-down" style="color: white;"
 					onclick="submitSiroyoForm(this);"
 					data-comment-no="${comment.comment_no}"
-					data-user-id="${sessionScope.loginUser.user_id}">1</a></li>
+					data-user-id="${sessionScope.loginUser.user_id}">${comment.siroyo}</a></li>
 				<li style="float: right;"><a href="javascript:void(0)"
 					class="icon solid fa-thumbs-up" style="color: white;"
 					onclick="submitJoayoForm(this);"

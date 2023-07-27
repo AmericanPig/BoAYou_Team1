@@ -26,5 +26,11 @@ public class CommentServiceImpl implements CommentService {
     public void addComment(String user_id, int community_no, String comment_content) {
         mapper.InsertComment(user_id, community_no, comment_content);
     }
+    @Override
+    public int DeleteComment(int comment_no) {
+    	return mapper.DeleteComment(comment_no);
+    }
+
+    
  
 }

@@ -8,8 +8,11 @@ public interface CommunityMapper {
 	
 	List<CommunityDTO> SelectCommunityList();
 	
-	int InsertCommunity(CommunityDTO communityDTO);
+	int InsertCommunity(CommunityDTO communityDTO);	
 	
+	List<CommunityDTO> CommunityRanking();
+
 	int DeleteCommunity(CommunityDTO communityDTO);
+
 
 }

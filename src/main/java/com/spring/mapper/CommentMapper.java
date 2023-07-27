@@ -14,5 +14,7 @@ public interface CommentMapper {
 
 	void InsertComment(@Param("user_id") String userId, @Param("community_no") int community_no,
 			@Param("comment_content") String comment_content);
+	
+	int DeleteComment(int comment_no);
 
 }

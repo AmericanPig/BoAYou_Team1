@@ -412,7 +412,7 @@
                                     <a href="${getRatingAllMovie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=전체관람가&Docid=${getRatingAllMovie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRatingAllMovie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -512,7 +512,7 @@
                                     <a href="${getRating12Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=12세관람가&Docid=${getRating12Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRating12Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -712,7 +712,7 @@
                                     <a href="${getRating18Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=18세관람가&Docid=${getRating18Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRating18Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -812,7 +812,7 @@
                                     <a href="${getRatingEtcMovie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=기타&Docid=${getRatingEtcMovie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRatingEtcMovie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -912,7 +912,7 @@
                                     <a href="${getRepRlsDate2023Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2023&Docid=${getRepRlsDate2023Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2023Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1012,7 +1012,7 @@
                                     <a href="${getRepRlsDate2022Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2022&Docid=${getRepRlsDate2022Movie.get(i).getDocid()}" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2022Movie.get(i).getDocid()}" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1112,7 +1112,7 @@
                                     <a href="${getRepRlsDate2021Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2021&Docid=${getRepRlsDate2021Movie.get(i).getDocid()}" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2021Movie.get(i).getDocid()}" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1212,7 +1212,7 @@
                                     <a href="${getRepRlsDateBeforeMovie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=이전&Docid=${getRepRlsDateBeforeMovie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDateBeforeMovie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1312,7 +1312,7 @@
                                     <a href="${getGenre1Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=드라마가족코메디&Docid=${getGenre1Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre1Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1412,7 +1412,7 @@
                                     <a href="${getGenre2Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=멜로로맨스&Docid=${getGenre2Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre2Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1512,7 +1512,7 @@
                                     <a href="${getGenre3Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=공포스릴러범죄전쟁&Docid=${getGenre3Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre3Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1612,7 +1612,7 @@
                                     <a href="${getGenre4Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=액션SF판타지&Docid=${getGenre4Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre4Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1712,7 +1712,7 @@
                                     <a href="${getGenre5Movie.get(i).getPosters() }" title=""
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=기타&Docid=${getGenre5Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre5Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
 import com.spring.domain.CommentDTO;
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.MovieListDTO;
+import com.spring.domain.ReviewDTO;
 import com.spring.domain.UserDTO;
 import com.spring.domain.UserProfileDTO;
 import com.spring.mapper.UserMapper;
@@ -57,11 +58,7 @@ public class MovieController {
    @Autowired
    private UserMapper mapper;
    @Autowired
-   private CommunityService communityservice;
-   @Autowired
-   private JoayoService joayoService;
-   @Autowired
-   private SiroyoService siroyoService;
+   private CommunityService communityservice;  
    @Autowired
    private ReviewService reviewService;
    @Autowired
@@ -155,8 +152,14 @@ public class MovieController {
    @GetMapping("community")
    public void community(Model model) {
        List<CommunityDTO> communityList = communityservice.SelectCommunityList();
-
+       List<CommunityDTO> communityrank = communityservice.CommunityRanking();
        for (CommunityDTO community : communityList) {
+           int joayoCount = joayoservice.getCommunityJoayoAmount(community.getCommunity_no());
+           int siroyoCount = siroyoservice.getCommunitySiroyoAmount(community.getCommunity_no());
+           community.setJoayo(joayoCount);
+           community.setSiroyo(siroyoCount);
+       }
+       for (CommunityDTO community : communityrank) {
            int joayoCount = joayoservice.getCommunityJoayoAmount(community.getCommunity_no());
            int siroyoCount = siroyoservice.getCommunitySiroyoAmount(community.getCommunity_no());
            community.setJoayo(joayoCount);
@@ -164,6 +167,7 @@ public class MovieController {
        }
 
        model.addAttribute("community_List", communityList);
+       model.addAttribute("communityRank", communityrank);
    }
 
    @GetMapping("join")
@@ -320,10 +324,11 @@ public class MovieController {
    @GetMapping("movieInfoPage")
    public void movieInfoPage(@RequestParam("Docid") String docid, Model model) {
       listInit();
-      
+      List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
       MovieListDTO movieList = service.getDocid(docid);
       System.out.println(movieList);
       model.addAttribute("movieList", movieList);
+      model.addAttribute("reviewList", reviewList);
    }
 
    @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")
@@ -406,6 +411,23 @@ public class MovieController {
      response.put("newJoayoCount", newJoayoCount);
      return new ResponseEntity<>(response, HttpStatus.OK);
    }
+   @PostMapping("deletecomment")
+   public  String DeleteComment(int comment_no, String community_no) {	   	   
+	   commentservice.DeleteComment(comment_no);	   
+	   return "redirect:/boayou/comments?community_no=" + community_no;
+   }
+   @PostMapping("insertReview")
+   public ResponseEntity<String> insertReview(ReviewDTO reviewDTO) {
+       reviewService.MakeUserReview(reviewDTO);
+       return new ResponseEntity<>("리뷰 작성 성공", HttpStatus.OK);
+   }
+   @PostMapping("deletereview")
+   public String deleteUserReview(ReviewDTO reviewDTO, String docid ) {
+	   reviewService.deleteUserReview(reviewDTO);
+	   
+	   return "redirect:/boayo/movieInfoPage?Docid="+docid;
+   }
+   
    
 //   public UserProfileDTO makeUserProfile(String user_id) {
 //	  UserProfileDTO user = new UserProfileDTO(); 
