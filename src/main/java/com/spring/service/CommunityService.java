@@ -12,4 +12,6 @@ public interface CommunityService {
 
 	int DeleteCommunity(CommunityDTO communityDTO);
 
+	List<CommunityDTO> CommunityRanking();
+
 }

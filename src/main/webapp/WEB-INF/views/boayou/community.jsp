@@ -300,29 +300,30 @@ function openCommentPopup(event, community_no) {
 
 				<div class="slides-3 swiper">
 					<div class="swiper-wrapper">
-						<c:forEach var="community" items="${community_List}">
+						<c:forEach var="rank" items="${communityRank}" varStatus="status">
 							<div class="swiper-slide">
 								<div class="testimonial-item">
-									<h3>${community.community_title}</h3>
-									<p>${community.community_content}</p>
-									<div class="profile mt-auto">
-										<img src="${community.posters}" class="testimonial-img" alt="">
-
-										<h4>${community.user_id}</h4>
+									<h2>${status.count}위</h2>
+									<h3>${rank.community_title}</h3>
+									<p>${rank.community_content}</p>
+									<div class="profile mt-auto">			
+										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${community.docid}" class="image featured">																		
+										<img src="${rank.posters}" class="testimonial-img" alt=""></a>							
+										<h4>${rank.user_id}</h4>
 										<ul class="stats">
 											<li style="float: left;"><a href="javascript:void(0)"
 												class="icon solid fa-thumbs-up" style="color: white;"
 												onclick="submitJoayoForm(this);"
-												data-community-no="${community.community_no}"
-												data-user-id="${sessionScope.loginUser.user_id}">${community.joayo}</a></li>
+												data-community-no="${rank.community_no}"
+												data-user-id="${sessionScope.loginUser.user_id}">${rank.joayo}</a></li>
 											<li style="float: right;"><a href="javascript:void(0)"
 												class="icon solid fa-thumbs-down" style="color: white;"
 												onclick="submitSiroyoForm(this);"
-												data-community-no="${community.community_no}"
-												data-user-id="${sessionScope.loginUser.user_id}">${community.siroyo}</a></li>
+												data-community-no="${rank.community_no}"
+												data-user-id="${sessionScope.loginUser.user_id}">${rank.siroyo}</a></li>
 											<li style="float: center;"><a href="#"
 												class="icon solid fa-comment" style="color: white;"
-												onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count}</a></li>
+												onclick="openCommentPopup(event, ${rank.community_no});">${rank.comment_count}</a></li>
 										</ul>
 
 									</div>
@@ -351,17 +352,18 @@ function openCommentPopup(event, community_no) {
 					</div>
 				</header>
 				<c:if test="${not empty community.posters}">
-					<a href="javascript:void(0)" class="image featured"> <img
-						src="${community.posters}" alt="" />
+					<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${community.docid}" class="image featured"> <img
+						src="${community.posters}"/>
 					</a>
 				</c:if>
 				<p>${community.community_content}</p>
 				<footer>
-
+					<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 					<ul class="actions">
 						<li><button type="button" onclick="confirmDelete()"
 								class="button large">삭제</button></li>
 					</ul>
+					</c:if>
 					<form id="deleteForm" action="deletecommunity" method="POST">
 						<input type="hidden" name="community_no"
 							value="${community.community_no}">

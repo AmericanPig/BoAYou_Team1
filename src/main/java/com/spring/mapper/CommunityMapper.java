@@ -11,5 +11,7 @@ public interface CommunityMapper {
 	int InsertCommunity(CommunityDTO communityDTO);
 	
 	int DeleteCommunity(CommunityDTO commutnityDTO);
+	
+	List<CommunityDTO> CommunityRanking();
 
 }
