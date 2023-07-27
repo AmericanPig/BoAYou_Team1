@@ -325,12 +325,12 @@
 		                           <i class="bi bi-star-fill"></i>
 		                       </c:forEach>
 		                              </div>
-		                      <h3>작성자:${review.user_id }</h3>        
-                              <p>${review.review_content }</p>
+		                      <h3>작성자:${review.user_id }</h3>                                      
                               <div class="profile mt-auto">
                                  <img src="assets/img/testimonials/testimonials-1.jpg"
                                     class="testimonial-img" alt="">                                                               
                               </div>
+                              <p>${review.review_content }</p>
                               <c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == review.user_id}">
                               <button type="button" onclick="ReviewDelete()" class="button large">삭제</button>
                               </c:if>
