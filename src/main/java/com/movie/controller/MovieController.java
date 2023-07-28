@@ -467,5 +467,19 @@ public class MovieController {
 	   model.addAttribute("user", user);
 	   model.addAttribute("userprofile", userprofile);
    }
+   @GetMapping("movieSearchListPage")
+   public void movieSearchListPage(@RequestParam("title") String title, Model model) {
+      listInit();
+      List<MovieListDTO> searchMovie = service.getMovieSearchList(title);
+      model.addAttribute("searchMovie", searchMovie);
+      // log.info(searchMovie);
+     // System.out.println("확인");
+     // System.out.println(searchMovie.get(0).getActornm());
+     
+     // System.out.println("확인2");
+     // System.out.println(searchMovie.get(0).getActornm());
+     
+   }
+   
 
 }

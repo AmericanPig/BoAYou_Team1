@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.MovieListDTO;
+import com.spring.domain.TitlePosterListDTO;
 import com.spring.mapper.MovieListMapper;
 import com.spring.service.MovieListService;
 
@@ -104,7 +105,11 @@ public class MovieListServiceImpl implements MovieListService {
 	      return mapper.selectDocid(docid);
 	}
 	      
-	public List<MovieListDTO> getTitlePostersMovieList(){
-	         return mapper.titlePostersMovieList();
+	public List<TitlePosterListDTO> getTitlePostersMovieList(){
+        return mapper.titlePostersMovieList();
+}
+
+	public List<MovieListDTO> getMovieSearchList(String title){
+	     return mapper.movieSearchList(title);
 	}
 }

@@ -3,6 +3,7 @@ package com.spring.mapper;
 import java.util.List;
 
 import com.spring.domain.MovieListDTO;
+import com.spring.domain.TitlePosterListDTO;
 
 public interface MovieListMapper {
    
@@ -31,7 +32,9 @@ public interface MovieListMapper {
    
    List<String> getTitleSearchResults(String title);
    
-   List<MovieListDTO> titlePostersMovieList();
+   List<TitlePosterListDTO> titlePostersMovieList();
    
    MovieListDTO selectDocid(String docid);
+   
+   List<MovieListDTO> movieSearchList(String title);
 }

@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isErrorPage="true"%>
-<%@ page import="org.springframework.beans.factory.annotation.Autowired"%>
 
 <html lang="en">
 
@@ -12,7 +11,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - About</title>
+<title>PhotoFolio Bootstrap Template - Gallery</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -46,38 +45,7 @@
 <!-- Template Main CSS File -->
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
-<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/star.css">   
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $("#myform").submit(function (event) {
-      event.preventDefault(); 
-  
-      var formData = $(this).serialize();
-  
-      $.ajax({
-        type: "POST",
-        url: "insertReview",
-        data: formData,
-        contentType: "application/x-www-form-urlencoded",
-        success: function (response) {
-          alert("리뷰 작성 성공");
-          location.reload();
-        },
-        error: function (error) {
-          alert("리뷰 작성 실패");
-        },
-      });
-    });
-  });
-  function ReviewDelete() {
-      var confirmation = confirm("정말로 삭제하시겠습니까?");
-      if (confirmation) {
-          document.getElementById("deleteForm").submit();
-      }
-  }	
-</script>
 <!-- =======================================================
   * Template Name: PhotoFolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -85,7 +53,13 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+.pagenation {
+   text-align: right;
+}
+</style>
 </head>
+
 
 <body>
 
@@ -159,7 +133,7 @@
                   </ul></li>
                <c:choose>
                      <c:when test="${not empty sessionScope.loginUser}">
-                       <a> ${sessionScope.loginUser.name}님</a>
+                     <a>   ${sessionScope.loginUser.name}님</a>
                          <a href="logout">로그아웃</a>
                          <li><a href="myProfilePage">마이페이지</a></li>
                        </c:when>
@@ -188,6 +162,7 @@
    </header>
    <!-- End Header -->
 
+   
 
          <main id="main" data-aos="fade" data-aos-delay="1500">
 
@@ -196,12 +171,10 @@
                <div class="container position-relative">
                   <div class="row d-flex justify-content-center">
                      <div class="col-lg-6 text-center">
-                        <h2>영화 상세정보</h2>
-                        <p>
+                        <h2>
                            <c:out value="${ param.movieCate }" />
-                        </p>
-
-
+                          
+                        </h2>
 
                      </div>
                   </div>
@@ -209,155 +182,87 @@
             </div>
             <!-- End Page Header -->
 
-            <!-- ======= About Section ======= -->
-            <section id="about" class="about">
-               <div class="container">
+            <!-- ======= Gallery Section ======= -->
+            <section id="gallery" class="gallery">
+               <div style="text-align: center;" class="container-fluid">
+
+                  <!-- 페이지 변수 선언 -->
+                  <c:set var="pageSize" value="12" />
+                  <c:set var="totalCount" value="${fn:length(searchMovie)}" />
+                  <c:set var="totalPages"
+                     value="${(totalCount + pageSize - 1) / pageSize}" />
+                  <c:set var="currentPage"
+                     value="${param.page != null ? param.page : 1}" />
+
+                  <!-- 시작 및 끝 인덱스 설정 -->
+                  <c:set var="start" value="${pageSize * (currentPage - 1)}" />
+                  <c:set var="end" value="${pageSize * currentPage - 1}" />
 
                   <div class="row gy-4 justify-content-center">
-                     <div class="col-lg-4">
-                        <img src="${movieList.posters}" class="img-fluid" alt="">
-                        
-                     </div>
-                     <div class="col-lg-5 content">
-
-                        <h2>${movieList.title}</h2>
-
-
-                        <div class="row">
-                           <div class="col-lg-6">
-                              <ul>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>영화감독:</strong>
-                                    <span>${movieList.directornm} </span></li>
-
-                                 <li><i class="bi bi-chevron-right"></i> <strong>주연배우명:</strong>
-                                    <span>${movieList.actornm} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>국가명:</strong>
-                                    <span> ${movieList.nation}</span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>제작사:</strong>
-                                    <span>${movieList.company}</span></li>
-                              </ul>
+                     <c:forEach var="i" begin="${start}" end="${end}" step="1">
+                        <c:if test="${i < totalCount}">
+                           <div class="col-xl-2 col-lg-4 col-md-6">
+                              <div class="gallery-item h-80">
+                                 <img src="${searchMovie.get(i).getPosters()}"
+                                    class="img-fluid" alt="">
+                                 <div
+                                    class="gallery-links d-flex align-items-center justify-content-center">
+                                    <a href="${searchMovie.get(i).getPosters() }" title="${searchMovie.get(i).getTitle() }"
+                                       class="glightbox preview-link"><i
+                                       class="bi bi-arrows-angle-expand"></i></a> <a
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=검색&Docid=${searchMovie.get(i).getDocid() }" class="details-link"><i
+                                       class="bi bi-link-45deg"></i></a>
+                                 </div>
+                              </div>
                            </div>
-                           <div class="col-lg-6">
-                              <ul>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>관람등급:</strong>
-                                    <span>${movieList.rating} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>개봉일:</strong>
-                                    <span>${movieList.reprlsdate} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>상영시간:</strong>
-                                    <span>${movieList.runtime} 분</span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>장르:</strong>
-                                    <span>${movieList.genre}</span></li>
-                              </ul>
-                           </div>
-                        </div>
-
-                        <p class="py-3">${movieList.plot }</p>
-
-
-
-
-
-                     </div>
+                        </c:if>
+                     </c:forEach>
                   </div>
+                  <!-- 페이징 레이아웃 추가 -->
+                  <div class="pagenation">
+                     <%-- 이전 10 단위 페이지 버튼 추가 --%>
+                     <c:if test="${currentPage > 10}">
+                        <a
+                           href="?movieCate=${param.movieCate}&title=${param.title }&page=${((currentPage - 1) - ((currentPage - 1) % 10))}"><<</a>&nbsp;
+                   </c:if>
 
+                     <%-- 이전 페이지 버튼 추가 --%>
+                     <c:if test="${currentPage > 1}">
+                        <a
+                           href="?movieCate=${param.movieCate}&title=${param.title }&page=${currentPage - 1}">&lt;</a>&nbsp;
+                   </c:if>
+
+                     <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:if
+                           test="${i >= ((currentPage - 1) - ((currentPage - 1) % 10)) && i <= (currentPage + (10 - ((currentPage - 1) % 10))) - 1}">
+                           <c:choose>
+                              <c:when test="${i == currentPage}">
+                                 <%-- 현재 페이지 번호 표시 --%>
+                                 <span class="current">${i}</span>&nbsp;
+                               </c:when>
+                              <c:otherwise>
+                                 <%-- 페이지 번호 표시 --%>
+                                 <a href="?movieCate=${param.movieCate}&title=${param.title }&page=${i}">${i}</a>&nbsp;
+                            </c:otherwise>
+                           </c:choose>
+                        </c:if>
+                     </c:forEach>
+                     <%-- 다음 페이지 버튼 추가 --%>
+                     <c:if test="${currentPage < totalPages}">
+                        <a
+                           href="?movieCate=${param.movieCate}&title=${param.title }&page=${currentPage + 1}">&gt;</a>&nbsp;
+                   </c:if>
+
+                     <%-- 다음 10 단위 페이지 버튼 추가 --%>
+                     <c:if test="${currentPage < (totalPages - (totalPages % 10))}">
+                        <a
+                           href="?movieCate=${param.movieCate}&title=${param.title }&page=${(currentPage + (10 - ((currentPage - 1) % 10)))}">>></a>
+                     </c:if>
+                  </div>
                </div>
             </section>
-            <!-- End About Section -->
-
-            <!-- ======= Testimonials Section ======= -->
-                        <section id="testimonials" class="testimonials">
-               <div class="container">
-
-                  <div class="section-header">
-                     <h2>REVIEW</h2>                     
-                  </div>
-                  <section id="contact" class="contact">
-			<div class="container">
-
-
-				<div class="row justify-content-center mt-4">
-
-					<div class="col-lg-9">
-					<c:if test="${not empty sessionScope.loginUser}">
-						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form">		
-							<fieldset>
-								<span class="text-bold">별점을 선택해주세요</span>
-								<input type="radio" name="review_star" value="5" id="rate1"><label
-									for="rate1"><i class="bi bi-star-fill"></i></label>
-								<input type="radio" name="review_star" value="4" id="rate2"><label
-									for="rate2"><i class="bi bi-star-fill"></i></label>
-								<input type="radio" name="review_star" value="3" id="rate3"><label
-									for="rate3"><i class="bi bi-star-fill"></i></label>
-								<input type="radio" name="review_star" value="2" id="rate4"><label
-									for="rate4"><i class="bi bi-star-fill"></i></label>
-								<input type="radio" name="review_star" value="1" id="rate5"><label
-									for="rate5"><i class="bi bi-star-fill"></i></label>
-							</fieldset>																											
-							<!-- Hidden input field for selected docid -->
-							<input type="hidden" name="docid" value="${movieList.docid}"/>
-							<div class="row">
-								<div class="form-group mt-3">
-									<input type="text" name="user_id" class="form-control"
-										id=user_id value=${sessionScope.loginUser.user_id}
-										placeholder="${sessionScope.loginUser.user_id}" required
-										readonly>
-								</div>
-							</div>							
-							<div class="form-group mt-3">
-								<textarea class="form-control" name="review_content" rows="5"
-									placeholder="Content" required></textarea>
-							</div>
-														
-							<div>
-								<button type="submit">등록</button>
-							</div>
-						</form>
-						</c:if>
-					</div>
-					<!-- End Contact Form -->
-
-				</div>
-
-			</div>
-		</section>
-		<br>				
-                  <div class="slides-3 swiper">
-                     <div class="swiper-wrapper">
-						<c:forEach var="review" items="${reviewList}">
-                        <div class="swiper-slide">
-                           <div class="testimonial-item">
-                              <div class="stars">
-                               <c:forEach begin="1" end="${review.review_star}" varStatus="loop">
-		                           <i class="bi bi-star-fill"></i>
-		                       </c:forEach>
-		                              </div>
-		                      <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${review.user_id}"><h3>작성자:${review.user_id }</h3></a>                                    
-                              <div class="profile mt-auto">
-                                 <img src="assets/img/testimonials/testimonials-1.jpg"
-                                    class="testimonial-img" alt="">                                                               
-                              </div>
-                              <p>${review.review_content }</p>
-                              <c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == review.user_id}">
-                              <button type="button" onclick="ReviewDelete()" class="button large">삭제</button>
-                              </c:if>
-                              <form id="deleteForm" action="deletereview" method="POST">
-									<input type="hidden" name="review_no" value="${review.review_no}">
-									<input type="hidden" name="docid" value="${movieList.docid}">									
-							  </form>
-                           </div>
-                        </div>
-                        <!-- End testimonial item -->   
-                        </c:forEach>                     					
-                     </div>
-                     <div class="swiper-pagination"></div>
-                  </div>				
-               </div>
-            </section>            
-            <!-- End Testimonials Section -->
-
          </main>
-         <!-- End #main -->
-       <!-- ======= Footer ======= -->
+        <!-- ======= Footer ======= -->
    <footer id="footer" class="footer">
       <div class="container">
          <div class="copyright">
