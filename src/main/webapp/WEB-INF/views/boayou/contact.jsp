@@ -1,30 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<html lang="en">
+<title>PhotoFolio Bootstrap Template - Gallery Single</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <title>PhotoFolio Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
+	rel="stylesheet">
 
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link rel="stylesheet" type="text/css"
+<!-- Vendor CSS Files -->
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
 
 <link rel="stylesheet" type="text/css"
@@ -43,19 +40,34 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
-
-    <!-- =======================================================
+<!-- =======================================================
   * Template Name: PhotoFolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
   * Template URL: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<script>
+    function fetchSearchResults() {
+        var title = document.getElementById('movie_title_search').value;
+        document.getElementById('search_results').innerHTML = "Loading...";
+        fetch("search?title=" + title)
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('search_results').innerHTML = text;
+            });
+    }
+
+    function selectDocId(docId) {
+        document.getElementById('selected_docid').value = docId;
+        alert("선택된 영화의 docid: " + docId);
+    }
+</script>
 </head>
 
 <body>
 
-    	<!-- ======= Header ======= -->
+	<!-- ======= Header ======= -->
 	<header id="header" class="header d-flex align-items-center fixed-top">
 		<div
 			class="container-fluid d-flex align-items-center justify-content-between">
@@ -125,9 +137,9 @@
 						</ul></li>
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
-						      <a>${sessionScope.loginUser.name} 님</a>
+						       <a>${sessionScope.loginUser.name} 님</a>
 						       <a href="logout">로그아웃</a>
-						       <li><a href="myProfilePage">마이페이지</a></li>
+						       <li><a href="myPage">마이페이지</a></li>
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>
@@ -154,63 +166,122 @@
 	</header>
 	<!-- End Header -->
 
-    <form action="loginProcess" method="post">
-        <div class="col-lg-12 text-center">
-            <div class="header">
-                <h3>로그인</h3>
-            </div>
-            <br>
-            <div class="box-input">
-                <label for="id"></label> <input type="text" id="user_id" name="user_id"placeholder="아이디">
-                <div class="box-line-height"></div>
-                <br>
-                <label for="pwd"></label> <input type="password" id="pwd" name="pwd"placeholder="비밀번호">
-                <div class="box-line-height"></div>
- </div>
-<br>
-            <div class="box-submit">
-                <input type="submit" value="로그인" onclick="//">
-                <a href="join.html">회원가입</a>
-            </div>
-            <br>
-        </div>
-        <c:if test="${not empty msg}">
-        <p style="text-align: center">${msg}</p>
-    	</c:if>
-    </form>
+	<main id="main" data-aos="fade" data-aos-delay="1500">
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>PhotoFolio</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
-    </footer><!-- End Footer -->
+		<!-- ======= End Page Header ======= -->
+		<div class="page-header d-flex align-items-center">
+			<div class="container position-relative">
+				<div class="row d-flex justify-content-center">
+					<div class="col-lg-6 text-center">
+						<h2>Community</h2>
 
-    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Page Header -->
 
-    <div id="preloader">
-        <div class="line"></div>
-    </div>
+		<!-- ======= Contact Section ======= -->
+		<section id="contact" class="contact">
+			<div class="container">
 
-    <!-- Vendor JS Files -->
-   <script src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
 
-<!— Template Main JS File —>
-<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+				<div class="row justify-content-center mt-4">
+
+					<div class="col-lg-9">
+						<form action="community-insert" method="post" role="form"
+							class="php-email-form">
+							<!-- Search movie -->
+							<div class="form-group mt-3">
+								<input type="text" class="form-control" id="movie_title_search"
+									placeholder="Search movie title">
+								<button type="button" onclick="fetchSearchResults();">Search</button>
+							</div>
+							<div id="search_results" style="padding: 10px;"></div>
+
+							<!-- Hidden input field for selected docid -->
+							<input type="hidden" id="selected_docid" name="docid">
+							<div class="row">
+								<div class="form-group mt-3">
+									<input type="text" name="user_id" class="form-control"
+										id=user_id value=${sessionScope.loginUser.user_id
+										}
+										placeholder="${sessionScope.loginUser.user_id}" required
+										readonly>
+								</div>
+							</div>
+							<div class="form-group mt-3">
+								<input type="text" class="form-control" name="community_title"
+									id="community_title" placeholder="TITLE" required>
+							</div>
+							<div class="form-group mt-3">
+								<textarea class="form-control" name="community_content" rows="5"
+									placeholder="Content" required></textarea>
+							</div>
+							<div class="my-3">
+								<div class="loading">Loading</div>
+								<div class="error-message"></div>
+								<div class="sent-message">Your message has been sent.
+									Thank you!</div>
+							</div>
+							<div>
+								<button type="submit">Save</button>
+							</div>
+						</form>
+					</div>
+					<!-- End Contact Form -->
+
+				</div>
+
+			</div>
+		</section>
+		<!-- End Contact Section -->
+
+	</main>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer" class="footer">
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong><span>PhotoFolio</span></strong>. All
+				Rights Reserved
+			</div>
+			<div class="credits">
+				<!-- All the links in the footer should remain intact. -->
+				<!-- You can delete the links only if you purchased the pro version. -->
+				<!-- Licensing information: https://bootstrapmade.com/license/ -->
+				<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
+				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#"
+		class="scroll-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<div id="preloader">
+		<div class="line"></div>
+	</div>
+
+	<!-- Vendor JS Files -->
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
 
 </body>
 

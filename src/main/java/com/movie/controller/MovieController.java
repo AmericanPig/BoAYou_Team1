@@ -459,5 +459,13 @@ public class MovieController {
 	  
 	  return user;
    }
+   
+   @GetMapping("userPage")
+   public void userPage(@RequestParam("user_id")String user_id, Model model) {	
+	   UserDTO user = UserService.selectUserById(user_id);
+	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
+	   model.addAttribute("user", user);
+	   model.addAttribute("userprofile", userprofile);
+   }
 
 }

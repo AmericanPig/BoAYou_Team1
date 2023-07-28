@@ -173,7 +173,7 @@ body {
 	<div id="comments-container">
 		<c:forEach var="comment" items="${comments}">
 			<ul class="stats">
-				<li style="float: reft;">작성자:${comment.user_id }</li>
+				<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${comment.user_id}"> <li style="float: reft;">작성자:${comment.user_id }</li></a>
 				<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 				<li>
 					<button type="button" onclick="CommentDelete(this)"

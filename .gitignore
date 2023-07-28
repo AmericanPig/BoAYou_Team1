@@ -1,7 +1,11 @@
+<<<<<<< HEAD
+target
+=======
 */target/*
 .target
 target
 target/*
+>>>>>>> e425b42663530aee398ad59336e7587cf3b94017
 .settings
 .DS_Store
 .classpath

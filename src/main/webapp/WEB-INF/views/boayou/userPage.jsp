@@ -2,19 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - Index</title>
+<title>User Page</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="img/favicon.png" rel="icon">
-<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,14 +24,6 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-	crossorigin="anonymous">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/css/main2.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
 
@@ -51,8 +43,6 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
-
-
 <!-- =======================================================
   * Template Name: PhotoFolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -60,99 +50,6 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-function openCommentPopup(event, community_no) {
-	  event.preventDefault();
-	 
-	  let popupWindow = window.open("", "popupWindow", "width=800,height=0");
-	  let newUrl = "/controller/boayou/comments?community_no=" + community_no;
-	  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
-
-	  slideUpWindow(popupWindow);
-	}
-	  
-	function slideUpWindow(popupWindow) {
-	  let currentHeight = 0;
-	  let increment = 20;
-	  let screenHeight = window.innerHeight;
-	  let windowWidth = 800;
-	  
-	  let slideUpInterval = setInterval(function() {
-	    currentHeight += increment;
-	    let newYPosition = window.screenY + (screenHeight - currentHeight) / 2;
-	    let centerXPosition = window.screenX + (screen.width - windowWidth) / 2;
-	    popupWindow.resizeTo(windowWidth, currentHeight);
-	    popupWindow.moveTo(centerXPosition, newYPosition);
-
-	    if (currentHeight >= screenHeight) {
-	      clearInterval(slideUpInterval);
-	      popupWindow.resizeTo(windowWidth, screenHeight);
-	    }
-	  }, 10);
-	}
-	  function confirmDelete() {
-          var confirmation = confirm("정말로 삭제하시겠습니까?");
-          if (confirmation) {
-              document.getElementById("deleteForm").submit();
-          }
-      }	 
-	  function submitJoayoForm(element) {
-		  var community_no = $(element).data('community-no');
-		  var user_id = $(element).data('user-id');
-
-		  $.ajax({
-		    type: 'POST',
-		    url: 'pushcommunityjoayo',
-		    data: { community_no: community_no, user_id: user_id },
-		    dataType: 'json',
-		    beforeSend: function() {
-		      console.log('Request:', { community_no: community_no, user_id: user_id });
-		    },
-		    success: function(response) {
-		      console.log('Response:', response);
-
-		      if (response.hasOwnProperty('newJoayoCount')) {
-		        $(element).text(response.newJoayoCount);
-		      } else {
-		        console.error('Invalid response. Please check the server.');
-		      }
-		    },
-		    error: function(xhr, status, error) {
-		      alert('로그인 후 이용가능한 서비스입니다.');
-		      console.error('Error:', error);
-		    },
-		  });
-		}
-	  function submitSiroyoForm(element) {
-		  var community_no = $(element).data('community-no');
-		  var user_id = $(element).data('user-id');
-
-		  $.ajax({
-		    type: 'POST',
-		    url: 'pushcommunitysiroyo',
-		    data: { community_no: community_no, user_id: user_id },
-		    dataType: 'json',
-		    beforeSend: function() {
-		      console.log('Request:', { community_no: community_no, user_id: user_id });
-		    },
-		    success: function(response) {
-		      console.log('Response:', response);
-
-		      if (response.hasOwnProperty('newSiroyoCount')) {
-		        $(element).text(response.newSiroyoCount);
-		      } else {
-		        console.error('Invalid response. Please check the server.');
-		      }
-		    },
-		    error: function(xhr, status, error) {
-		      alert('로그인 후 이용가능한 서비스입니다.');
-		      console.error('Error:', error);
-		    },
-		  });
-		}
-</script>
 </head>
 
 <body>
@@ -243,8 +140,8 @@ function openCommentPopup(event, community_no) {
 						</ul></li>
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginUser}">
-						        <a>${sessionScope.loginUser.name} 님</a>
-						       <a href="logout">로그아웃</a>
+							<a>${sessionScope.loginUser.name} 님</a>
+							<a href="logout">로그아웃</a>
 							<li><a href="myPage">마이페이지</a></li>
 						</c:when>
 						<c:otherwise>
@@ -270,6 +167,7 @@ function openCommentPopup(event, community_no) {
 
 		</div>
 	</header>
+	<!-- End Header -->
 
 	<main id="main" data-aos="fade" data-aos-delay="1500">
 
@@ -278,10 +176,8 @@ function openCommentPopup(event, community_no) {
 			<div class="container position-relative">
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
-						<h2>Community</h2>
 
-
-						<a class="cta-btn" href="contact">글 작성</a>
+						<h2>${user.name}님의 페이지</h2>
 
 					</div>
 				</div>
@@ -289,107 +185,51 @@ function openCommentPopup(event, community_no) {
 		</div>
 		<!-- End Page Header -->
 
-		<!-- ======= Testimonials Section ======= -->
-		<section id="testimonials" class="testimonials">
+		<!-- ======= Gallery Single Section ======= -->
+		<section id="gallery-single" class="gallery-single">
 			<div class="container">
+				<div class="row justify-content-between gy-4 mt-4">
 
-				<div class="section-header">
-					<h2>Best</h2>
-					<p>인기글</p>
-				</div>
-
-				<div class="slides-3 swiper">
-					<div class="swiper-wrapper">
-						<c:forEach var="rank" items="${communityRank}" varStatus="status">
-							<div class="swiper-slide">
-								<div class="testimonial-item">
-									<span style="text-align:right;" class="name"><a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${rank.user_id}" class="author">${rank.user_id}</a></span>
-									<h2>${status.count}위</h2>
-									<h3>${rank.community_title}</h3>																	
-									<div class="profile mt-auto">			
-										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${rank.docid}" class="image featured">																		
-										<img src="${rank.posters}" class="testimonial-img" alt=""></a>							
-										<p>${rank.community_content}</p>
-										<ul class="stats">
-											<li style="float: left;"><a href="javascript:void(0)"
-												class="icon solid fa-thumbs-up" style="color: white;"
-												onclick="submitJoayoForm(this);"
-												data-community-no="${rank.community_no}"
-												data-user-id="${sessionScope.loginUser.user_id}">${rank.joayo}</a></li>
-											<li style="float: right;"><a href="javascript:void(0)"
-												class="icon solid fa-thumbs-down" style="color: white;"
-												onclick="submitSiroyoForm(this);"
-												data-community-no="${rank.community_no}"
-												data-user-id="${sessionScope.loginUser.user_id}">${rank.siroyo}</a></li>
-											<li style="float: center;"><a href="#"
-												class="icon solid fa-comment" style="color: white;"
-												onclick="openCommentPopup(event, ${rank.community_no});">${rank.comment_count}</a></li>
-										</ul>
-
-									</div>
+					<div class="col-lg-8">
+						<div class="portfolio-description">
+							<h2>${user.name}님의 프로필</h2>
+							<div class="testimonial-item">
+								<p>
+									<i class="bi bi-quote quote-icon-left"></i>
+									<!--                  	오늘도 즐거운 하루되세여 :) -->
+								<h3>' ${userprofile.intro} '</h3>
+								<i class="bi bi-quote quote-icon-right"></i>
+								<div>
+									<img src="${userprofile.img }" class="testimonial-img" alt="">
+									<c:choose>
+										<c:when test="${not empty sessionScope.loginUser}">
+											<h3>' ${user.user_id} 님 '</h3>
+											<h4>회원등급 : ${user.user_level}</h4>
+										</c:when>
+									</c:choose>
+									<br> <br>
 								</div>
 							</div>
-							<!-- End testimonial item -->
-						</c:forEach>
-
+						</div>
 					</div>
-					<div class="swiper-pagination"></div>
+
+					<div class="col-lg-3">
+						<div class="portfolio-info">
+							<h3>${user.user_id}님의정보</h3>
+							<ul>
+								<li><strong>아이디</strong> <span>${user.user_id}</span></li>
+								<li><strong>이름</strong> <span>${user.name}</span></li>
+								<li><strong>나이</strong> <span>${user.age}</span></li>
+								<li><strong>생년월일</strong> <span>${user.jumin.substring(0,2)}년
+										${user.jumin.substring(2,4)}월 ${user.jumin.substring(4,6)}일</span></li>
+								<!-- DB에 저장 된 가입정보 넣기 -->
+							</ul>
+						</div>
+					</div>
 				</div>
-
 			</div>
-
 		</section>
-		<!-- End Testimonials Section -->
-		<!-- ======= Services Section ======= -->
-		<c:forEach var="community" items="${community_List}">
-			<article class="post">
-				<header>
-					<div class="title">
-						<h2>${community.community_title}</h2>
-					</div>
-					<div class="meta">
-						<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${community.user_id}" class="author"><span class="name">${community.user_id}</span></a>
-					</div>
-				</header>
-				<c:if test="${not empty community.posters}">
-					<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${community.docid}" class="image featured"> <img
-						src="${community.posters}"/>
-					</a>
-				</c:if>
-				<p>${community.community_content}</p>
-				<footer>
-					<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
-					<ul class="actions">
-						<li><button type="button" onclick="confirmDelete()"
-								class="button large">삭제</button></li>
-					</ul>
-					</c:if>
-					<form id="deleteForm" action="deletecommunity" method="POST">
-						<input type="hidden" name="community_no"
-							value="${community.community_no}">
-					</form>
-					<ul class="stats">
-
-						<li><a href="javascript:void(0)"
-							class="icon solid fa-thumbs-up" style="color: white;"
-							onclick="submitJoayoForm(this);"
-							data-community-no="${community.community_no}"
-							data-user-id="${sessionScope.loginUser.user_id}">${community.joayo}</a>
-						</li>
-						<li><a href="javascript:void(0)"
-							class="icon solid fa-thumbs-down" style="color: white;"
-							onclick="submitSiroyoForm(this);"
-							data-community-no="${community.community_no}"
-							data-user-id="${sessionScope.loginUser.user_id}">${community.siroyo}</a></li>
-						<li><a href="javascript:void(0)"
-							class="icon solid fa-comment" style="color: white;"
-							onclick="openCommentPopup(event, ${community.community_no});">${community.comment_count }</a></li>
-					</ul>
-				</footer>
-			</article>
-		</c:forEach>
-
-
+		<!-- End Gallery Single Section -->
 
 	</main>
 	<!-- End #main -->
@@ -413,9 +253,8 @@ function openCommentPopup(event, community_no) {
 	<!-- End Footer -->
 
 	<a href="#"
-		class="scroll-top d-flex align-items-center justify-content-center">
-		<i class="bi bi-arrow-up-short"></i>
-	</a>
+		class="scroll-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
 	<div id="preloader">
 		<div class="line"></div>
