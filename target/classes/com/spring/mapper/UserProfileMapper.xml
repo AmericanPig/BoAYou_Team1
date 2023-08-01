@@ -53,9 +53,7 @@
 		)
 	</insert>
 	<delete id="deleteMyMovieList">
-	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}
-		INSERT INTO mymovielist(user_id, docid)
-		VALUES (#{user_id}, #{docid);
+	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}		
 	</delete>
 
   </mapper>

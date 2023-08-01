@@ -503,7 +503,7 @@ a {
 										<th>영화 포스터</th>
 									</tr>
 									<c:set var="count" value="0" />
-									<c:forEach var="mylist" items="${mymovielist}"
+									<c:forEach var="mylist" items="${myMovieList}"
 										varStatus="status">
 										<c:if test="${mylist.movielist_name == movieName}">
 											<c:set var="count" value="${count + 1}" />

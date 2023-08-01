@@ -202,7 +202,7 @@ public class MovieController {
    @GetMapping("myPage")
    public void myPage(Model model, HttpSession session) {	   
 	   UserDTO user = (UserDTO)session.getAttribute("loginUser");
-	   UserProfileDTO userProfile = (UserProfileDTO)session.getAttribute("loginUser	Profile");
+	   UserProfileDTO userProfile = (UserProfileDTO)session.getAttribute("loginUserProfile");
 	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user.getUser_id());
 	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
 	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user.getUser_id());
