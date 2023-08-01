@@ -127,7 +127,7 @@ document.getElementById("updateProfileForm").addEventListener("submit", (event) 
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css">
+	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css?after">
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
@@ -549,7 +549,7 @@ a {
 					<p>리뷰를 작성한 영화</p>
 				</div>
 
-				<div class="slides-3 swiper" style="height : 50%">
+				<div class="slides-3 swiper">
 					<div class="swiper-wrapper">
 						<c:forEach var="myReviewMovie" items="${myReviewMovieList}" varStatus="status">
 							<div class="swiper-slide" style="height : 50%;">
@@ -574,8 +574,48 @@ a {
 		
 		<!-- ======= MyCommunityMovie Section ======= -->
 		<section id="testimonials" class="testimonials">
-			
-		</section>
+         <div class="container">
+         <div class="section-header">
+            <h2>My Community</h2>
+            <p>내 커뮤니티</p>
+         </div>
+         
+         <table id="communityTable">
+                     <thead>
+                        <tr>
+                           <th>No.</th>
+                           <th>영화 이미지</th>
+                           <th>영화명</th>
+                           <th>Title</th>
+                           <th>Content</th>
+                           <th>좋아요</th>
+                           <th>싫어요</th>
+                           <th>댓글 수</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     
+                     <c:forEach var="myCommunity" items="${myCommunityList}" varStatus="status">
+                        <tr>
+                           <td>${myCommunity.community_no }</td>
+                           <td>
+                              <a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myCommunity.docid}" class="image featured">                                                      
+                        <img src="${myCommunity.posters}" class="testimonial-img" alt=""></a>
+                     </td>
+                     <td>${myCommunity.title }</td>
+                     <td>${myCommunity.community_title }</td>
+                     <td>${myCommunity.community_content }</td>
+                     <td>${myCommunity.joayo }</td>
+                     <td>${myCommunity.siroyo }</td>
+                     <td>${myCommunity.comment_count }</td>
+                        </tr>
+                     <!-- End testimonial item -->
+                  </c:forEach>
+                     </tbody>
+                  </table>
+         
+         </div>
+      </section>
 		<!-- End MyCommunityMovie Section -->
 
   </main><!-- End #main -->

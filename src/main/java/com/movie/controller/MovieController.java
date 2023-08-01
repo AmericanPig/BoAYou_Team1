@@ -511,7 +511,7 @@ public class MovieController {
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
 	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id); 
-	   model.addAttribute("mymovielist", mymovielist);
+	   model.addAttribute("myMovieList", mymovielist);
 	   model.addAttribute("user", user);
 	   model.addAttribute("userprofile", userprofile);	   
 	   Set<String> uniqueMovieListNames = new LinkedHashSet<>();
@@ -546,7 +546,7 @@ public class MovieController {
    @PostMapping("deleteMyMovieList")
    public String deleteMyMovieList(int mymovielist_no, String user_id) {	   
 	   userProfileService.deleteMyMovieList(mymovielist_no);	   
-	   return "redirect:/boayou/userPage?user_id="+user_id;
+	   return "redirect:/boayou/myPage";
    }
    @PostMapping("searchUser")
    public RedirectView searchUser(String user_id) {
