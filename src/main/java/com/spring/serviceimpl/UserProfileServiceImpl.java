@@ -1,9 +1,12 @@
 package com.spring.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.MyMovieListDTO;
 import com.spring.domain.UserProfileDTO;
 import com.spring.mapper.UserProfileMapper;
 import com.spring.service.UserProfileService;
@@ -21,6 +24,7 @@ public class UserProfileServiceImpl implements UserProfileService{
 		int profileFlag = mapper.selectUserProfileCnt(user_id);
 		switch(profileFlag) {
 		case 0:
+			user.setIntro(user_id + " 님의 소개글입니다.");
 			result = mapper.insertUserProfile(user);
 			break;
 		case 1:
@@ -35,6 +39,7 @@ public class UserProfileServiceImpl implements UserProfileService{
 		String user_id = user.getUser_id();
 		String img = user.getImg();
 		String intro = user.getIntro();
+		System.out.println(user);
 		
 		if(img.length()>0) {
 			result += mapper.updateUserProfileImg(user_id, img);
@@ -61,5 +66,23 @@ public class UserProfileServiceImpl implements UserProfileService{
 	//user_id의 프로필 불러오기
 	public UserProfileDTO getUserProfile(String user_id) {
 		return mapper.selectUserProfile(user_id);
+	}
+	
+	//user_id의 나만의 무비 리스트 불러오기
+	@Override
+	public List<MyMovieListDTO> selectMyMovieList(String user_id){
+		return mapper.selectMyMovieList(user_id);
+	}
+	
+	//나만의 무비리스트 추가
+	@Override
+	public int insertMyMovieList(String user_id, String docid) {		
+		return mapper.insertMyMovieList(user_id, docid);
+	}
+	
+	//나만의 무비리스트 삭제
+	@Override
+	public int deleteMyMovieList(String user_id, String docid) {		
+		return mapper.deleteMyMovieList(user_id, docid);
 	}
 }

@@ -12,6 +12,7 @@ public class CommunityDTO {
 	private int community_no;
 	private String user_id;
 	private String docid;
+	private String title;
 	private String community_title;
 	private String community_content;
 	private String posters;

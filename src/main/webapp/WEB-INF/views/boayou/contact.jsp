@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Contact</title>
+<title>community creation</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -131,20 +131,15 @@
 																		
 								</ul>
 							</li>
+							
+							
+
 						</ul></li>
-						
-					<li><a href="community">커뮤니티</a></li>	
-						
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
-<<<<<<< HEAD
-=======
 						       <a>${sessionScope.loginUser.name} 님</a>
 						       <a href="logout">로그아웃</a>
->>>>>>> 1fdc91450f078e30433a412a14222df3272b85b7
 						       <li><a href="myPage">마이페이지</a></li>
-						       <a href="logout">로그아웃</a>
-						       <a>${sessionScope.loginUser.name} 님</a>
 							  </c:when>
 							  <c:otherwise>
 						      <li><a href="login">로그인</a></li>
@@ -152,7 +147,7 @@
 						   </c:otherwise>
 						</c:choose>
 						
-									
+						<li><a href="community">커뮤니티</a></li>				
 				</ul>
 			</nav>
 			<!-- .navbar -->
@@ -178,7 +173,7 @@
 			<div class="container position-relative">
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
-						<h2>Community</h2>
+						<h2>community creation</h2>
 
 					</div>
 				</div>
@@ -203,7 +198,7 @@
 								<button type="button" onclick="fetchSearchResults();">Search</button>
 							</div>
 							<div id="search_results" style="padding: 10px;"></div>
-
+							
 							<!-- Hidden input field for selected docid -->
 							<input type="hidden" id="selected_docid" name="docid">
 							<div class="row">
@@ -249,14 +244,15 @@
 	<footer id="footer" class="footer">
 		<div class="container">
 			<div class="copyright">
-				&copy; Copyright <strong><span>Boayou</span></strong> All Rights Reserved
+				&copy; Copyright <strong><span>PhotoFolio</span></strong>. All
+				Rights Reserved
 			</div>
 			<div class="credits">
 				<!-- All the links in the footer should remain intact. -->
 				<!-- You can delete the links only if you purchased the pro version. -->
 				<!-- Licensing information: https://bootstrapmade.com/license/ -->
 				<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-				Designed by <a href="https://bootstrapmade.com/">Boayou</a>
+				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 			</div>
 		</div>
 	</footer>
@@ -270,7 +266,7 @@
 		<div class="line"></div>
 	</div>
 
-	<!-- Vendor JS Files -->
+	<!— Vendor JS Files —>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script
@@ -282,7 +278,7 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
 
-	<!-- Template Main JS File -->
+	<!— Template Main JS File —>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 

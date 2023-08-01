@@ -1,50 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<html lang="en">
+<head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	function openPopup() {
-		  //event.preventDefault();
-		 
-		  let popupWidth = window.innerWidth * 0.2;
-		  let popupHeight = window.innerHeight * 0.2;
-		  let left = (window.innerWidth - popupWidth) / 2;
-		  let top = (window.innerHeight - popupHeight) / 2;
-		 
-		  let options = 'width='+popupWidth+',height='+popupHeight+',top='+top+',left='+left;
-	
-		  let popupWindow = window.open("", "popupWindow", options);
-		  let newUrl = "/controller/boayou/changePwd";
-	
-		  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
-		  }
-	
-	
-		window.addEventListener('focus', function() {
-	    if (sessionStorage.getItem('profileUpdated') === 'yes') {
-	        sessionStorage.removeItem('profileUpdated');
-	        location.reload();
-	    }
+$(document).ready(function () {
+	  $(".trigger").on("click", function () {
+	    $(".modal-wrapper").toggleClass("open");
+	    $(".page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});
+
+$(document).ready(function () {
+	  $(".pwd-trigger").on("click", function () {
+	    $(".pwd-modal-wrapper").toggleClass("pwd-open");
+	    $(".pwd-page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
 	});
 	
-	function openProfilePopup() {
+$(document).ready(function () {
+	  $(".profile-trigger").on("click", function () {
+	    $(".profile-modal-wrapper").toggleClass("profile-open");
+	    $(".profile-page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});
 
-		  let popupWidth = window.innerWidth * 0.8;
-		  let popupHeight = window.innerHeight * 0.8;
-		  let left = (window.innerWidth - popupWidth) / 2;
-		  let top = (window.innerHeight - popupHeight) / 2;
-		 
-		  let options = 'width='+popupWidth+',height='+popupHeight+',top='+top+',left='+left;
+$(function(){
+	  $('.tabcontent > div').hide();
+	  $('.tabnav a').click(function () {
+	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+$(function(){
+	  $('.pwd-tabcontent > div').hide();
+	  $('.pwd-tabnav a').click(function () {
+	    $('.pwd-tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.pwd-tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+$(function(){
+	  $('.profile-tabcontent > div').hide();
+	  $('.profile-tabnav a').click(function () {
+	    $('.profile-tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.profile-tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+function Delete() {
+  var confirmation = confirm("정말로 삭제하시겠습니까?");
+  if (confirmation) {
+      document.getElementById("deleteForm").submit();
+  }
+}  
 
-		  let popupWindow = window.open("", "profilePopupWindow", options);
-		  let newUrl = "/controller/boayou/updateProfile";
+function previewImage() {
+    const preview = document.getElementById('currentImage');
+    const file = document.getElementById('profileImage').files[0];
+    const reader = new FileReader();
 
-		  popupWindow.document.write('<iframe src="' + newUrl + '" frameborder="0" style="width: 100%; height: 100%;"></iframe>');
-		}
+    reader.addEventListener("load", function () {
+      preview.src = reader.result;
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+  
+document.getElementById("updateProfileForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const url = "/controller/boayou/updateProfileProcess";
+
+    fetch(url, {
+      method: "POST",
+      body: formData
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        alert("프로필 변경 완료");
+        window.opener.location.reload();
+        window.close();
+      } else {
+        alert("프로필 변경 실패");
+      }
+    });
+  });
 
 </script>
-<html lang="en">
-
-<head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -80,6 +138,15 @@
 <!-- Template Main CSS File -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/css/user.css?after">
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/css/pwd.css?after">
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/css/profile.css?after">
 
   <!-- =======================================================
   * Template Name: PhotoFolio
@@ -88,6 +155,97 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+  .custom-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #5cb85c;
+    border: 1px solid #4cae4c;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th {
+  text-align: left;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #353535;
+}
+
+a {
+  color: #73685d;
+}
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  th {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  
+  }
+</style>
 </head>
 
 <body>
@@ -215,27 +373,22 @@
             <div class="portfolio-description">
               <h2>회원님의 프로필 변경하기</h2>
               <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-<!--                  	오늘도 즐거운 하루되세여 :) -->
-					<c:choose>
-					<c:when test="${not empty sessionScope.loginUser}">
-						<h3>' ${sessionScope.loginUserProfile.intro} '</h3>
-					</c:when>
-				</c:choose>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
                 <div>
-                  <img src="${pageContext.request.contextPath}/resources/assets/img/default.jpg" class="testimonial-img" alt="">
+                  <img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="">
 				<c:choose>
 					<c:when test="${not empty sessionScope.loginUser}">
-						<h3>' ${sessionScope.loginUser.user_id} 님 '</h3>
-						<h4 >회원등급 : ${sessionScope.loginUser.user_level} </h4>
+						<h3>${sessionScope.loginUser.user_id} 님</h3><br>
+						<h4 >회원등급 : ${sessionScope.loginUser.user_level} </h4><br>
+						<p>
+		                  <i class="bi bi-quote quote-icon-left" style = "padding-left : 20px;"></i>
+		                  <h3 style = "padding-left : 200px;">${sessionScope.loginUserProfile.intro}</h3>
+		                  <i class="bi bi-quote quote-icon-right" style = "padding-left : 80px;"></i>
+		                </p>
 					</c:when>
-				</c:choose>
-				<br>
-				<br>
-                  	<a href="#" onclick = "openProfilePopup()">프로필 변경</a>
+				</c:choose><br><br>
+				<div class="profile-page-wrapper">
+					<a class="btn profile-trigger" style="background-color: #161616; color: green;  width: 150px; text-align : left; padding-left : 0px;" href="#">프로필 변경</a>
+					</div>
                 </div>
               </div>
             </div>
@@ -253,10 +406,16 @@
 							<li><strong>생년월일</strong> <span>${sessionScope.loginUser.jumin.substring(0,2)}년 
 							${sessionScope.loginUser.jumin.substring(2,4)}월 
 							${sessionScope.loginUser.jumin.substring(4,6)}일</span></li>
-							<!-- DB에 저장 된 가입정보 넣기 -->
-						</ul>
-						<a href="#" onclick="openPopup()">비밀번호 변경</a><br><br>
-						<a href="logout">로그아웃</a>
+						<br>
+						<li><div class="pwd-page-wrapper">
+						<a class="btn pwd-trigger" style="background-color: black; color: green;  width: 150px; text-align : left; padding-left : 0px;" href="#">비밀번호 변경</a>
+						</div></li>
+						<li></li>
+						<li><a href="logout" style="color : green;">로그아웃</a></li>
+						<li><div class="page-wrapper">
+								  <a class="btn trigger" href="#">MovieBox</a>
+						</div></li>
+						</ul>	
 					</c:when>
 				</c:choose>
             </div>
@@ -264,6 +423,186 @@
         </div>
       </div>
     </section><!-- End Gallery Single Section -->
+    
+    
+    <!-- 		Start Profile change Section -->
+		<div class="profile-modal-wrapper">
+		  <div class="profile-modal">
+		    <div class="profile-head">
+		      <a class="btn-close profile-trigger" href="#">
+		        <i class="fa fa-times" aria-hidden="true"></i>
+		      </a>
+		      <h2>프로필 변경</h2>
+		    </div>
+		    <br><br><br><br>
+  				<form id="updateProfileForm" action="${pageContext.request.contextPath}/boayou/updateProfileProcess" method="post" enctype="multipart/form-data">
+				  <div style="text-align: center;">
+				    <img id="currentImage" src="${sessionScope.loginUserProfile.img }" style="margin: 0 auto;" width="200" height="200"><br>
+						<label for="profileImage" class="custom-btn">
+						    사진을 선택하세요
+						</label>
+						<input type="file" id="profileImage" name="profileImage" accept="image/png, image/jpeg, image/gif" onchange="previewImage()" style="display:none"/>
+
+				  </div>
+				  <div>
+				    <br>
+				    <textarea id="profileMessage" name="profileMessage" rows="5" cols="110" style="margin: 0 auto;">${sessionScope.loginUserProfile.intro}</textarea>
+				  </div>
+				  <button type="submit" class="custom-btn">저장</button>
+				</form>
+		  </div>
+		</div>
+<!-- 		End Profile Change Section -->
+    
+    <!-- 		Start Pwd change Section -->
+		<div class="pwd-modal-wrapper">
+		  <div class="pwd-modal">
+		    <div class="pwd-head">
+		      <a class="btn-close pwd-trigger" href="#">
+		        <i class="fa fa-times" aria-hidden="true"></i>
+		      </a>
+		      <h2>패스워드 변경</h2>
+		    </div>
+		    <h1 style=" text-align : center; font-size : 15pt;">패스워드 변경하기</h1><br><br>
+  				<form id="updateForm" action="${pageContext.request.contextPath}/boayou/updateUserPwd" method="post">
+    				<label for="pwd" style="margin-left : 350px">변경할 패스워드 : </label>
+    				<input name="pwd" placeholder="변경할 비밀번호 입력" />
+    				<input style = "float: center" type="submit" value="변경사항 적용" onclick="alert('변경되었습니다');">
+				</form>
+		  </div>
+		</div>
+<!-- 		End Pwd Change Section -->
+    
+    <div class="modal-wrapper">
+		  <div class="modal">
+		    <div class="head">
+		      <a class="btn-close trigger" href="#">
+		        <i class="fa fa-times" aria-hidden="true"></i>
+		      </a>
+		      <h2>MovieBox</h2>
+		    </div>
+		    <div class="tab">
+			    <ul class="tabnav">
+			      <li><a href="#tab01">?</a></li>
+			      <li><a href="#tab02">나만의 영화 리스트</a></li>
+			    </ul>
+			    <div class="tabcontent">
+			      <div id="tab01">?</div>
+			      <div id="tab02">
+			      <c:forEach var="mylist" items="${mymovielist}" varStatus="status">
+			      <table>
+			      	<tr>
+			      		<th>순서</th>
+			      		<th>영화 제목</th>
+			      		<th>영화 감독</th>
+			      		<th>국가</th>
+			      		<th>영화 장르</th>
+			      		<th>영화 관람등급</th>
+			      		<th>영화 포스터</th>			      		
+			      	</tr>
+			      	<tr>
+			      		<td>${status.count}</td>
+			      		<td>${mylist.title}</td>
+			      		<td>${mylist.directorNm}</td>
+			      		<td>${mylist.nation}</td>
+			      		<td>${mylist.genre}</td>
+			      		<td>${mylist.rating}</td>
+			      		<td><a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${mylist.docid}">
+			      		<img src="${mylist.posters}"/></a></td>
+			      		<td><button type="button" onclick="Delete()"
+								class="button large">삭제</button></td>						
+			      	</tr>			      	
+			      </table>			     
+			      </c:forEach>
+			      <form id="deleteForm" action="deleteMyMovieList" method="POST">
+						<input type="hidden" name="docid"
+							value="${mylist.docid}">
+						<input type="hidden" name="user_id"
+							value="${sessionScope.loginUser.user_id}">
+						</form>
+			      </div>
+			    </div>
+			  </div>
+		  </div>
+		</div>
+    
+    <!-- ======= MyReviewMovie Section ======= -->
+		<section id="testimonials" class="testimonials">
+			<div class="container">
+
+				<div class="section-header">
+					<h2>My Selection</h2>
+					<p>리뷰를 작성한 영화</p>
+				</div>
+
+				<div class="slides-3 swiper" style="height : 50%">
+					<div class="swiper-wrapper">
+						<c:forEach var="myReviewMovie" items="${myReviewMovieList}" varStatus="status">
+							<div class="swiper-slide" style="height : 50%;">
+								<div class="testimonial-item">
+									<h4>${myReviewMovie.genre}</h4>
+									<h2>${myReviewMovie.title}</h2>																	
+									<div class="profile mt-auto">			
+										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myReviewMovie.docid}" class="image featured">																		
+										<img src="${myReviewMovie.posters}" class="testimonial-img" alt=""></a>							
+									</div>
+								</div>
+							</div>
+							<!-- End testimonial item -->
+						</c:forEach>
+					</div>
+<!-- 					<div class="swiper-pagination"></div> -->
+				</div>
+			</div>
+		</section>
+		<!-- End MyReviewMovie Section -->
+		
+		
+		<!-- ======= MyCommunityMovie Section ======= -->
+		<section id="testimonials" class="testimonials">
+			<div class="container">
+			<div class="section-header">
+				<h2>My Community</h2>
+				<p>내 커뮤니티</p>
+			</div>
+			
+			<table id="communityTable">
+                     <thead>
+                        <tr>
+                           <th>No.</th>
+                           <th>영화 이미지</th>
+                           <th>영화명</th>
+                           <th>Title</th>
+                           <th>Content</th>
+                           <th>좋아요</th>
+                           <th>싫어요</th>
+                           <th>댓글 수</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     
+                     <c:forEach var="myCommunity" items="${myCommunityList}" varStatus="status">
+                     	<tr>
+                     		<td>${myCommunity.community_no }</td>
+                     		<td>
+                     			<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myCommunity.docid}" class="image featured">																		
+								<img src="${myCommunity.posters}" class="testimonial-img" alt=""></a>
+							</td>
+							<td>${myCommunity.title }</td>
+							<td>${myCommunity.community_title }</td>
+							<td>${myCommunity.community_content }</td>
+							<td>${myCommunity.joayo }</td>
+							<td>${myCommunity.siroyo }</td>
+							<td>${myCommunity.comment_count }</td>
+                     	</tr>
+							<!-- End testimonial item -->
+						</c:forEach>
+                     </tbody>
+                  </table>
+			
+			</div>
+		</section>
+		<!-- End MyCommunityMovie Section -->
 
   </main><!-- End #main -->
 

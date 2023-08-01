@@ -14,5 +14,5 @@ public interface CommunityMapper {
 
 	int DeleteCommunity(CommunityDTO communityDTO);
 
-
+	List<CommunityDTO> selectCommunityById(String user_id);
 }

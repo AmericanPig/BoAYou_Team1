@@ -43,5 +43,15 @@
         WHERE row_num <= 3
     ]]>
 	</select>
+	
+	<select id = "selectCommunityById" resultType = "com.spring.domain.CommunityDTO">
+		SELECT c.user_id, c.community_no, m.title, c.community_title, c.community_content, m.posters,
+	           c.docid,
+	           (SELECT COUNT(com.community_no) FROM comment_tb com WHERE com.community_no = c.community_no) as comment_count
+	    FROM community c
+	    JOIN movie_list2 m ON c.docid = m.docid
+	    WHERE user_id = #{user_id}
+	    ORDER BY c.community_no DESC
+	</select>
 
 </mapper>
