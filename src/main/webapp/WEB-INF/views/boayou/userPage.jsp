@@ -42,7 +42,28 @@
 <!-- Template Main CSS File -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/css/user.css?after">
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+	  $(".trigger").on("click", function () {
+	    $(".modal-wrapper").toggleClass("open");
+	    $(".page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});
+$(function(){
+	  $('.tabcontent > div').hide();
+	  $('.tabnav a').click(function () {
+	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+</script>
 <!-- =======================================================
   * Template Name: PhotoFolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -50,6 +71,76 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+table {
+	border: 1px #a39485 solid;
+	font-size: .9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+th {
+	text-align: left;
+}
+
+thead {
+	font-weight: bold;
+	color: #fff;
+	background: #73685d;
+}
+
+td, th {
+	padding: 1em .5em;
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 10px solid rgba(0, 0, 0, .5);
+	background: #353535;
+}
+
+a {
+	color: #73685d;
+}
+
+@media all and (max-width: 768px) {
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+	th {
+		text-align: right;
+	}
+	table {
+		position: relative;
+		padding-bottom: 0;
+		border: none;
+		box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	}
+	th {
+		float: left;
+		white-space: nowrap;
+	}
+	tbody {
+		overflow-x: auto;
+		overflow-y: hidden;
+		position: relative;
+		white-space: nowrap;
+	}
+	tr {
+		display: inline-block;
+		vertical-align: top;
+	}
+	th {
+		border-bottom: 1px solid #a39485;
+	}
+	td {
+		border-bottom: 1px solid #e5e5e5;
+	}
+}
+</style>
 </head>
 
 <body>
@@ -177,64 +268,134 @@
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
 
-						<h2>${user.name}님의 페이지</h2>
+						<h2>${user.name}님의페이지</h2>
 
 					</div>
+					<section id="gallery-single" class="gallery-single">
+						<div class="container">
+							<div class="row justify-content-between gy-4 mt-4">
+
+								<div class="col-lg-8">
+									<div class="portfolio-description">
+										<h2>${user.name}님의프로필</h2>
+										<div class="testimonial-item">
+											<p>
+												<i class="bi bi-quote quote-icon-left"></i>
+												<!--                  	오늘도 즐거운 하루되세여 :) -->
+											<h3>' ${userprofile.intro} '</h3>
+											<i class="bi bi-quote quote-icon-right"></i>
+											<div>
+												<img src="${userprofile.img }" class="testimonial-img"
+													alt="">
+												<h3>' ${user.user_id} 님 '</h3>
+												<h4>회원등급 : ${user.user_level}</h4>
+												<br> <br>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-3">
+									<div class="portfolio-info">
+										<h3>${user.user_id}님의정보</h3>
+										<ul>
+											<li><strong>아이디</strong> <span>${user.user_id}</span></li>
+											<li><strong>이름</strong> <span>${user.name}</span></li>
+											<li><strong>나이</strong> <span>${user.age}</span></li>
+											<li><strong>생년월일</strong> <span>${user.jumin.substring(0,2)}년
+													${user.jumin.substring(2,4)}월 ${user.jumin.substring(4,6)}일</span></li>
+											<!-- Button -->
+											<li><div class="page-wrapper">
+													<a class="btn trigger" href="#">MyMovieList</a>
+												</div></li>
+											<!-- DB에 저장 된 가입정보 넣기 -->
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div>
 		<!-- End Page Header -->
 
 		<!-- ======= Gallery Single Section ======= -->
-		<section id="gallery-single" class="gallery-single">
-			<div class="container">
-				<div class="row justify-content-between gy-4 mt-4">
 
-					<div class="col-lg-8">
-						<div class="portfolio-description">
-							<h2>${user.name}님의 프로필</h2>
-							<div class="testimonial-item">
-								<p>
-									<i class="bi bi-quote quote-icon-left"></i>
-									<!--                  	오늘도 즐거운 하루되세여 :) -->
-								<h3>' ${userprofile.intro} '</h3>
-								<i class="bi bi-quote quote-icon-right"></i>
-								<div>
-									<img src="${userprofile.img }" class="testimonial-img" alt="">
-									<c:choose>
-										<c:when test="${not empty sessionScope.loginUser}">
-											<h3>' ${user.user_id} 님 '</h3>
-											<h4>회원등급 : ${user.user_level}</h4>
-										</c:when>
-									</c:choose>
-									<br> <br>
-								</div>
+		<!-- End Gallery Single Section -->
+		<!-- Modal -->
+		<div class="modal-wrapper">
+			<div class="modal">
+				<div class="head">
+					<a class="btn-close trigger" href="#"> <i class="fa fa-times"
+						aria-hidden="true"></i>
+					</a>
+					<h2>MovieBox</h2>
+				</div>
+				<div class="tab">
+					<ul class="tabnav">
+						<c:forEach var="movieName" items="${uniqueMovieListNames}"
+							varStatus="nameStatus">
+							<li><a href="#tab${nameStatus.count}">${movieName}</a></li>
+						</c:forEach>
+					</ul>
+					<div class="tabcontent">
+						<c:forEach var="movieName" items="${uniqueMovieListNames}"
+							varStatus="nameStatus">
+							<div id="tab${nameStatus.count}">
+								<table>
+									<tr>
+										<th>순서</th>
+										<th>영화 제목</th>
+										<th>영화 감독</th>
+										<th>국가</th>
+										<th>영화 장르</th>
+										<th>영화 관람등급</th>
+										<th>영화 포스터</th>
+									</tr>
+									<c:set var="count" value="0" />
+									<c:forEach var="mylist" items="${mymovielist}"
+										varStatus="status">
+										<c:if test="${mylist.movielist_name == movieName}">
+											<c:set var="count" value="${count + 1}" />
+											<tr>
+												<td>${count}</td>
+												<td>${mylist.title}</td>
+												<td>${mylist.directorNm}</td>
+												<td>${mylist.nation}</td>
+												<td>${mylist.genre}</td>
+												<td>${mylist.rating}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${mylist.docid}">
+														<img src="${mylist.posters}" />
+												</a></td>
+												<td>
+												<form id="deleteForm" action="deleteMyMovieList" method="POST">
+												<button type="submit"
+												class="button large">삭제</button>
+												<input type="hidden" name="mymovielist_no"
+												value="${mylist.mymovielist_no}">
+												<input type="hidden" name="user_id"
+												value="${user.user_id}">	
+											</form>
+												</td>
+											</tr>											
+											
+											
+										</c:if>
+									</c:forEach>
+								</table>
 							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-3">
-						<div class="portfolio-info">
-							<h3>${user.user_id}님의정보</h3>
-							<ul>
-								<li><strong>아이디</strong> <span>${user.user_id}</span></li>
-								<li><strong>이름</strong> <span>${user.name}</span></li>
-								<li><strong>나이</strong> <span>${user.age}</span></li>
-								<li><strong>생년월일</strong> <span>${user.jumin.substring(0,2)}년
-										${user.jumin.substring(2,4)}월 ${user.jumin.substring(4,6)}일</span></li>
-								<!-- DB에 저장 된 가입정보 넣기 -->
-							</ul>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
-			</div>
-		</section>
-		<!-- End Gallery Single Section -->
 
+			</div>
+		</div>
 	</main>
 	<!-- End #main -->
-
-	<!-- ======= Footer ======= -->
+	
+		<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="container">
 			<div class="copyright">

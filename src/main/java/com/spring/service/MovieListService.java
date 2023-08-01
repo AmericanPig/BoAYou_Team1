@@ -28,7 +28,7 @@ public interface MovieListService {
 	public List<MovieListDTO> getGenre4MovieList();
 	public List<MovieListDTO> getGenre5MovieList();
    
-	List<String> getTitleSearchResults(String title);
+	List<MovieListDTO> getTitleSearchResults(String title);
 	
 	public List<TitlePosterListDTO> getTitlePostersMovieList();
 	   

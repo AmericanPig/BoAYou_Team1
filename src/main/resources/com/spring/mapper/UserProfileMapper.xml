@@ -34,4 +34,25 @@
   	<delete id="deleteUserProfile">
   		DELETE from user_profile where user_id = ${user_id}
   	</delete>
+<!--	user_id로 나만의 무비리스트를 검색 -->
+	<select id="selectMyMovieList"  resultType="com.spring.domain.MyMovieListDTO">
+		SELECT
+		    ml.mymovielist_no, ml.movielist_name, ml2.title, ml2.directorNm, ml2.nation, ml2.posters, ml2.genre, ml2.rating, ml2.docid
+		FROM
+		    mymovielist ml, movie_list2 ml2
+		WHERE
+		    ml.docid = ml2.docid
+		    AND user_id = #{user_id}
+	</select>
+	<insert id="insertMyMovieList">
+		INSERT INTO mymovielist(movielist_name, user_id, docid)
+		VALUES (
+		#{movielist_name},
+		#{user_id},
+		#{docid}
+		)
+	</insert>
+	<delete id="deleteMyMovieList">
+	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}
+	</delete>
   </mapper>

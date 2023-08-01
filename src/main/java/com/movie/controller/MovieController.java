@@ -1,12 +1,15 @@
 package com.movie.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
 import com.spring.domain.CommentDTO;
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.MovieListDTO;
+import com.spring.domain.MyMovieListDTO;
 import com.spring.domain.ReviewDTO;
 import com.spring.domain.UserDTO;
 import com.spring.domain.UserProfileDTO;
@@ -136,8 +140,8 @@ public class MovieController {
    // http://localhost:8080/controller/movie/movie
    @GetMapping("movie")
    public String boardAll(Model model) {
-      listInit();
-      model.addAttribute("Movie_List", movie);
+      listInit();      
+      model.addAttribute("Movie_List", movie);      
 
       return "movie";
    }
@@ -334,21 +338,26 @@ public class MovieController {
    @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")
    @ResponseBody
    public String search(@RequestParam("title") String title, Model model) {
-      List<String> searchResults = service.getTitleSearchResults(title);
-      model.addAttribute("searchResults", searchResults);
-      return generateSearchResultsHtml(searchResults);
+       List<MovieListDTO> searchResults = service.getTitleSearchResults(title); // 수정해야하는 부분
+       model.addAttribute("searchResults", searchResults);
+       return generateSearchResultsHtml(searchResults);
    }
 
-   private String generateSearchResultsHtml(List<String> searchResults) {
-      StringBuilder searchResultsHtml = new StringBuilder();
-      searchResultsHtml.append("<ul>");
-      for (String docId : searchResults) {
-         searchResultsHtml.append("<li onclick=\"selectDocId('").append(docId).append("')\">").append(docId)
-               .append("</li>");
-      }
-      searchResultsHtml.append("</ul>");
-      return searchResultsHtml.toString();
+   private String generateSearchResultsHtml(List<MovieListDTO> searchResults) {
+       StringBuilder searchResultsHtml = new StringBuilder();
+       searchResultsHtml.append("<ul>");
+       for (MovieListDTO result : searchResults) {
+           String docId = result.getDocid();
+           String posterUrl = result.getPosters();
+           String movieTitle = result.getTitle();
+           searchResultsHtml.append("<li onclick=\"selectDocId('").append(docId).append("')\">")
+             .append("<img src='").append(posterUrl).append("' alt='").append(movieTitle).append("' class='poster' />")
+             .append("</li>");
+       }
+       searchResultsHtml.append("</ul>");
+       return searchResultsHtml.toString();
    }
+
    
 
    @GetMapping("/comments")
@@ -464,8 +473,16 @@ public class MovieController {
    public void userPage(@RequestParam("user_id")String user_id, Model model) {	
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
+	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id); 
+	   model.addAttribute("mymovielist", mymovielist);
 	   model.addAttribute("user", user);
 	   model.addAttribute("userprofile", userprofile);
+	   Set<String> uniqueMovieListNames = new LinkedHashSet<>();
+       for (MyMovieListDTO movie : mymovielist) {
+           uniqueMovieListNames.add(movie.getMovielist_name());
+       }
+
+       model.addAttribute("uniqueMovieListNames", uniqueMovieListNames);
    }
    @GetMapping("movieSearchListPage")
    public void movieSearchListPage(@RequestParam("title") String title, Model model) {
@@ -477,9 +494,28 @@ public class MovieController {
      // System.out.println(searchMovie.get(0).getActornm());
      
      // System.out.println("확인2");
-     // System.out.println(searchMovie.get(0).getActornm());
-     
+     // System.out.println(searchMovie.get(0).getActornm()); 
    }
-   
+   @PostMapping("insertMyMovieList")
+   public String insertMyMovieList(@RequestParam("movielist_name") String movielist_name, @RequestParam("user_id") String user_id, @RequestParam("docid") String docid, RedirectAttributes redirectAttributes, HttpSession session) {       
+       try {
+           userProfileService.insertMyMovieList(movielist_name, user_id, docid);
+       } catch (DataIntegrityViolationException e) {
+    	    session.setAttribute("errorMessage", "하나의 리스트에 하나의 영화만 등록가능합니다.");
+    	    return "redirect:/boayou/movieInfoPage?Docid=" + docid;
+    	}
+       return "redirect:/boayou/movieInfoPage?Docid=" + docid;
+   }
+   @PostMapping("deleteMyMovieList")
+   public String deleteMyMovieList(int mymovielist_no, String user_id) {	   
+	   userProfileService.deleteMyMovieList(mymovielist_no);	   
+	   return "redirect:/boayou/userPage?user_id="+user_id;
+   }
+   @PostMapping("searchUser")
+   public RedirectView searchUser(String user_id) {
+       RedirectView redirectView = new RedirectView();
+       redirectView.setUrl("boayou/userPage?user_id=" + user_id);
+       return redirectView;
+   }
 
 }

@@ -1,9 +1,12 @@
 package com.spring.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.MyMovieListDTO;
 import com.spring.domain.UserProfileDTO;
 import com.spring.mapper.UserProfileMapper;
 import com.spring.service.UserProfileService;
@@ -61,5 +64,23 @@ public class UserProfileServiceImpl implements UserProfileService{
 	//user_id의 프로필 불러오기
 	public UserProfileDTO getUserProfile(String user_id) {
 		return mapper.selectUserProfile(user_id);
+	}
+	
+	//user_id의 나만의 무비 리스트 불러오기
+	@Override
+	public List<MyMovieListDTO> selectMyMovieList(String user_id){
+		return mapper.selectMyMovieList(user_id);
+	}
+	
+	//나만의 무비리스트 추가
+	@Override
+	public int insertMyMovieList(String movielist_name, String user_id, String docid) {		
+		return mapper.insertMyMovieList(movielist_name, user_id, docid);
+	}
+	
+	//나만의 무비리스트 삭제
+	@Override
+	public int deleteMyMovieList(int mymovielist_no) {		
+		return mapper.deleteMyMovieList(mymovielist_no);
 	}
 }

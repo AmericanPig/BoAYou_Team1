@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - Gallery Single</title>
+<title>community creation</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -173,7 +173,7 @@
 			<div class="container position-relative">
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
-						<h2>Community</h2>
+						<h2>community creation</h2>
 
 					</div>
 				</div>
@@ -198,7 +198,7 @@
 								<button type="button" onclick="fetchSearchResults();">Search</button>
 							</div>
 							<div id="search_results" style="padding: 10px;"></div>
-
+							
 							<!-- Hidden input field for selected docid -->
 							<input type="hidden" id="selected_docid" name="docid">
 							<div class="row">

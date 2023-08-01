@@ -1,9 +1,12 @@
 package com.spring.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.domain.MyMovieListDTO;
 import com.spring.domain.UserProfileDTO;
-
 public interface UserProfileMapper {
 	
 //	user_id로 UserProfile 있는지 확인
@@ -23,4 +26,13 @@ public interface UserProfileMapper {
 	
 //	user_id의 UserProfile 삭제
 	int deleteUserProfile(String user_id);
+
+//	user_id의 나만의 무비 리스트 검
+	List<MyMovieListDTO> selectMyMovieList(String user_id);
+	
+//	user_id와 docid로 나만의 무비리스트 추가
+	int insertMyMovieList(@Param("movielist_name")String movielist_name, @Param("user_id") String user_id, @Param("docid") String docid);
+	
+//  user_id와 docid로 나만의 무비리스트 삭제
+	int deleteMyMovieList(int mymovielist_no);
 }
