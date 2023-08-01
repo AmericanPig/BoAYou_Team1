@@ -31,5 +31,5 @@
 
 	<delete id="deleteUserById" parameterType="String">
 		delete from user_tb where user_id=#{user_id}
-	</delete>
+	</delete>	
   </mapper>

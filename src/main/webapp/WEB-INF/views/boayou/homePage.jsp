@@ -58,7 +58,6 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"
    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
    crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -156,6 +155,9 @@
                      <a> ${sessionScope.loginUser.name}님</a>
                      <a href="logout">로그아웃</a>
                      <li><a href="myPage">마이페이지</a></li>
+                     <form action="searchUser"  method="post">
+                     <input type="text" id="searchBox2" name="user_id" placeholder="검색어를 입력하세요">
+                     </form>             
                   </c:when>
                   <c:otherwise>
                      <li><a href="login">로그인</a></li>

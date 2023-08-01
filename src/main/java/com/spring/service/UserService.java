@@ -16,6 +16,6 @@ public interface UserService {
 	
 	int updateUser(@Param("user_id") String user_id, @Param("pwd") String pwd);
 	
-	int deleteUser(String user_id);
+	int deleteUser(String user_id);	
 
 }

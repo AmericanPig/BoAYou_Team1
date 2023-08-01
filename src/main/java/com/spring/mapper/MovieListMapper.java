@@ -2,9 +2,11 @@ package com.spring.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.spring.domain.MovieListDTO;
 import com.spring.domain.TitlePosterListDTO;
-
+@Mapper
 public interface MovieListMapper {
    
 
@@ -30,7 +32,7 @@ public interface MovieListMapper {
    List<MovieListDTO> genre4MovieList();
    List<MovieListDTO> genre5MovieList();
    
-   List<String> getTitleSearchResults(String title);
+   List<MovieListDTO> getTitleSearchResults(String title);
    
    List<TitlePosterListDTO> titlePostersMovieList();
    

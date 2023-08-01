@@ -116,8 +116,8 @@
       and genre not LIKE '%판타지%'
    </select>
 
-   <select id="getTitleSearchResults" resultType="String">
-        SELECT docid
+   <select id="getTitleSearchResults" resultType="com.spring.domain.MovieListDTO">
+        SELECT docid,posters
         FROM movie_list2
         WHERE title = #{title}
     </select>

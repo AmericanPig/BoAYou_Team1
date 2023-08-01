@@ -96,7 +96,7 @@ public class MovieListServiceImpl implements MovieListService {
 	}
    
 	@Override
-	public List<String> getTitleSearchResults(String title) {
+	public List<MovieListDTO> getTitleSearchResults(String title) {
 		return mapper.getTitleSearchResults(title);
 	}
       

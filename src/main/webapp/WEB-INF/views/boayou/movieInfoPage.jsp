@@ -47,6 +47,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/star.css">   
+<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css?after">   
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -77,6 +78,23 @@
           document.getElementById("deleteForm").submit();
       }
   }	
+  $(document).ready(function () {
+	  $(".trigger").on("click", function () {
+	    $(".modal-wrapper").toggleClass("open");
+	    $(".page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});  
+  document.addEventListener('DOMContentLoaded', function () {
+    var errorMessage = "${sessionScope.errorMessage}";
+    if (errorMessage) {
+      alert(errorMessage);
+      // 세션에서 에러 메시지 삭제 (다음 이동에서도 메시지가 나오지 않도록)
+      <%
+        session.removeAttribute("errorMessage");
+      %>
+    }
+  });
 </script>
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -216,7 +234,10 @@
                   <div class="row gy-4 justify-content-center">
                      <div class="col-lg-4">
                         <img src="${movieList.posters}" class="img-fluid" alt="">
-                        
+                        <br>
+                        <div class="page-wrapper">
+                        <a class="btn trigger" href="#">MyMovieList 등록</a>  
+						</div>                        											                     
                      </div>
                      <div class="col-lg-5 content">
 
@@ -262,6 +283,8 @@
 
                </div>
             </section>
+            <!--작업마치면 로그인 후 에만 사용 가능하게 추가  -->
+            
             <!-- End About Section -->
 
             <!-- ======= Testimonials Section ======= -->
@@ -355,7 +378,28 @@
                </div>
             </section>            
             <!-- End Testimonials Section -->
-
+           <div class="modal-wrapper">
+			  <div class="modal">
+			    <div class="head">
+			    <a class="btn-close trigger" href="#">
+			        <i class="fa fa-times" aria-hidden="true"></i>
+			      </a>
+			    <h2>MyMovieList</h2>			      
+			    </div>
+			    <div class="listcontent">
+			        <div class="good-job">
+			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
+			          <input type="text" name="movielist_name" placeholder="MovieListName">
+			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
+				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
+			          <input type="submit" value="등록" onclick="//">		                
+		            
+		            </form>		            
+			        </div>
+			    </div>
+			  </div>
+			</div>
          </main>
          <!-- End #main -->
        <!-- ======= Footer ======= -->

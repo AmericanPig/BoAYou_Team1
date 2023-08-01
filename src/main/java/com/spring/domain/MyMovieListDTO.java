@@ -17,5 +17,7 @@ public class MyMovieListDTO {
 	private String rating;
 	private String docid;
 	private String user_id;
+	private String movielist_name;
+	private int mymovielist_no;
 
 }

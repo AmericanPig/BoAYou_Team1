@@ -6,6 +6,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>community creation</title>
+<title>community creation</title>
+<title>PhotoFolio Bootstrap Template - Gallery Single</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -266,7 +268,6 @@
 		<div class="line"></div>
 	</div>
 
-	<!— Vendor JS Files —>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script
@@ -277,8 +278,6 @@
 		src="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
-
-	<!— Template Main JS File —>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 

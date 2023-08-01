@@ -413,7 +413,7 @@ a {
 						<li></li>
 						<li><a href="logout" style="color : green;">로그아웃</a></li>
 						<li><div class="page-wrapper">
-								  <a class="btn trigger" href="#">MovieBox</a>
+						<a class="btn trigger" href="#">myMovieList</a>
 						</div></li>
 						</ul>	
 					</c:when>
@@ -474,56 +474,70 @@ a {
 <!-- 		End Pwd Change Section -->
     
     <div class="modal-wrapper">
-		  <div class="modal">
-		    <div class="head">
-		      <a class="btn-close trigger" href="#">
-		        <i class="fa fa-times" aria-hidden="true"></i>
-		      </a>
-		      <h2>MovieBox</h2>
-		    </div>
-		    <div class="tab">
-			    <ul class="tabnav">
-			      <li><a href="#tab01">?</a></li>
-			      <li><a href="#tab02">나만의 영화 리스트</a></li>
-			    </ul>
-			    <div class="tabcontent">
-			      <div id="tab01">?</div>
-			      <div id="tab02">
-			      <c:forEach var="mylist" items="${mymovielist}" varStatus="status">
-			      <table>
-			      	<tr>
-			      		<th>순서</th>
-			      		<th>영화 제목</th>
-			      		<th>영화 감독</th>
-			      		<th>국가</th>
-			      		<th>영화 장르</th>
-			      		<th>영화 관람등급</th>
-			      		<th>영화 포스터</th>			      		
-			      	</tr>
-			      	<tr>
-			      		<td>${status.count}</td>
-			      		<td>${mylist.title}</td>
-			      		<td>${mylist.directorNm}</td>
-			      		<td>${mylist.nation}</td>
-			      		<td>${mylist.genre}</td>
-			      		<td>${mylist.rating}</td>
-			      		<td><a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${mylist.docid}">
-			      		<img src="${mylist.posters}"/></a></td>
-			      		<td><button type="button" onclick="Delete()"
-								class="button large">삭제</button></td>						
-			      	</tr>			      	
-			      </table>			     
-			      </c:forEach>
-			      <form id="deleteForm" action="deleteMyMovieList" method="POST">
-						<input type="hidden" name="docid"
-							value="${mylist.docid}">
-						<input type="hidden" name="user_id"
-							value="${sessionScope.loginUser.user_id}">
-						</form>
-			      </div>
-			    </div>
-			  </div>
-		  </div>
+			<div class="modal">
+				<div class="head">
+					<a class="btn-close trigger" href="#"> <i class="fa fa-times"
+						aria-hidden="true"></i>
+					</a>
+					<h2>MovieBox</h2>
+				</div>
+				<div class="tab">
+					<ul class="tabnav">
+						<c:forEach var="movieName" items="${uniqueMovieListNames}"
+							varStatus="nameStatus">
+							<li><a href="#tab${nameStatus.count}">${movieName}</a></li>
+						</c:forEach>
+					</ul>
+					<div class="tabcontent">
+						<c:forEach var="movieName" items="${uniqueMovieListNames}"
+							varStatus="nameStatus">
+							<div id="tab${nameStatus.count}">
+								<table>
+									<tr>
+										<th>순서</th>
+										<th>영화 제목</th>
+										<th>영화 감독</th>
+										<th>국가</th>
+										<th>영화 장르</th>
+										<th>영화 관람등급</th>
+										<th>영화 포스터</th>
+									</tr>
+									<c:set var="count" value="0" />
+									<c:forEach var="mylist" items="${myMovieList}"
+										varStatus="status">
+										<c:if test="${mylist.movielist_name == movieName}">
+											<c:set var="count" value="${count + 1}" />
+											<tr>
+												<td>${count}</td>
+												<td>${mylist.title}</td>
+												<td>${mylist.directorNm}</td>
+												<td>${mylist.nation}</td>
+												<td>${mylist.genre}</td>
+												<td>${mylist.rating}</td>
+												<td><a
+													href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${mylist.docid}">
+														<img src="${mylist.posters}" />
+												</a></td>
+												<td>
+												<form id="deleteForm" action="deletemyMovieList" method="POST">
+												<button type="submit"
+												class="button large">삭제</button>
+												<input type="hidden" name="myMovieList_no"
+												value="${mylist.myMovieList_no}">												
+											</form>
+												</td>
+											</tr>											
+											
+											
+										</c:if>
+									</c:forEach>
+								</table>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+
+			</div>
 		</div>
     
     <!-- ======= MyReviewMovie Section ======= -->
@@ -538,7 +552,7 @@ a {
 				<div class="slides-3 swiper" style="height : 50%">
 					<div class="swiper-wrapper">
 						<c:forEach var="myReviewMovie" items="${myReviewMovieList}" varStatus="status">
-							<div class="swiper-slide" style="height : 50%;">
+							<div class="swiper-slide">
 								<div class="testimonial-item">
 									<h4>${myReviewMovie.genre}</h4>
 									<h2>${myReviewMovie.title}</h2>																	

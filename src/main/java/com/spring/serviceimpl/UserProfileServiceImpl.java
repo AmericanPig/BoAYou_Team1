@@ -76,13 +76,13 @@ public class UserProfileServiceImpl implements UserProfileService{
 	
 	//나만의 무비리스트 추가
 	@Override
-	public int insertMyMovieList(String user_id, String docid) {		
-		return mapper.insertMyMovieList(user_id, docid);
+	public int insertMyMovieList(String movielist_name, String user_id, String docid) {		
+		return mapper.insertMyMovieList(movielist_name, user_id, docid);
 	}
 	
 	//나만의 무비리스트 삭제
 	@Override
-	public int deleteMyMovieList(String user_id, String docid) {		
-		return mapper.deleteMyMovieList(user_id, docid);
+	public int deleteMyMovieList(int mymovielist_no) {		
+		return mapper.deleteMyMovieList(mymovielist_no);
 	}
 }
