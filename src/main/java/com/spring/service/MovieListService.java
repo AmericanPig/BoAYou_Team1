@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.domain.MovieListDTO;
+import com.spring.domain.TitlePosterListDTO;
 
 public interface MovieListService {
 	
@@ -29,9 +30,10 @@ public interface MovieListService {
    
 	List<String> getTitleSearchResults(String title);
 	
-	public List<MovieListDTO> getTitlePostersMovieList();
+	public List<TitlePosterListDTO> getTitlePostersMovieList();
 	   
 	public MovieListDTO getDocid(String docid);
 
+	public List<MovieListDTO> getMovieSearchList(String title);
 
 }

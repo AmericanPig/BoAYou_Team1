@@ -127,15 +127,15 @@
                                                       
                         </ul>
                      </li>
+                     
+                     
+
                   </ul></li>
-                  
-                  <li><a href="community">커뮤니티</a></li> 
-                  
                <c:choose>
                      <c:when test="${not empty sessionScope.loginUser}">
-                       	 <li><a href="myPage">마이페이지</a></li>
+                        <a>${sessionScope.loginUser.name}님</a>
                          <a href="logout">로그아웃</a>
-                         <a>${sessionScope.loginUser.name}님</a>
+                         <li><a href="myProfilePage">마이페이지</a></li>
                        </c:when>
                        <c:otherwise>
                         <li><a href="login">로그인</a></li>
@@ -143,7 +143,7 @@
                      </c:otherwise>
                   </c:choose>
                   
-                             
+                  <li><a href="community">커뮤니티</a></li>            
             </ul>
          </nav>
          <!-- .navbar -->
@@ -163,7 +163,8 @@
    <!-- End Header -->
 
    <c:choose>
-
+   
+   	
       <c:when test="${param.movieNation eq '한국영화' }">
 
          <main id="main" data-aos="fade" data-aos-delay="1500">
@@ -203,12 +204,12 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getKoreaMovie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getKoreaMovie.get(i).getPosters() }" title=""
+                                    <a href="${getKoreaMovie.get(i).getPosters() }" title="${getKoreaMovie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
                                        href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=한국영화&Docid=${getKoreaMovie.get(i).getDocid() }" class="details-link"><i
@@ -304,12 +305,12 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getForeignMovie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getForeignMovie.get(i).getPosters() }" title=""
+                                    <a href="${getForeignMovie.get(i).getPosters() }" title="${getForeignMovie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
                                        href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=외국영화&Docid=${getForeignMovie.get(i).getDocid() }" class="details-link"><i
@@ -404,12 +405,12 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRatingAllMovie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRatingAllMovie.get(i).getPosters() }" title=""
+                                    <a href="${getRatingAllMovie.get(i).getPosters() }" title="${getRatingAllMovie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
                                        href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRatingAllMovie.get(i).getDocid() }" class="details-link"><i
@@ -504,15 +505,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRating12Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRating12Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRating12Movie.get(i).getPosters() }" title="${getRating12Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRating12Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=12세관람가&Docid=${getRating12Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -604,12 +605,12 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRating15Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRating15Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRating15Movie.get(i).getPosters() }" title="${getRating15Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
                                        href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=15세관람가&Docid=${getRating15Movie.get(i).getDocid() }" class="details-link"><i
@@ -704,15 +705,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRating18Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRating18Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRating18Movie.get(i).getPosters() }" title="${getRating18Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRating18Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=18세관람가&Docid=${getRating18Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -804,15 +805,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRatingEtcMovie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRatingEtcMovie.get(i).getPosters() }" title=""
+                                    <a href="${getRatingEtcMovie.get(i).getPosters() }" title="${getRatingEtcMovie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRatingEtcMovie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=기타&Docid=${getRatingEtcMovie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -904,15 +905,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRepRlsDate2023Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRepRlsDate2023Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRepRlsDate2023Movie.get(i).getPosters() }" title="${getRepRlsDate2023Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2023Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2023&Docid=${getRepRlsDate2023Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1004,15 +1005,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRepRlsDate2022Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRepRlsDate2022Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRepRlsDate2022Movie.get(i).getPosters() }" title="${getRepRlsDate2022Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2022Movie.get(i).getDocid()}" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2022&Docid=${getRepRlsDate2022Movie.get(i).getDocid()}" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1104,15 +1105,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRepRlsDate2021Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRepRlsDate2021Movie.get(i).getPosters() }" title=""
+                                    <a href="${getRepRlsDate2021Movie.get(i).getPosters() }" title="${getRepRlsDate2021Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDate2021Movie.get(i).getDocid()}" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=2021&Docid=${getRepRlsDate2021Movie.get(i).getDocid()}" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1204,15 +1205,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getRepRlsDateBeforeMovie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getRepRlsDateBeforeMovie.get(i).getPosters() }" title=""
+                                    <a href="${getRepRlsDateBeforeMovie.get(i).getPosters() }" title="${getRepRlsDateBeforeMovie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getRepRlsDateBeforeMovie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=이전&Docid=${getRepRlsDateBeforeMovie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1304,15 +1305,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getGenre1Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getGenre1Movie.get(i).getPosters() }" title=""
+                                    <a href="${getGenre1Movie.get(i).getPosters() }" title="${getGenre1Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre1Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=드라마가족코메디&Docid=${getGenre1Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1404,15 +1405,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getGenre2Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getGenre2Movie.get(i).getPosters() }" title=""
+                                    <a href="${getGenre2Movie.get(i).getPosters() }" title="${getGenre2Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre2Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=멜로로맨스&Docid=${getGenre2Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1504,15 +1505,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getGenre3Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getGenre3Movie.get(i).getPosters() }" title=""
+                                    <a href="${getGenre3Movie.get(i).getPosters() }" title="${getGenre3Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre3Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=공포스릴러범죄전쟁&Docid=${getGenre3Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1604,15 +1605,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getGenre4Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getGenre4Movie.get(i).getPosters() }" title=""
+                                    <a href="${getGenre4Movie.get(i).getPosters() }" title="${getGenre4Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre4Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=액션SF판타지&Docid=${getGenre4Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1704,15 +1705,15 @@
                      <c:forEach var="i" begin="${start}" end="${end}" step="1">
                         <c:if test="${i < totalCount}">
                            <div class="col-xl-2 col-lg-4 col-md-6">
-                              <div class="gallery-item h-100">
+                              <div class="gallery-item h-80">
                                  <img src="${getGenre5Movie.get(i).getPosters() }"
                                     class="img-fluid" alt="">
                                  <div
                                     class="gallery-links d-flex align-items-center justify-content-center">
-                                    <a href="${getGenre5Movie.get(i).getPosters() }" title=""
+                                    <a href="${getGenre5Movie.get(i).getPosters() }" title="${getGenre5Movie.get(i).getTitle() }"
                                        class="glightbox preview-link"><i
                                        class="bi bi-arrows-angle-expand"></i></a> <a
-                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${getGenre5Movie.get(i).getDocid() }" class="details-link"><i
+                                       href="${pageContext.request.contextPath}/boayou/movieInfoPage?movieCate=기타&Docid=${getGenre5Movie.get(i).getDocid() }" class="details-link"><i
                                        class="bi bi-link-45deg"></i></a>
                                  </div>
                               </div>
@@ -1772,14 +1773,15 @@
    <footer id="footer" class="footer">
       <div class="container">
          <div class="copyright">
-            &copy; Copyright <strong><span>Boayou</span></strong> All Rights Reserved
+            &copy; Copyright <strong><span>PhotoFolio</span></strong>. All
+            Rights Reserved
          </div>
          <div class="credits">
             <!-- All the links in the footer should remain intact. -->
             <!-- You can delete the links only if you purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">Boayou</a>
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
          </div>
       </div>
    </footer>

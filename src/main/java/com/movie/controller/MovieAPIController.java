@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.MovieListDTO;
-
+import com.spring.domain.TitlePosterListDTO;
 import com.spring.domain.UserDTO;
 import com.spring.mapper.UserMapper;
 import com.spring.service.CommunityService;
@@ -67,13 +67,12 @@ public class MovieAPIController {
 //        
 //     }
       
-      @RequestMapping(value = "MovieListAPI", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-     public List<MovieListDTO> MovieListAPI() {
-          
-             return service.getTitlePostersMovieList();
-        
-     }
-      
+	   @RequestMapping(value = "MovieListAPI", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	   public List<TitlePosterListDTO> MovieListAPI() {
+	        
+	           return service.getTitlePostersMovieList();
+	      
+	   }
 
       
  

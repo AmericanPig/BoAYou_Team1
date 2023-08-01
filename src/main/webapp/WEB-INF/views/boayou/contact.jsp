@@ -5,7 +5,11 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+<<<<<<< HEAD
 <title>community creation</title>
+=======
+<title>PhotoFolio Bootstrap Template - Gallery Single</title>
+>>>>>>> 77056bb47ae6169a11d2b7d1a8632d3c12784d82
 <meta content="" name="description">
 <meta content="" name="keywords">
 

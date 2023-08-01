@@ -129,12 +129,18 @@
     </select>
     
      <select id="titlePostersMovieList"
-      resultType="com.spring.domain.MovieListDTO">
+      resultType="com.spring.domain.TitlePosterListDTO">
        
-      select * from movie_list2 where reprlsdate like '2023%'
-      or reprlsdate like '2022%'
-      or reprlsdate like '2021%'
+      select title, posters, docid, reprlsdate from movie_list2 
     
    </select>
+   
+       <select id="movieSearchList"
+      resultType="com.spring.domain.MovieListDTO">
+       
+     SELECT * FROM movie_list2 WHERE title LIKE '%' || #{title} || '%'
+    
+   </select>
+
 </mapper>
   
