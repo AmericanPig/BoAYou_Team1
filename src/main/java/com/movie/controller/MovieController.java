@@ -206,8 +206,7 @@ public class MovieController {
 	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user.getUser_id());
 	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
 	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user.getUser_id());
-	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());
-	   System.out.println(mymovielist);
+	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());	   
 	   for(ReviewDTO review : myReviewList) {
 		   myReviewMovieList.add(service.getDocid(review.getDocid()));
 	   }
