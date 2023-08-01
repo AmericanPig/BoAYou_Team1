@@ -1,11 +1,18 @@
 package com.movie.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +119,9 @@ public class MovieController {
    public List<MovieListDTO> genre5Movie;
 
    public Boolean InitState = false;
+   
+   @Autowired
+   private ServletContext servletContext;
 
    public void listInit() {
       if(InitState == true) return;
@@ -190,14 +200,28 @@ public class MovieController {
    }
 
    @GetMapping("myPage")
-   public void myPage() {
+   public void myPage(Model model, HttpSession session) {	   
+	   UserDTO user = (UserDTO)session.getAttribute("loginUser");
+	   UserProfileDTO userProfile = (UserProfileDTO)session.getAttribute("loginUser	Profile");
+	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user.getUser_id());
+	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
+	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user.getUser_id());
+	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());
+	   System.out.println(mymovielist);
+	   for(ReviewDTO review : myReviewList) {
+		   myReviewMovieList.add(service.getDocid(review.getDocid()));
+	   }
+	   model.addAttribute("userprofile", userProfile);
+	   model.addAttribute("myReviewList", myReviewList);
+	   model.addAttribute("myCommunityList", myCommunityList);
+	   model.addAttribute("myReviewMovieList", myReviewMovieList);
+	   model.addAttribute("myMovieList", mymovielist);
+	   Set<String> uniqueMovieListNames = new LinkedHashSet<>();
+       for (MyMovieListDTO movie : mymovielist) {
+           uniqueMovieListNames.add(movie.getMovielist_name());
+       }
+       model.addAttribute("uniqueMovieListNames", uniqueMovieListNames);
 
-   }
-
-   @GetMapping("changePwd")
-   public void changePwd(Model model, HttpSession session) {
-	   UserDTO user = (UserDTO) session.getAttribute("loginUser");
-	   model.addAttribute("user", user);
    }
 
    @PostMapping("/updateUserPwd")
@@ -213,32 +237,47 @@ public class MovieController {
 	   System.out.println(result+"명의 회원정보 수정완료");
        session.setAttribute("loginUser", currentUser);
        
-       return "redirect:/boayou/changePwd";
+       return "redirect:/boayou/myPage";
    }
    
-   @GetMapping("updateProfile")
-   public void updateProfile(Model model, HttpSession session) {
-	   UserProfileDTO userProfile = (UserProfileDTO)session.getAttribute("loginUserProfile");
-	   model.addAttribute("userProfile", userProfile);
-   }
-   @RequestMapping(value = "/updateProfileProcess", method = RequestMethod.POST)
-   @ResponseBody
-   public HashMap<String, Object> updateProfileProcess(@RequestParam(name = "profileImage", required = false) MultipartFile profileImage,
-                                                       @RequestParam(name = "profileMessage", defaultValue = "") String profileMessage,
-                                                       HttpSession session) {
-       HashMap<String, Object> result = new HashMap<>();
+   @PostMapping("/boayou/updateProfileProcess")
+   public String updateProfileProcess(@RequestParam("profileImage") MultipartFile profileImage,
+                                      @RequestParam("profileMessage") String profileMessage,
+                                      HttpServletRequest request, HttpSession session) {
+       UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
        
-       // 이미지 업로드 처리 등 필요한 로직 구현
+       String realPath = "";
+       String realFileName = "";
+       try {
+           // 파일을 받아와서 저장할 경로 생성
+           byte[] bytes = profileImage.getBytes();
+           // 실제 경로 얻기
+           realPath = servletContext.getRealPath("/resources/assets/img/");
+           realFileName = profileImage.getOriginalFilename();
+           Path path = Paths.get(realPath + realFileName);
+           
+           Files.write(path, bytes);
+           loginUserProfile.setImg(path.toString());
+           System.out.println("프로필 이미지 저장 : " + path.toString());
+
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+       if (profileMessage != null) {
+           loginUserProfile.setIntro(profileMessage);
+           System.out.println("프로필 메시지 변경 : " + profileMessage);
+       }
+
+       userProfileService.changeUserProfile(loginUserProfile);
        
-       result.put("success", true);
-       return result;
+       String webPath = "../resources/assets/img/" + realFileName;
+       System.out.println("이미지 세션용 경로 : " + webPath);
+       loginUserProfile.setImg(webPath);
+       session.setAttribute("loginUserProfile", loginUserProfile);
+
+       return "redirect:/boayou/myPage";
    }
-//   @PostMapping("/updateProfileProcess")
-//   public String updateProfileProcess(UserProfileDTO userProfile, HttpSession session) {
-//	   
-//	   
-//	   return "redirect:/boayou/updateProfile";
-//   }
 
    @PostMapping(value = "/InsertJoin", produces = MediaType.APPLICATION_JSON_VALUE)
    public String InsertJoin(UserDTO user, RedirectAttributes redirectAttributes) {
@@ -268,6 +307,14 @@ public class MovieController {
          return "boayou/login";
       }
       UserProfileDTO storedUserProfile = userProfileInit(storedUser.getUser_id(), storedUser.getName());
+      int profileInit = userProfileService.changeUserProfile(storedUserProfile);
+      System.out.println(profileInit + "개의 프로필 로드됨");
+      
+      Path originPath = Paths.get(storedUserProfile.getImg());
+      String fileName = originPath.getFileName().toString();
+      String webPath = Paths.get("../resources/assets/img",fileName).toString();
+      storedUserProfile.setImg(webPath);
+      
       session.setAttribute("loginUser", storedUser);
       session.setAttribute("loginUserProfile", storedUserProfile);
       return "redirect:/boayou/homePage";
@@ -438,16 +485,6 @@ public class MovieController {
    }
    
    
-//   public UserProfileDTO makeUserProfile(String user_id) {
-//	  UserProfileDTO user = new UserProfileDTO(); 
-//	  user.setUser_id(user_id);
-//	  int result = userProfileService.setUserProfile(user);
-//	  System.out.println(user.toString());
-//	  System.out.println(result + "명의 프로필 생성됨");
-//	  
-//	  return userProfileService.getUserProfile(user_id);
-//   }
-   
    public UserProfileDTO userProfileInit(String user_id, String name) {
 	  UserProfileDTO user = new UserProfileDTO(); 
 	  user.setUser_id(user_id);
@@ -476,7 +513,7 @@ public class MovieController {
 	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id); 
 	   model.addAttribute("mymovielist", mymovielist);
 	   model.addAttribute("user", user);
-	   model.addAttribute("userprofile", userprofile);
+	   model.addAttribute("userprofile", userprofile);	   
 	   Set<String> uniqueMovieListNames = new LinkedHashSet<>();
        for (MyMovieListDTO movie : mymovielist) {
            uniqueMovieListNames.add(movie.getMovielist_name());
@@ -518,4 +555,5 @@ public class MovieController {
        return redirectView;
    }
 
+   
 }

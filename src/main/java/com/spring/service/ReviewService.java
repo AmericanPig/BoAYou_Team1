@@ -2,12 +2,14 @@ package com.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.ReviewDTO;
 
 public interface ReviewService {
 	
 	//영화 상세페이지 진입 시 현재 user_id 리뷰 유뮤 Flag
-	boolean getReviewState(String docid, String user_id);
+	boolean getReviewState(String docid,String user_id);
 	
 	//영화 상세페이지 현재 user_id의 리뷰 출력
 	ReviewDTO getUserReview(String docid, String user_id);

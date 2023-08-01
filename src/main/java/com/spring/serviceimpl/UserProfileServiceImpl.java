@@ -24,6 +24,7 @@ public class UserProfileServiceImpl implements UserProfileService{
 		int profileFlag = mapper.selectUserProfileCnt(user_id);
 		switch(profileFlag) {
 		case 0:
+			user.setIntro(user_id + " 님의 소개글입니다.");
 			result = mapper.insertUserProfile(user);
 			break;
 		case 1:
@@ -38,6 +39,7 @@ public class UserProfileServiceImpl implements UserProfileService{
 		String user_id = user.getUser_id();
 		String img = user.getImg();
 		String intro = user.getIntro();
+		System.out.println(user);
 		
 		if(img.length()>0) {
 			result += mapper.updateUserProfileImg(user_id, img);

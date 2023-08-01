@@ -299,9 +299,10 @@
 
 
 				<div class="row justify-content-center mt-4">
-
+					
 					<div class="col-lg-9">
-					<c:if test="${not empty sessionScope.loginUser}">
+					<c:if test="${not empty sessionScope.loginUser}"><!-- loginUser if문 start -->
+<%-- 						<c:if test = "${ !userReviewState}"> --%>
 						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form">		
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span>
@@ -335,10 +336,10 @@
 								<button type="submit">등록</button>
 							</div>
 						</form>
-						</c:if>
+<%-- 						</c:if> --%>
+						</c:if><!-- loginUser if문 end -->
 					</div>
 					<!-- End Contact Form -->
-
 				</div>
 
 			</div>

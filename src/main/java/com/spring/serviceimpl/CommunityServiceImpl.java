@@ -33,4 +33,8 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<CommunityDTO> CommunityRanking(){
 		return mapper.CommunityRanking();
 	}
+	@Override
+	public List<CommunityDTO> selectCommunityById(String user_id){
+		return mapper.selectCommunityById(user_id);
+	}
 }

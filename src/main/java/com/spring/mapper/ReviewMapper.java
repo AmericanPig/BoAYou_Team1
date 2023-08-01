@@ -2,10 +2,13 @@ package com.spring.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.CommentDTO;
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.ReviewDTO;
-
+@Mapper
 public interface ReviewMapper {
 	//=======================================================================
 	//특정 영화 상세페이지에 진입하면 현재 user_id의 리뷰가 있는지확인(selectReviewCnt)

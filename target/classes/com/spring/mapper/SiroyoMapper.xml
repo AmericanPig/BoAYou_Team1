@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.SiroyoMapper">
+<!--커뮤니티 글에 특정 user_id 시러요 있는지 확인 select -->
+	<select id="selectCommunitySiroyoById" resultType="Integer">
+		select count(*) from community_siroyo where user_id=#{user_id} and community_no=#{community_no}
+	</select>
+
+<!--커뮤니티 글에 특정 user_id가 시러요 insert -->
+	<insert id="insertCommunitySiroyoById">
+		insert into community_siroyo(community_no, user_id, siroyo) values (#{community_no}, #{user_id}, 1)
+	</insert>
+
+<!--커뮤니티 글에 특정 user_id가 시러요 delete -->
+	<delete id="deleteCommunitySiroyoById">
+		delete from community_siroyo where user_id = #{user_id} and community_no=#{community_no}
+	</delete>
+
+<!--커뮤니티 페이지에서 해당 글의 누적시러요 select -->
+	<select id="selectCommunitySiroyoCnt" resultType="Integer">
+		select count(*) from community_siroyo where community_no = #{community_no} 
+	</select>
+
+<!--comment에 특정 user_id 시러요 select -->
+	<select id="selectCommentSiroyoById" resultType="Integer">
+		select count(*) from comment_siroyo where user_id=#{user_id} and comment_no=#{comment_no}
+	</select>
+
+<!--comment에 특정 user_id가 시러요 insert -->
+	<insert id="insertCommentSiroyoById">
+		insert into comment_siroyo(comment_no, user_id, siroyo) values (#{comment_no}, #{user_id}, 1)
+	</insert>
+
+<!--comment에 특정 user_id 시러요 delete -->
+	<delete id="deleteCommentSiroyoById">
+		delete from comment_siroyo where user_id = #{user_id} and comment_no=#{comment_no}
+	</delete>
+
+<!--커뮤니티의 comment열람 시 각 comment들의 누적 시러요 select -->
+	<select id="selectCommentSiroyoCnt" resultType="Integer">
+		select count(*) from comment_siroyo where comment_no = #{comment_no} 
+	</select>
+
+<!--(추후추가기능)마이페이지 특정 user_id가 시러요한 community 목록 select -->
+	<select id="selectCommunitySiroyoList" resultType="com.spring.domain.CommunityDTO">
+		select community_no, docid, user_id, community_content from community 
+			where community_no in (select community_no from community_siroyo where user_id=#{user_id})
+	</select>
+
+
+<!--(추후추가기능)마이페이지 특정 user_id가 시러요한 comment 목록 select -->
+	<select id="selectCommentSiroyoList" resultType="com.spring.domain.CommentDTO">
+		select comment_no, docid, user_id, community_no, comment_content from comment_tb 
+			where comment_no in (select comment_no from comment_siroyo where user_id=#{user_id})
+	</select>
+	</mapper>
