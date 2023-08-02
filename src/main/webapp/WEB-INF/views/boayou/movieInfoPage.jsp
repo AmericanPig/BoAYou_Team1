@@ -95,6 +95,10 @@
       %>
     }
   });
+  function onItemClick(value) {
+      var inputElement = document.querySelector('input[name="movielist_name"]');
+      inputElement.value = value;
+  }
 </script>
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -179,7 +183,7 @@
                      <c:when test="${not empty sessionScope.loginUser}">
                        <a> ${sessionScope.loginUser.name}님</a>
                          <a href="logout">로그아웃</a>
-                         <li><a href="myProfilePage">마이페이지</a></li>
+                         <li><a href="myPage">마이페이지</a></li>
                        </c:when>
                        <c:otherwise>
                         <li><a href="login">로그인</a></li>
@@ -336,7 +340,7 @@
 								<button type="submit">등록</button>
 							</div>
 						</form>
-<%-- 						</c:if> --%>
+						
 						</c:if><!-- loginUser if문 end -->
 					</div>
 					<!-- End Contact Form -->
@@ -390,10 +394,13 @@
 			        <div class="good-job">
 			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
-			          <input type="text" name="movielist_name" placeholder="MovieListName">
+			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
+			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
+          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+        			  </c:forEach>
 			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
 				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
-			          <input type="submit" value="등록" onclick="//">		                
+			          	                
 		            
 		            </form>		            
 			        </div>

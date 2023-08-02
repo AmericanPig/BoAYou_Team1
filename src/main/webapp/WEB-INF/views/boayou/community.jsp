@@ -280,9 +280,9 @@ function openCommentPopup(event, community_no) {
 					<div class="col-lg-6 text-center">
 						<h2>Community</h2>
 
-
+						<c:if test="${not empty sessionScope.loginUser}">
 						<a class="cta-btn" href="contact">글 작성</a>
-
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -198,7 +198,7 @@ body {
 		</c:forEach>
 	</div>
 	<hr>
-
+	<c:if test="${not empty sessionScope.loginUser}">
 	<div id="comment-form-container">
 		<form id="commentForm">
 			<label for="user_id">User ID:</label><br> <input type="text"
@@ -212,6 +212,7 @@ body {
 			<button style="float: right;" type="button" id="submitComment">Submit</button>
 		</form>
 	</div>
+	</c:if>
 
 </body>
 </html>

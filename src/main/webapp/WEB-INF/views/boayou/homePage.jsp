@@ -45,7 +45,7 @@
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/assets/css/searchBox.css">
+   href="${pageContext.request.contextPath}/resources/assets/css/searchBox.css?after">
 
 
 <!-- =======================================================
@@ -58,6 +58,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"
    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
    crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -150,14 +151,14 @@
 
 
                <li><a href="community">커뮤니티</a></li>
+               <div class="page-wrapper">
+               <a class="btn trigger" href="#">유저 검색</a>  
+			   </div>
                <c:choose>
                   <c:when test="${not empty sessionScope.loginUser}">
-                     <a> ${sessionScope.loginUser.name}님</a>
-                     <a href="logout">로그아웃</a>
+                     <li><a> ${sessionScope.loginUser.name}님</a></li>
                      <li><a href="myPage">마이페이지</a></li>
-                     <form action="searchUser"  method="post">
-                     <input type="text" id="searchBox2" name="user_id" placeholder="검색어를 입력하세요">
-                     </form>             
+                     <li><a href="logout">로그아웃</a></li>
                   </c:when>
                   <c:otherwise>
                      <li><a href="login">로그인</a></li>
@@ -199,7 +200,8 @@
       <!-- 검색창  -->
       <div class="search-container">
          <input type="text" id="searchBox" placeholder="검색어를 입력하세요"><a
-            id="searchMove"><button>검색</button> </a>
+            id="searchMove"><button style="border-radius: 5px;">검색</button>
+         </a>
          <div id="searchResults"></div>
       </div>
 
@@ -220,7 +222,7 @@
 
                <!-- 일간박스오피스 1위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
                      <img id="dayImgPoster0" class="img-fluid" alt="">
@@ -238,7 +240,7 @@
 
                <!-- 일간박스오피스 2위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -257,7 +259,7 @@
 
                <!-- 일간박스오피스 3위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -276,7 +278,7 @@
 
                <!-- 일간박스오피스 4위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -295,7 +297,7 @@
 
                <!-- 일간박스오피스 5위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -314,7 +316,7 @@
 
                <!-- 일간박스오피스 6위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -333,7 +335,7 @@
 
                <!-- 일간박스오피스 7위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -352,7 +354,7 @@
 
                <!-- 일간박스오피스 8위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -371,7 +373,7 @@
 
                <!-- 일간박스오피스 9위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -390,7 +392,7 @@
 
                <!-- 일간박스오피스 10위  -->
                <div
-                  style="text-align: center; border: solid; border-radius: 15px; padding-top: 12px;"
+                  style="text-align: center; border: solid 1.5px; border-radius: 10px; padding-top: 12px;"
                   class="col-xl-auto col-lg-auto col-md-auto">
                   <div class="gallery-item h-80">
 
@@ -413,7 +415,7 @@
       <!-- End일간박스오피스 -->
 
       <br>
-      
+
       <!-- 주간박스오피스 -->
       <section id="gallery" class="gallery">
          <div class="container-fluid">
@@ -558,7 +560,33 @@
          </div>
       </section>
       <!-- End주간박스오피스 -->
-
+	  <!-- 유저 검색 -->
+	  <div class="modal-wrapper">
+			  <div class="modal">
+			    <div class="head">
+			    <a class="btn-close trigger" href="#">
+			        <i class="fa fa-times" aria-hidden="true"></i>
+			      </a>
+			    <h2>유저 검색</h2>			      
+			    </div>
+			    <div class="listcontent">
+			        <div class="good-job">
+			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
+			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
+			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
+          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+        			  </c:forEach>
+			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
+				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
+			          	                
+		            
+		            </form>		            
+			        </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- End유저 검색  -->
    </main>
    <!-- End #main -->
 

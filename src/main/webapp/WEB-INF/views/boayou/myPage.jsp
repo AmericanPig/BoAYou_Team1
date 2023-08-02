@@ -642,14 +642,14 @@ a {
     <div class="line"></div>
   </div>
 
-  <!-- Vendor JS Files -->
+  <!— Vendor JS Files —>
  <script src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
 
-<!-- Template Main JS File -->
+<!— Template Main JS File —>
 <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 </body>

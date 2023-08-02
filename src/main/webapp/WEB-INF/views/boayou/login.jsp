@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html lang="en">
 
@@ -25,23 +25,23 @@
 
     <!-- Vendor CSS Files -->
     <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+   href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+   href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css">
+   href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
+   href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css">
+   href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css">
 
 <!-- Template Main CSS File -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+   href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
 
     <!-- =======================================================
@@ -51,115 +51,125 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+input {
+   
+   border-radius: 5px;
+   text-align: center;
+   
+   
+
+}
+</style>
 </head>
 
 <body>
 
-    	<!-- ======= Header ======= -->
-	<header id="header" class="header d-flex align-items-center fixed-top">
-		<div
-			class="container-fluid d-flex align-items-center justify-content-between">
+       <!-- ======= Header ======= -->
+   <header id="header" class="header d-flex align-items-center fixed-top">
+      <div
+         class="container-fluid d-flex align-items-center justify-content-between">
 
-			<a href="${pageContext.request.contextPath}/boayou/homePage"
-				class="logo d-flex align-items-center  me-auto me-lg-0"> <!-- Uncomment the line below if you also wish to use an image logo -->
-				<!-- <img src="img/logo.png" alt=""> --> <i class="bi bi-list"></i>
-				<h1>Boayou</h1>
-			</a>
+         <a href="${pageContext.request.contextPath}/boayou/homePage"
+            class="logo d-flex align-items-center  me-auto me-lg-0"> <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="img/logo.png" alt=""> --> <i class="bi bi-list"></i>
+            <h1>Boayou</h1>
+         </a>
 
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a
-						href="${pageContext.request.contextPath}/boayou/homePage"
-						class="active">Home</a></li>
+         <nav id="navbar" class="navbar">
+            <ul>
+               <li><a
+                  href="${pageContext.request.contextPath}/boayou/homePage"
+                  class="active">Home</a></li>
 
-					<li class="dropdown"><a href="#"><span>영화정보</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
-						<ul>
+               <li class="dropdown"><a href="#"><span>영화정보</span> <i
+                     class="bi bi-chevron-down dropdown-indicator"></i></a>
+                  <ul>
 
-							<li class="dropdown"><a href="#"><span>영화목록</span> <i
-									class="bi bi-chevron-down dropdown-indicator"></i></a>
-								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
-									
-								</ul>
-							</li>
-							
-							<li class="dropdown"><a href="#"><span>관람등급</span> <i
-									class="bi bi-chevron-down dropdown-indicator"></i></a>
-								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
-									
-								</ul>
-							</li>
-							
-								<li class="dropdown"><a href="#"><span>개봉연도</span> <i
-									class="bi bi-chevron-down dropdown-indicator"></i></a>
-								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
-									
-																		
-								</ul>
-							</li>
-							<li class="dropdown"><a href="#"><span>장르</span> <i
-									class="bi bi-chevron-down dropdown-indicator"></i></a>
-								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마, 가족, 코메디</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로, 로맨스</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포, 스릴러, 범죄, 전쟁</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션, SF, 판타지</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
-																		
-								</ul>
-							</li>
-							
-							
+                     <li class="dropdown"><a href="#"><span>영화목록</span> <i
+                           class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=한국영화">한국영화</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieNation=외국영화">외국영화</a></li>
+                           
+                        </ul>
+                     </li>
+                     
+                     <li class="dropdown"><a href="#"><span>관람등급</span> <i
+                           class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
+                           
+                        </ul>
+                     </li>
+                     
+                        <li class="dropdown"><a href="#"><span>개봉연도</span> <i
+                           class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2023">2023</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2022">2022</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=2021">2021</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRepRlsDate=이전">이전</a></li>
+                           
+                                                      
+                        </ul>
+                     </li>
+                     <li class="dropdown"><a href="#"><span>장르</span> <i
+                           class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=드라마가족코메디">드라마, 가족, 코메디</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=멜로로맨스">멜로, 로맨스</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=공포스릴러범죄전쟁">공포, 스릴러, 범죄, 전쟁</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션, SF, 판타지</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
+                                                      
+                        </ul>
+                     </li>
+                     
+                     
 
-						</ul></li>
-					<c:choose>
-						   <c:when test="${not empty sessionScope.loginUser}">
-						      <a>${sessionScope.loginUser.name} 님</a>
-						       <a href="logout">로그아웃</a>
-						       <li><a href="myProfilePage">마이페이지</a></li>
-							  </c:when>
-							  <c:otherwise>
-						      <li><a href="login">로그인</a></li>
-						      <li><a href="join">회원가입</a></li>
-						   </c:otherwise>
-						</c:choose>
-						
-						<li><a href="community">커뮤니티</a></li>				
-				</ul>
-			</nav>
-			<!-- .navbar -->
+                  </ul></li>
+            <li><a href="community">커뮤니티</a></li>
+               <c:choose>
+                  <c:when test="${not empty sessionScope.loginUser}">
+                     <li><a> ${sessionScope.loginUser.name}님</a></li>
+                     <li><a href="myPage">마이페이지</a></li>
+                     <li><a href="logout">로그아웃</a></li>
 
-			<!--  <div class="header-social-links">
+                  </c:when>
+                  <c:otherwise>
+                     <li><a href="login">로그인</a></li>
+                     <li><a href="join">회원가입</a></li>
+                  </c:otherwise>
+               </c:choose>   
+            </ul>
+         </nav>
+         <!-- .navbar -->
+
+         <!--  <div class="header-social-links">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
         <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
         <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
       </div>
     -->
-			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> <i
-				class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> <i
+            class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
-		</div>
-	</header>
-	<!-- End Header -->
-
+      </div>
+   </header>
+   <!-- End Header -->
+<div style="border:solid 1.5px gray; margin-top:100px;">
     <form action="loginProcess" method="post">
         <div class="col-lg-12 text-center">
             <div class="header">
                 <h3>로그인</h3>
             </div>
-            <br>
+      
             <div class="box-input">
                 <label for="id"></label> <input type="text" id="user_id" name="user_id"placeholder="아이디">
                 <div class="box-line-height"></div>
@@ -176,8 +186,9 @@
         </div>
         <c:if test="${not empty msg}">
         <p style="text-align: center">${msg}</p>
-    	</c:if>
+       </c:if>
     </form>
+    </div>
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
