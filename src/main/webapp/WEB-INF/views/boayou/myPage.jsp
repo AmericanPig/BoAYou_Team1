@@ -127,7 +127,7 @@ document.getElementById("updateProfileForm").addEventListener("submit", (event) 
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css">
+	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css?after">
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
@@ -320,7 +320,7 @@ a {
 						</ul></li>
 					<c:choose>
 						   <c:when test="${not empty sessionScope.loginUser}">
-						      <a>${sessionScope.loginUser.name} 님</a>
+						   		<a><img src="${ sessionScope.loginUserProfile.img}" style = "margin-right : 10px;" width=30px; height=30px;>${sessionScope.loginUser.name} 님</a>
 						       <a href="logout">로그아웃</a>
 						       <li><a href="myPage">마이페이지</a></li>
 							  </c:when>
@@ -413,7 +413,7 @@ a {
 						<li></li>
 						<li><a href="logout" style="color : green;">로그아웃</a></li>
 						<li><div class="page-wrapper">
-						<a class="btn trigger" href="#">myMovieList</a>
+						<a class="btn trigger" href="#">MyMovieList</a>
 						</div></li>
 						</ul>	
 					</c:when>
@@ -519,11 +519,11 @@ a {
 														<img src="${mylist.posters}" />
 												</a></td>
 												<td>
-												<form id="deleteForm" action="deletemyMovieList" method="POST">
+												<form id="deleteForm" action="deleteMyMovieList" method="POST">
 												<button type="submit"
 												class="button large">삭제</button>
-												<input type="hidden" name="myMovieList_no"
-												value="${mylist.myMovieList_no}">												
+												<input type="hidden" name="mymovielist_no"
+												value="${mylist.mymovielist_no}">												
 											</form>
 												</td>
 											</tr>											
@@ -549,10 +549,10 @@ a {
 					<p>리뷰를 작성한 영화</p>
 				</div>
 
-				<div class="slides-3 swiper" style="height : 50%">
+				<div class="slides-3 swiper">
 					<div class="swiper-wrapper">
 						<c:forEach var="myReviewMovie" items="${myReviewMovieList}" varStatus="status">
-							<div class="swiper-slide">
+							<div class="swiper-slide" style="height : 50%;">
 								<div class="testimonial-item">
 									<h4>${myReviewMovie.genre}</h4>
 									<h2>${myReviewMovie.title}</h2>																	
@@ -574,13 +574,13 @@ a {
 		
 		<!-- ======= MyCommunityMovie Section ======= -->
 		<section id="testimonials" class="testimonials">
-			<div class="container">
-			<div class="section-header">
-				<h2>My Community</h2>
-				<p>내 커뮤니티</p>
-			</div>
-			
-			<table id="communityTable">
+         <div class="container">
+         <div class="section-header">
+            <h2>My Community</h2>
+            <p>내 커뮤니티</p>
+         </div>
+         
+         <table id="communityTable">
                      <thead>
                         <tr>
                            <th>No.</th>
@@ -596,26 +596,26 @@ a {
                      <tbody>
                      
                      <c:forEach var="myCommunity" items="${myCommunityList}" varStatus="status">
-                     	<tr>
-                     		<td>${myCommunity.community_no }</td>
-                     		<td>
-                     			<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myCommunity.docid}" class="image featured">																		
-								<img src="${myCommunity.posters}" class="testimonial-img" alt=""></a>
-							</td>
-							<td>${myCommunity.title }</td>
-							<td>${myCommunity.community_title }</td>
-							<td>${myCommunity.community_content }</td>
-							<td>${myCommunity.joayo }</td>
-							<td>${myCommunity.siroyo }</td>
-							<td>${myCommunity.comment_count }</td>
-                     	</tr>
-							<!-- End testimonial item -->
-						</c:forEach>
+                        <tr>
+                           <td>${myCommunity.community_no }</td>
+                           <td>
+                              <a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myCommunity.docid}" class="image featured">                                                      
+                        <img src="${myCommunity.posters}" class="testimonial-img" alt=""></a>
+                     </td>
+                     <td>${myCommunity.title }</td>
+                     <td>${myCommunity.community_title }</td>
+                     <td>${myCommunity.community_content }</td>
+                     <td>${myCommunity.joayo }</td>
+                     <td>${myCommunity.siroyo }</td>
+                     <td>${myCommunity.comment_count }</td>
+                        </tr>
+                     <!-- End testimonial item -->
+                  </c:forEach>
                      </tbody>
                   </table>
-			
-			</div>
-		</section>
+         
+         </div>
+      </section>
 		<!-- End MyCommunityMovie Section -->
 
   </main><!-- End #main -->
@@ -642,14 +642,14 @@ a {
     <div class="line"></div>
   </div>
 
-  <!-- Vendor JS Files -->
+  <!— Vendor JS Files —>
  <script src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/vendor/php-email-form/validate.js"></script>
 
-<!-- Template Main JS File -->
+<!— Template Main JS File —>
 <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 </body>

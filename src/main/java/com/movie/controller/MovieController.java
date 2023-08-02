@@ -206,8 +206,8 @@ public class MovieController {
 	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user.getUser_id());
 	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
 	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user.getUser_id());
-	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());
-	   
+
+	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());	   
 	   for(ReviewDTO review : myReviewList) {
 		   myReviewMovieList.add(service.getDocid(review.getDocid()));
 	   }
@@ -249,17 +249,18 @@ public class MovieController {
        String realPath = "";
        String realFileName = "";
        try {
-           // 파일을 받아와서 저장할 경로 생성
-           byte[] bytes = profileImage.getBytes();
-           // 실제 경로 얻기
-           realPath = servletContext.getRealPath("/resources/assets/img/");
-           realFileName = profileImage.getOriginalFilename();
-           Path path = Paths.get(realPath + realFileName);
-           
-           Files.write(path, bytes);
-           loginUserProfile.setImg(path.toString());
-           System.out.println("프로필 이미지 저장 : " + path.toString());
-
+    	   if(profileImage != null) {
+    		   // 파일을 받아와서 저장할 경로 생성
+               byte[] bytes = profileImage.getBytes();
+               // 실제 경로 얻기
+               realPath = servletContext.getRealPath("/resources/assets/img/");
+               realFileName = profileImage.getOriginalFilename();
+               Path path = Paths.get(realPath + realFileName);
+               
+               Files.write(path, bytes);
+               loginUserProfile.setImg(path.toString());
+               System.out.println("프로필 이미지 저장 : " + path.toString());
+    	   }
        } catch (Exception e) {
            e.printStackTrace();
        }
@@ -511,7 +512,7 @@ public class MovieController {
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
 	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id); 
-	   model.addAttribute("mymovielist", mymovielist);
+	   model.addAttribute("myMovieList", mymovielist);
 	   model.addAttribute("user", user);
 	   model.addAttribute("userprofile", userprofile);	   
 	   Set<String> uniqueMovieListNames = new LinkedHashSet<>();
@@ -546,7 +547,7 @@ public class MovieController {
    @PostMapping("deleteMyMovieList")
    public String deleteMyMovieList(int mymovielist_no, String user_id) {	   
 	   userProfileService.deleteMyMovieList(mymovielist_no);	   
-	   return "redirect:/boayou/userPage?user_id="+user_id;
+	   return "redirect:/boayou/myPage";
    }
    @PostMapping("searchUser")
    public RedirectView searchUser(String user_id) {
