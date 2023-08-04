@@ -50,28 +50,7 @@
 <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css">   
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $("#myform").submit(function (event) {
-      event.preventDefault(); 
-  
-      var formData = $(this).serialize();
-  
-      $.ajax({
-        type: "POST",
-        url: "insertReview",
-        data: formData,
-        contentType: "application/x-www-form-urlencoded",
-        success: function (response) {
-          alert("리뷰 작성 성공");
-          location.reload();
-        },
-        error: function (error) {
-          alert("리뷰 작성 실패");
-        },
-      });
-    });
-  });
+<script> 
   function ReviewDelete() {
       var confirmation = confirm("정말로 삭제하시겠습니까?");
       if (confirmation) {
@@ -99,6 +78,43 @@
       var inputElement = document.querySelector('input[name="movielist_name"]');
       inputElement.value = value;
   }
+  
+  function handleSubmit(event) {
+	    event.preventDefault();
+
+	    const ratingInputs = document.getElementsByName("review_star");
+	    let isRatingSelected = false;
+
+	    for (let i = 0; i < ratingInputs.length; i++) {
+	      if (ratingInputs[i].checked) {
+	        isRatingSelected = true;
+	        break;
+	      }
+	    }
+
+	    if (!isRatingSelected) {
+	      alert("별점을 선택해주세요.");
+	      return false;
+	    }
+
+	    // AJAX 요청
+	    var formData = $("#myform").serialize();
+
+	    $.ajax({
+	      type: "POST",
+	      url: "insertReview",
+	      data: formData,
+	      contentType: "application/x-www-form-urlencoded",
+	      success: function (response) {
+	        alert("리뷰 작성 성공");
+	        location.reload();
+	      },
+	      error: function (error) {
+	        alert("리뷰 작성 실패");
+	      },
+	    });
+	  }
+
 </script>
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -317,7 +333,8 @@
 					<div class="col-lg-9">
 					<c:if test="${not empty sessionScope.loginUser}"><!-- loginUser if문 start -->
 
-						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form">		
+						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form" onsubmit="return validateForm()">
+		
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span>
 								<input type="radio" name="review_star" value="5" id="rate1"><label
@@ -347,7 +364,7 @@
 							</div>
 														
 							<div>
-								<button type="submit">등록</button>
+								<button onclick="handleSubmit(event)">등록</button>
 							</div>
 						</form>
 						

@@ -574,7 +574,7 @@ public class MovieController {
    public String deleteUserReview(ReviewDTO reviewDTO, String docid ) {
 	   reviewService.deleteUserReview(reviewDTO);
 	   
-	   return "redirect:/boayo/movieInfoPage?Docid="+docid;
+	   return "redirect:/boayou/movieInfoPage?Docid="+docid;
    }
    
    
