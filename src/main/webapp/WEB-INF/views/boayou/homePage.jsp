@@ -45,7 +45,7 @@
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/assets/css/searchBox.css">
+   href="${pageContext.request.contextPath}/resources/assets/css/searchBox.css?after">
 
 
 <!-- =======================================================
@@ -143,20 +143,28 @@
                               href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 
                         </ul></li>
-
-
-
-
                   </ul></li>
-
-
                <li><a href="community">커뮤니티</a></li>
+               <div class="page-wrapper">
+               <a class="btn trigger" href="#">유저 검색</a>  
+			   </div>
                <c:choose>
                   <c:when test="${not empty sessionScope.loginUser}">
-                     <li><a> ${sessionScope.loginUser.name}님</a></li>
+								<!-- ===user profile section start===-->
+						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+								  ${sessionScope.loginUser.name} 님
+								</a>
+								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									${sessionScope.loginUser.user_id} 님
+								</div><br>
+								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+								</ul>		
+								</li>								
+								<!-- ===user profile section end=== -->
                      <li><a href="myPage">마이페이지</a></li>
                      <li><a href="logout">로그아웃</a></li>
-
                   </c:when>
                   <c:otherwise>
                      <li><a href="login">로그인</a></li>
@@ -558,7 +566,33 @@
          </div>
       </section>
       <!-- End주간박스오피스 -->
-
+	  <!-- 유저 검색 -->
+	  <div class="modal-wrapper">
+			  <div class="modal">
+			    <div class="head">
+			    <a class="btn-close trigger" href="#">
+			        <i class="fa fa-times" aria-hidden="true"></i>
+			      </a>
+			    <h2>유저 검색</h2>			      
+			    </div>
+			    <div class="listcontent">
+			        <div class="good-job">
+			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
+			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
+			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
+          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+        			  </c:forEach>
+			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
+				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
+			          	                
+		            
+		            </form>		            
+			        </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- End유저 검색  -->
    </main>
    <!-- End #main -->
 
@@ -605,6 +639,13 @@
       src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
    <script
       src="${pageContext.request.contextPath}/resources/assets/js/homePage.js"></script>
+      
+      <script>
+      function goToMyPage(event) {
+    	  event.stopPropagation(); // 이벤트 버블링 방지
+    	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+    	  }
+      </script>
 
 </body>
 

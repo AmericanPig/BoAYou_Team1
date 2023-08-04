@@ -57,13 +57,10 @@
   display: block;
   float: right;
   color: #fff;
+  background-color: white;
 }
 a.btn {
-<<<<<<< HEAD
-  width: 150px;  
-=======
-  width: 100px;  
->>>>>>> 864b868aa1083505b10637469579652750556446
+  width: 150px;    
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   text-align: center;
   color: #fff;

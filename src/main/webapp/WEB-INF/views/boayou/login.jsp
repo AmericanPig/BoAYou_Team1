@@ -12,7 +12,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
+    <!-- Favicons -->	
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -136,7 +136,19 @@ input {
             <li><a href="community">커뮤니티</a></li>
                <c:choose>
                   <c:when test="${not empty sessionScope.loginUser}">
-                     <li><a> ${sessionScope.loginUser.name}님</a></li>
+								<!-- ===user profile section start===-->
+						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+								  ${sessionScope.loginUser.name} 님
+								</a>
+								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									${sessionScope.loginUser.user_id} 님
+								</div><br>
+								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+								</ul>		
+								</li>								
+								<!-- ===user profile section end=== -->
                      <li><a href="myPage">마이페이지</a></li>
                      <li><a href="logout">로그아웃</a></li>
 

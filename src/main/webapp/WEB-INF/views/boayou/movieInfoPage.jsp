@@ -95,6 +95,14 @@
       %>
     }
   });
+  function onItemClick(value) {
+      var inputElement = document.querySelector('input[name="movielist_name"]');
+      inputElement.value = value;
+  }
+  function goToMyPage(event) {
+	  event.stopPropagation(); // 이벤트 버블링 방지
+	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+	  }
 </script>
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -177,7 +185,19 @@
                   </ul></li>
                <c:choose>
                      <c:when test="${not empty sessionScope.loginUser}">
-                       <a> ${sessionScope.loginUser.name}님</a>
+								<!-- ===user profile section start===-->
+						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+								  ${sessionScope.loginUser.name} 님
+								</a>
+								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									${sessionScope.loginUser.user_id} 님
+								</div><br>
+								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+								</ul>		
+								</li>								
+								<!-- ===user profile section end=== -->
                          <a href="logout">로그아웃</a>
                          <li><a href="myPage">마이페이지</a></li>
                        </c:when>
@@ -336,7 +356,7 @@
 								<button type="submit">등록</button>
 							</div>
 						</form>
-<%-- 						</c:if> --%>
+						
 						</c:if><!-- loginUser if문 end -->
 					</div>
 					<!-- End Contact Form -->
@@ -390,10 +410,13 @@
 			        <div class="good-job">
 			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
-			          <input type="text" name="movielist_name" placeholder="MovieListName">
+			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
+			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
+          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+        			  </c:forEach>
 			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
 				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
-			          <input type="submit" value="등록" onclick="//">		                
+			          	                
 		            
 		            </form>		            
 			        </div>

@@ -152,6 +152,10 @@ function openCommentPopup(event, community_no) {
 		    },
 		  });
 		}
+	  function goToMyPage(event) {
+		  event.stopPropagation(); // 이벤트 버블링 방지
+		    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+		  }
 </script>
 </head>
 
@@ -243,7 +247,19 @@ function openCommentPopup(event, community_no) {
 						</ul></li>
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginUser}">
-						        <a>${sessionScope.loginUser.name} 님</a>
+								<!-- ===user profile section start===-->
+						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+								  ${sessionScope.loginUser.name} 님
+								</a>
+								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									${sessionScope.loginUser.user_id} 님
+								</div><br>
+								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+								</ul>		
+								</li>								
+								<!-- ===user profile section end=== -->
 						       <a href="logout">로그아웃</a>
 							<li><a href="myPage">마이페이지</a></li>
 						</c:when>
@@ -280,9 +296,9 @@ function openCommentPopup(event, community_no) {
 					<div class="col-lg-6 text-center">
 						<h2>Community</h2>
 
-
+						<c:if test="${not empty sessionScope.loginUser}">
 						<a class="cta-btn" href="contact">글 작성</a>
-
+						</c:if>
 					</div>
 				</div>
 			</div>

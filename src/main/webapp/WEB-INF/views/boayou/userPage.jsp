@@ -63,6 +63,10 @@ $(function(){
 	    return false;
 	  }).filter(':eq(0)').click();
 	  });
+function goToMyPage(event) {
+	  event.stopPropagation(); // 이벤트 버블링 방지
+	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+	  }
 </script>
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -231,7 +235,19 @@ a {
 						</ul></li>
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginUser}">
-							<a>${sessionScope.loginUser.name} 님</a>
+								<!-- ===user profile section start===-->
+						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+								  ${sessionScope.loginUser.name} 님
+								</a>
+								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									${sessionScope.loginUser.user_id} 님
+								</div><br>
+								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+								</ul>		
+								</li>								
+								<!-- ===user profile section end=== -->
 							<a href="logout">로그아웃</a>
 							<li><a href="myPage">마이페이지</a></li>
 						</c:when>
@@ -368,17 +384,7 @@ a {
 												<td><a
 													href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${mylist.docid}">
 														<img src="${mylist.posters}" />
-												</a></td>
-												<td>
-												<form id="deleteForm" action="deleteMyMovieList" method="POST">
-												<button type="submit"
-												class="button large">삭제</button>
-												<input type="hidden" name="mymovielist_no"
-												value="${mylist.mymovielist_no}">
-												<input type="hidden" name="user_id"
-												value="${user.user_id}">	
-											</form>
-												</td>
+												</a></td>												
 											</tr>											
 											
 											
@@ -394,7 +400,81 @@ a {
 		</div>
 	</main>
 	<!-- End #main -->
-	
+	<!-- ======= MyReviewMovie Section ======= -->
+		<section id="testimonials" class="testimonials">
+			<div class="container">
+
+				<div class="section-header">
+					<h2>My Selection</h2>
+					<p>리뷰를 작성한 영화</p>
+				</div>
+
+				<div class="slides-3 swiper">
+					<div class="swiper-wrapper">
+						<c:forEach var="myReviewMovie" items="${myReviewMovieList}" varStatus="status">
+							<div class="swiper-slide" style="height : 50%;">
+								<div class="testimonial-item">
+									<h4>${myReviewMovie.genre}</h4>
+									<h2>${myReviewMovie.title}</h2>																	
+									<div class="profile mt-auto">			
+										<a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myReviewMovie.docid}" class="image featured">																		
+										<img src="${myReviewMovie.posters}" class="testimonial-img" alt=""></a>							
+									</div>
+								</div>
+							</div>
+							<!-- End testimonial item -->
+						</c:forEach>
+					</div>
+<!-- 					<div class="swiper-pagination"></div> -->
+				</div>
+			</div>
+		</section>
+		<!-- End MyReviewMovie Section -->
+	<!-- ======= MyCommunityMovie Section ======= -->
+		<section id="testimonials" class="testimonials">
+         <div class="container">
+         <div class="section-header">
+            <h2>My Community</h2>
+            <p>내 커뮤니티</p>
+         </div>
+         
+         <table id="communityTable">
+                     <thead>
+                        <tr>
+                           <th>No.</th>
+                           <th>영화 이미지</th>
+                           <th>영화명</th>
+                           <th>Title</th>
+                           <th>Content</th>
+                           <th>좋아요</th>
+                           <th>싫어요</th>
+                           <th>댓글 수</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     
+                     <c:forEach var="myCommunity" items="${myCommunityList}" varStatus="status">
+                        <tr>
+                           <td>${myCommunity.community_no }</td>
+                           <td>
+                              <a href="${pageContext.request.contextPath}/boayou/movieInfoPage?Docid=${myCommunity.docid}" class="image featured">                                                      
+                        <img src="${myCommunity.posters}" class="testimonial-img" alt=""></a>
+                     </td>
+                     <td>${myCommunity.title }</td>
+                     <td>${myCommunity.community_title }</td>
+                     <td>${myCommunity.community_content }</td>
+                     <td>${myCommunity.joayo }</td>
+                     <td>${myCommunity.siroyo }</td>
+                     <td>${myCommunity.comment_count }</td>
+                        </tr>
+                     <!-- End testimonial item -->
+                  </c:forEach>
+                     </tbody>
+                  </table>
+         
+         </div>
+      </section>
+		<!-- End MyCommunityMovie Section -->
 		<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="container">

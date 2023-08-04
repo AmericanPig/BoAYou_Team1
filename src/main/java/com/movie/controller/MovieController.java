@@ -117,6 +117,8 @@ public class MovieController {
    public List<MovieListDTO> genre4Movie;
 
    public List<MovieListDTO> genre5Movie;
+   
+   public List<UserProfileDTO> userProfileList;
 
    public Boolean InitState = false;
    
@@ -249,8 +251,8 @@ public class MovieController {
        String realPath = "";
        String realFileName = "";
        try {
-    	   if(profileImage != null) {
-    		   // 파일을 받아와서 저장할 경로 생성
+          if(profileImage != null) {
+             // 파일을 받아와서 저장할 경로 생성
                byte[] bytes = profileImage.getBytes();
                // 실제 경로 얻기
                realPath = servletContext.getRealPath("/resources/assets/img/");
@@ -260,7 +262,7 @@ public class MovieController {
                Files.write(path, bytes);
                loginUserProfile.setImg(path.toString());
                System.out.println("프로필 이미지 저장 : " + path.toString());
-    	   }
+          }
        } catch (Exception e) {
            e.printStackTrace();
        }
@@ -311,9 +313,8 @@ public class MovieController {
       int profileInit = userProfileService.changeUserProfile(storedUserProfile);
       System.out.println(profileInit + "개의 프로필 로드됨");
       
-      Path originPath = Paths.get(storedUserProfile.getImg());
-      String fileName = originPath.getFileName().toString();
-      String webPath = Paths.get("../resources/assets/img",fileName).toString();
+      String originPath = storedUserProfile.getImg();
+      String webPath = toWebPath(originPath);
       storedUserProfile.setImg(webPath);
       
       session.setAttribute("loginUser", storedUser);
@@ -374,13 +375,21 @@ public class MovieController {
    }
 
    @GetMapping("movieInfoPage")
-   public void movieInfoPage(@RequestParam("Docid") String docid, Model model) {
+   public void movieInfoPage(@RequestParam("Docid") String docid, Model model, HttpSession session ) {
       listInit();
+      UserDTO user = (UserDTO)session.getAttribute("loginUser");
+      List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());	   
       List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
       MovieListDTO movieList = service.getDocid(docid);
       System.out.println(movieList);
       model.addAttribute("movieList", movieList);
       model.addAttribute("reviewList", reviewList);
+      model.addAttribute("myMovieList", mymovielist);
+      Set<String> uniqueMovieListNames = new LinkedHashSet<>();
+      for (MyMovieListDTO movie : mymovielist) {
+          uniqueMovieListNames.add(movie.getMovielist_name());
+      }
+      model.addAttribute("uniqueMovieListNames", uniqueMovieListNames);
    }
 
    @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")
@@ -511,7 +520,18 @@ public class MovieController {
    public void userPage(@RequestParam("user_id")String user_id, Model model) {	
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
-	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id); 
+	   userprofile.setImg(toWebPath(userprofile.getImg()));
+	   
+	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id);
+	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user_id);
+	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
+	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user_id);
+	   for(ReviewDTO review : myReviewList) {
+		   myReviewMovieList.add(service.getDocid(review.getDocid()));
+	   }
+	   model.addAttribute("myReviewList", myReviewList);
+	   model.addAttribute("myCommunityList", myCommunityList);
+	   model.addAttribute("myReviewMovieList", myReviewMovieList);
 	   model.addAttribute("myMovieList", mymovielist);
 	   model.addAttribute("user", user);
 	   model.addAttribute("userprofile", userprofile);	   
@@ -552,9 +572,16 @@ public class MovieController {
    @PostMapping("searchUser")
    public RedirectView searchUser(String user_id) {
        RedirectView redirectView = new RedirectView();
-       redirectView.setUrl("boayou/userPage?user_id=" + user_id);
+       redirectView.setUrl("userPage?user_id=" + user_id);
        return redirectView;
    }
 
-   
+   //절대경로를 이미지 소스용 경로로 변환
+   public String toWebPath(String strOriginPath) {
+	   Path originPath = Paths.get(strOriginPath);
+	   String fileName = originPath.getFileName().toString();
+	   String webPath = Paths.get("../resources/assets/img",fileName).toString();
+	   
+	   return webPath;
+   }
 }

@@ -198,13 +198,12 @@ body {
 		</c:forEach>
 	</div>
 	<hr>
-
+	<c:if test="${not empty sessionScope.loginUser}">
 	<div id="comment-form-container">
 		<form id="commentForm">
 			<label for="user_id">User ID:</label><br> <input type="text"
 				id="user_id" name="user_id"
-				value=${sessionScope.loginUser.user_id
-				} required><br>
+				value="${sessionScope.loginUser.user_id}" required><br>
 			<br>
 			<textarea id="comment_content" name="comment_content" rows="4"
 				cols="50" placeholder="comment_content:" required></textarea>
@@ -212,6 +211,7 @@ body {
 			<button style="float: right;" type="button" id="submitComment">Submit</button>
 		</form>
 	</div>
+	</c:if>
 
 </body>
 </html>
