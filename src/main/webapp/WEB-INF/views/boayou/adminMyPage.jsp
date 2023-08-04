@@ -34,6 +34,18 @@
 
 <style>
 
+	.custom-btn {
+	    display: inline-block;
+	    padding: 6px 12px;
+	    background-color: #5cb85c;
+	    border: 1px solid #4cae4c;
+	    border-radius: 5px;
+	    color: white;
+	    font-weight: bold;
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+
 	#div-1 {
 	  flex: 50%;
 	  box-sizing: border-box;
@@ -51,103 +63,96 @@
 </style>
 
 <script>
-
-	$(document).ready(function () {
-		  $(".trigger").on("click", function () {
-		    $(".modal-wrapper").toggleClass("open");
-		    $(".page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-	
-	$(document).ready(function () {
-		  $(".pwd-trigger").on("click", function () {
-		    $(".pwd-modal-wrapper").toggleClass("pwd-open");
-		    $(".pwd-page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-		
-	$(document).ready(function () {
-		  $(".profile-trigger").on("click", function () {
-		    $(".profile-modal-wrapper").toggleClass("profile-open");
-		    $(".profile-page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-	
-	$(function(){
-		  $('.tabcontent > div').hide();
-		  $('.tabnav a').click(function () {
-		    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	$(function(){
-		  $('.pwd-tabcontent > div').hide();
-		  $('.pwd-tabnav a').click(function () {
-		    $('.pwd-tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.pwd-tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	$(function(){
-		  $('.profile-tabcontent > div').hide();
-		  $('.profile-tabnav a').click(function () {
-		    $('.profile-tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.profile-tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	function Delete() {
-	var confirmation = confirm("정말로 삭제하시겠습니까?");
-	if (confirmation) {
-	    document.getElementById("deleteForm").submit();
-	}
-	}  
-	
-	function previewImage() {
-	  const preview = document.getElementById('currentImage');
-	  const file = document.getElementById('profileImage').files[0];
-	  const reader = new FileReader();
-	
-	  reader.addEventListener("load", function () {
-	    preview.src = reader.result;
-	  }, false);
-	
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  }
-	}
-	
-	document.getElementById("adminnUpdateProfileForm").addEventListener("submit", (event) => {
-	    event.preventDefault();
-	    const formData = new FormData(event.target);
-	    const url = "/controller/boayou/adminnUpdateProfileForm";
-
-	    fetch(url, {
-	      method: "POST",
-	      body: formData
-	    })
-	    .then((response) => response.json())
-	    .then((result) => {
-	      if (result.success) {
-	        alert("프로필 변경 완료");
-	        window.opener.location.reload();
-	        window.close();
-	      } else {
-	        alert("프로필 변경 실패");
-	      }
-	    });
+$(document).ready(function () {
+	  $(".trigger").on("click", function () {
+	    $(".modal-wrapper").toggleClass("open");
+	    $(".page-wrapper").toggleClass("blur-it");
+	    return false;
 	  });
+	});
 
+$(document).ready(function () {
+	  $(".pwd-trigger").on("click", function () {
+	    $(".pwd-modal-wrapper").toggleClass("pwd-open");
+	    $(".pwd-page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});
+	
+$(document).ready(function () {
+	  $(".profile-trigger").on("click", function () {
+	    $(".profile-modal-wrapper").toggleClass("profile-open");
+	    $(".profile-page-wrapper").toggleClass("blur-it");
+	    return false;
+	  });
+	});
+
+$(function(){
+	  $('.tabcontent > div').hide();
+	  $('.tabnav a').click(function () {
+	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+$(function(){
+	  $('.pwd-tabcontent > div').hide();
+	  $('.pwd-tabnav a').click(function () {
+	    $('.pwd-tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.pwd-tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+$(function(){
+	  $('.profile-tabcontent > div').hide();
+	  $('.profile-tabnav a').click(function () {
+	    $('.profile-tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.profile-tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+function Delete() {
+var confirmation = confirm("정말로 삭제하시겠습니까?");
+if (confirmation) {
+    document.getElementById("deleteForm").submit();
+}
+}  
+
+function previewImage() {
+  const preview = document.getElementById('currentImage');
+  const file = document.getElementById('profileImage').files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+function displayProfileBox() {
+  // profileBox 표시
+  document.getElementById("profileBox").style.display = "block";
+}
+
+// 마우스 다른 영역으로 이동시, profileBox 숨기기
+document.addEventListener("mouseover", function (event) {
+  if (event.target.id !== "profileBox" && event.target.parentNode.id !== "profileBox") {
+    document.getElementById("profileBox").style.display = "none";
+  }
+});
+
+function goToMyPage(event) {
+	  event.stopPropagation(); // 이벤트 버블링 방지
+	    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
+	  }
 </script>
 
 </head>
@@ -198,38 +203,19 @@
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션,SF,판타지</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 								</ul></li>
-						</ul></li>
-					 <c:choose>
-						    <c:when test="${not empty sessionScope.loginUser}">					        				
-						        <c:choose>
-						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
-						            </c:when>
-						            <c:otherwise>
-						                <!-- ===user profile section start===-->
-							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-									  ${sessionScope.loginUser.name} 님
-									</a>
-									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
-										${sessionScope.loginUser.user_id} 님
-									</div><br>
-									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-									</ul>		
-									</li>								
-									<!-- ===user profile section end=== -->
-						                <a href="logout">로그아웃</a>	
-						            </c:otherwise>						            
-						        </c:choose>
-						    </c:when>
-						    <c:otherwise>
-						        <li><a href="login">로그인</a></li>
-						        <li><a href="join">회원가입</a></li>
-						    </c:otherwise>
-						</c:choose>
-						<li><a href="community">커뮤니티</a></li> 
-            </ul> 
+						</ul></li>	
+					<c:choose>
+						<c:when test="${not empty sessionScope.loginUser}">
+							<a>${sessionScope.loginUser.name} 님</a>
+							<a href="logout">로그아웃</a>
+							<li><a href="adminMyPage">관리자페이지</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="login">로그인</a></li>
+						</c:otherwise>
+					</c:choose>
+					<li><a href="community">커뮤니티</a></li>
+				</ul>
 			</nav>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> 
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
@@ -340,7 +326,7 @@
 			      <h2>프로필 변경</h2>
 			    </div>
 			    <br><br><br><br>
-	  				<form id="adminnUpdateProfileForm" action="${pageContext.request.contextPath}/boayou/adminnUpdateProfileForm" method="post" enctype="multipart/form-data">
+	  				<form id="adminnUpdateProfileForm" action="${pageContext.request.contextPath}/boayou/adminUpdateProfileForm" method="post" enctype="multipart/form-data">
 					  <div style="text-align: center;">
 					    <img id="currentImage" src="${sessionScope.loginUserProfile.img }" style="margin: 0 auto;" width="200" height="200"><br>
 							<label for="profileImage" class="custom-btn">

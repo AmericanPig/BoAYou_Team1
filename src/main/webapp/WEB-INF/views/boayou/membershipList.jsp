@@ -50,48 +50,41 @@ table, table td, table th {
 }
 </style>
 
-<script> 
+<script>
+  function updateBtn(user_id) {
+    // 사용자가 선택한 레벨 값을 가져옵니다.
+    const selectedUserLevel = $("#option" + user_id).val();
 
-//JavaScript 코드
-function updateLevel(user_id, user_level) {
-  console.log('updateLevel 함수 호출됨:', user_id, user_level);
-
-  // AJAX 요청 설정
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "/boayou/updateLevelUp");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  xhr.onreadystatechange = function () {
-    console.log('readyState 변화:', xhr.readyState, xhr.status);
-  };
-
-  // 요청 완료 이벤트 설정
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      const res = JSON.parse(xhr.responseText);
-      console.log('응답 처리:', res);
-
-      if (res.success) {
-        alert("회원 등급 변경 완료.");
-        // 필요에 따라 성공 로직 추가
-      } else {
-        alert("회원 등급 변경 실패.");
-        // 필요에 따라 실패 로직 추가
-      }
+    // 레벨 값을 선택하지 않은 경우 알림 처리
+    if (selectedUserLevel === "선택") {
+      alert("레벨을 선택해주세요.");
+      return;
     }
-  };
 
-  // AJAX 요청 전송
-  const data = `user_id=${user_id}&user_level=${user_level}`;
-  xhr.send(data);
-  console.log('AJAX 요청 전송:', data);
-}
-function goToAdminMyPage(event) {
-	  event.stopPropagation(); // 이벤트 버블링 방지
-	    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
-	  }
+    // 사용자 확인 메시지 표시
+    if (confirm('회원등급변경 ?')) {
+      // AJAX를 사용하여 서버에 요청을 보내고 사용자 레벨을 업데이트합니다.
+      $.ajax({
+        url: "updateUserLevel",
+        type: "POST",
+        data: {
+          user_id: user_id,
+          user_level: selectedUserLevel
+        },
+        success: function (message) {
+          alert("성공알림 :  변경완료");
+          location.reload();
+        },
+        error: function (request, status, error) {
+          alert("Error: " + error);
+        }
+      });
+    }
+  }
 </script>
 
+
+    
 </head>
 <body>
 	<!-- ======= Header ======= -->
@@ -140,37 +133,18 @@ function goToAdminMyPage(event) {
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 								</ul></li>
 						</ul></li>
-					 <c:choose>
-						    <c:when test="${not empty sessionScope.loginUser}">					        				
-						        <c:choose>
-						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
-						            </c:when>
-						            <c:otherwise>
-						                <!-- ===user profile section start===-->
-							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-									  ${sessionScope.loginUser.name} 님
-									</a>
-									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
-										${sessionScope.loginUser.user_id} 님
-									</div><br>
-									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-									</ul>		
-									</li>								
-									<!-- ===user profile section end=== -->
-						                <a href="logout">로그아웃</a>	
-						            </c:otherwise>						            
-						        </c:choose>
-						    </c:when>
-						    <c:otherwise>
-						        <li><a href="login">로그인</a></li>
-						        <li><a href="join">회원가입</a></li>
-						    </c:otherwise>
+						<c:choose>
+							<c:when test="${not empty sessionScope.loginUser}">
+								<a>${sessionScope.loginUser.name} 님</a>
+								<a href="logout">로그아웃</a>
+								<li><a href="adminMyPage">관리자페이지</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="login">로그인</a></li>
+							</c:otherwise>
 						</c:choose>
-						<li><a href="community">커뮤니티</a></li> 
-            </ul> 
+					<li><a href="community">커뮤니티</a></li>	
+				</ul>
 			</nav>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> 
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
@@ -198,38 +172,40 @@ function goToAdminMyPage(event) {
 				<div class="">
 					<div class="d-flex">
 						<div class="clo-list" id="clo-list1">
-							<h3>회원등급 관리목록</h3>
-								<table>
-							    <thead>
-							    <tr>
-							        <th>USER_ID</th>
-							        <th>USER_NAME</th>
-							        <th>USER_LEVEL</th>
-							        <th>COMMUNITY_COUNT</th>	
-							        <th>MEMBERSHIP</th>
-							    </tr>
-							    </thead>
-							    <tbody id="checkboxContainer">
-							    <c:forEach var="member" items="${membershipList}">
-							        <tr >
+							<h3>회원등급 관리목록</h3>						
+							  <form id="updateUserLevelForm" action="/updateUserLevel" method="post">
+							    <table>
+							      <thead>
+							        <tr>
+							          <th>USER_ID</th>
+							          <th>USER_NAME</th>
+							          <th>USER_LEVEL</th>
+							          <th>COMMUNITY_COUNT</th>
+							        </tr>
+							      </thead>
+							      <tbody id="optionContainer">
+							        <c:forEach var="member" items="${membershipList}">
+							          <tr>
 							            <td>${member.user_id}</td>
 							            <td>${member.name}</td>
-							            <td>${member.user_level}</td>
-							            <td>${member.community_count}</td>
 							            <td>
-							            	<select name="membership"> 			           
-								            <option value="0" selected> 선택 </option>
-								            <option value="1"> 1level </option>
-								            <option value="2"> 2level </option>
-								            <option value="3"> 3level </option>
-								       	    </select>
-								      		<input type="button" value="변경" 
-								      			onclick ="updateLevel(${member.user_id}, this.parentElement.querySelector('select').value);"/>
-								       	</td>
-								       	<!-- updateLevelUp 함수에 user_level 인자를 전달 --> 								      
-							    </c:forEach>
-							    </tbody>
-							</table>
+							              회원: ${member.user_level}레벨
+							              <select name="option" id="option${member.user_id}">
+							                <option selected>선택</option>
+							                <option value="1">1</option>
+							                <option value="2">2</option>
+							                <option value="3">3</option>
+							                <option value="4">4</option>
+							                <option value="5">5</option>
+							              </select>
+							              <input type="button" value="변경" onclick="updateBtn('${member.user_id}');" />
+							            </td>
+							            <td>${member.community_count}</td>
+							          </tr>
+							        </c:forEach>
+							      </tbody>
+							    </table>
+							  </form>               
 							<%@ include file="../import/page-nation-member.jsp" %>								 							
 						</div>
 						<div class="div-box" id="clo-list2">

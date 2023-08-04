@@ -276,47 +276,46 @@ public class MovieController {
 	public void adminMyPage() {
 		
 	}
-
   
    // admin000 관리자 프로필 
-  @PostMapping("/boayou/adminnUpdateProfileForm")
-  public String adminnUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
-                                     @RequestParam("profileMessage") String profileMessage,
-                                     HttpServletRequest request, HttpSession session) {
-      UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
-      
-      String realPath = "";
-      String realFileName = "";
-      try {
-          // 파일을 받아와서 저장할 경로 생성
-          byte[] bytes = profileImage.getBytes();
-          // 실제 경로 얻기
-          realPath = servletContext.getRealPath("/resources/assets/img/");
-          realFileName = profileImage.getOriginalFilename();
-          Path path = Paths.get(realPath + realFileName);
-          
-          Files.write(path, bytes);
-          loginUserProfile.setImg(path.toString());
-          System.out.println("프로필 이미지 저장 : " + path.toString());
+   @PostMapping("/boayou/adminUpdateProfileForm")
+   public String adminUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
+                                      @RequestParam("profileMessage") String profileMessage,
+                                      HttpServletRequest request, HttpSession session) {
+       UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
+       
+       String realPath = "";
+       String realFileName = "";
+       try {
+           // 파일을 받아와서 저장할 경로 생성
+           byte[] bytes = profileImage.getBytes();
+           // 실제 경로 얻기
+           realPath = servletContext.getRealPath("/resources/assets/img/");
+           realFileName = profileImage.getOriginalFilename();
+           Path path = Paths.get(realPath + realFileName);
+           
+           Files.write(path, bytes);
+           loginUserProfile.setImg(path.toString());
+           System.out.println("프로필 이미지 저장 : " + path.toString());
 
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
 
-      if (profileMessage != null) {
-          loginUserProfile.setIntro(profileMessage);
-          System.out.println("프로필 메시지 변경 : " + profileMessage);
-      }
+       if (profileMessage != null) {
+           loginUserProfile.setIntro(profileMessage);
+           System.out.println("프로필 메시지 변경 : " + profileMessage);
+       }
 
-      userProfileService.changeUserProfile(loginUserProfile);
-      
-      String originPath = loginUserProfile.getImg();
-      String webPath = toWebPath(originPath);
-      loginUserProfile.setImg(webPath);
-      
-      session.setAttribute("loginUserProfile", loginUserProfile);
-      return "redirect:/boayou/homePage";
-   }
+       userProfileService.changeUserProfile(loginUserProfile);
+       
+       String originPath = loginUserProfile.getImg();
+       String webPath = toWebPath(originPath);
+       loginUserProfile.setImg(webPath);
+       
+       session.setAttribute("loginUserProfile", loginUserProfile);
+       return "redirect:/boayou/adminMyPage";
+    }
   
   // admin00 로그인 추가 
   @PostMapping("/loginProcess")
