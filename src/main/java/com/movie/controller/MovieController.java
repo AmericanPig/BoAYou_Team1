@@ -121,7 +121,10 @@ public class MovieController {
    public List<MovieListDTO> genre4Movie;
 
    public List<MovieListDTO> genre5Movie;
-   
+
+   public List<UserProfileDTO> userProfileList;
+
+   public Boolean InitState = false;
    
    @Autowired
    private ServletContext servletContext;
@@ -129,10 +132,7 @@ public class MovieController {
 
    @GetMapping("homePage")
    public void movie(Model model) {	  	  	   
-	  
-	  
-	  
-      
+	     
    }
 
    @GetMapping("community")
@@ -178,6 +178,7 @@ public class MovieController {
 	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user.getUser_id());
 	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
 	   List<CommunityDTO> myCommunityList = communityservice.selectCommunityById(user.getUser_id());
+
 	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());	   
 	   for(ReviewDTO review : myReviewList) {
 		   myReviewMovieList.add(service.getDocid(review.getDocid()));
@@ -308,13 +309,13 @@ public class MovieController {
 
       userProfileService.changeUserProfile(loginUserProfile);
       
-      String webPath = "../resources/assets/img/" + realFileName;
-      System.out.println("이미지 세션용 경로 : " + webPath);
+      String originPath = loginUserProfile.getImg();
+      String webPath = toWebPath(originPath);
       loginUserProfile.setImg(webPath);
+      
       session.setAttribute("loginUserProfile", loginUserProfile);
-
-      return "redirect:/boayou/adminMyPage";
-  }
+      return "redirect:/boayou/homePage";
+   }
   
   // admin00 로그인 추가 
   @PostMapping("/loginProcess")
@@ -602,6 +603,8 @@ public class MovieController {
    public void userPage(@RequestParam("user_id")String user_id, Model model) {	
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
+	   userprofile.setImg(toWebPath(userprofile.getImg()));
+	   
 	   List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user_id);
 	   List<ReviewDTO> myReviewList = reviewService.getMyReviewList(user_id);
 	   List<MovieListDTO> myReviewMovieList = new ArrayList<MovieListDTO>();
@@ -671,7 +674,6 @@ public class MovieController {
    @PostMapping("/update-password")
    public ResponseEntity<?> updatePassword(@RequestParam("userId") String userId,
            @RequestParam("newPassword") String newPassword) {
-
 			boolean isUpdated = UserService.updatePasswordForReset(userId, newPassword);
 			Map<String, Object> response = new HashMap<>();
 			
@@ -686,4 +688,12 @@ public class MovieController {
 			return ResponseEntity.ok(response);
    }
    
+   //절대경로를 이미지 소스용 경로로 변환
+   public String toWebPath(String strOriginPath) {
+	   Path originPath = Paths.get(strOriginPath);
+	   String fileName = originPath.getFileName().toString();
+	   String webPath = Paths.get("../resources/assets/img",fileName).toString();
+	   
+	   return webPath;
+   }
 }

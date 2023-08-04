@@ -53,7 +53,7 @@
 		)
 	</insert>
 	<delete id="deleteMyMovieList">
-	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}		
+	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}
 	</delete>
 
   </mapper>

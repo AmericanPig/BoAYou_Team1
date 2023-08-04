@@ -80,28 +80,22 @@ function previewImage() {
       reader.readAsDataURL(file);
     }
   }
-  
-document.getElementById("updateProfileForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const url = "/controller/boayou/updateProfileProcess";
+function displayProfileBox() {
+    // profileBox 표시
+    document.getElementById("profileBox").style.display = "block";
+  }
 
-    fetch(url, {
-      method: "POST",
-      body: formData
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.success) {
-        alert("프로필 변경 완료");
-        window.opener.location.reload();
-        window.close();
-      } else {
-        alert("프로필 변경 실패");
-      }
-    });
+  // 마우스 다른 영역으로 이동시, profileBox 숨기기
+  document.addEventListener("mouseover", function (event) {
+    if (event.target.id !== "profileBox" && event.target.parentNode.id !== "profileBox") {
+      document.getElementById("profileBox").style.display = "none";
+    }
   });
-
+  
+  function goToMyPage(event) {
+	  event.stopPropagation(); // 이벤트 버블링 방지
+	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+	  }
 </script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -314,20 +308,27 @@ a {
 																		
 								</ul>
 							</li>
-							
-							
-
 						</ul></li>
-					<li><a href="community">커뮤니티</a></li>               
-               <c:choose>
-						    <c:when test="${not empty sessionScope.loginUser}">
-						        <a>${sessionScope.loginUser.name} 님</a>						        				
+					 <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
 						                <li><a href="adminMyPage">관리자페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
-						                <li><a href="myPage">마이페이지</a></li>
+						                <!-- ===user profile section start===-->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
 						                <a href="logout">로그아웃</a>	
 						            </c:otherwise>						            
 						        </c:choose>
@@ -337,6 +338,8 @@ a {
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
+						<li><a href="community">커뮤니티</a></li> 
+            </ul> 
             </ul>           
 			</nav>
 			<!-- .navbar -->

@@ -203,8 +203,7 @@ body {
 		<form id="commentForm">
 			<label for="user_id">User ID:</label><br> <input type="text"
 				id="user_id" name="user_id"
-				value=${sessionScope.loginUser.user_id
-				} required><br>
+				value="${sessionScope.loginUser.user_id}" required><br>
 			<br>
 			<textarea id="comment_content" name="comment_content" rows="4"
 				cols="50" placeholder="comment_content:" required></textarea>
