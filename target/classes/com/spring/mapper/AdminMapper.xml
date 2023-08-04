@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.AdminMapper">
+
+    <select id="selectUserList" resultType="com.spring.domain.UserDTO">
+		<![CDATA[
+					SELECT * FROM (
+					  SELECT ROWNUM as rn 
+					      ,user_id
+					      ,pwd
+					      ,name
+					      ,age
+					      ,jumin 
+					      ,user_level
+					  FROM user_tb 
+					  WHERE ROWNUM <= (#{cri.pageNum}*#{cri.amount})  
+					  ORDER BY user_id DESC
+					)
+					WHERE rn > ((#{cri.pageNum}-1)*#{cri.amount})
+      ]]> 
+	</select>
+	
+	<delete id="deleteUserList" parameterType="java.util.Map">
+	    DELETE FROM user_tb WHERE user_id IN
+	    <foreach item="userId" collection="list" open="(" separator="," close=")">
+	        #{userId}
+	    </foreach>
+	    AND user_id != 'admin00'
+	</delete>
+
+	<select id="selectCommunityList" resultType="com.spring.domain.CommunityDTO">
+		<![CDATA[
+					SELECT * FROM (
+					  SELECT ROWNUM as rn 
+					      ,community_no
+					      ,user_id
+					      ,docid
+					      ,community_title
+					      ,community_content
+					  FROM community 
+					  WHERE ROWNUM <= (#{cri.pageNum}*#{cri.amount})  
+					  ORDER BY community_no DESC
+					)
+					WHERE rn > ((#{cri.pageNum}-1)*#{cri.amount})
+      ]]> 
+	</select>
+	
+	<delete id="deleteCommunityList" parameterType="java.util.Map">
+		DELETE FROM community WHERE community_no IN
+	    <foreach item="communityNo" collection="list" open="(" separator="," close=")">
+	        #{communityNo}
+	    </foreach>
+	</delete>
+
+	<select id="membershipList" resultType="com.spring.domain.MemberShipDTO">
+		<![CDATA[
+					SELECT * FROM (
+					  SELECT ROWNUM as rn 
+					      ,user_id
+					      ,name
+					      ,community_count
+					      ,user_level
+					  FROM membership 
+					  WHERE ROWNUM <= (#{cri.pageNum}*#{cri.amount})  
+					  ORDER BY community_count DESC
+					)
+					WHERE rn > ((#{cri.pageNum}-1)*#{cri.amount})
+      ]]> 
+	</select>
+	
+	<update id="updateUserLevel">
+		    UPDATE membership
+		    SET USER_LEVEL = CASE
+		        WHEN COMMUNITY_COUNT >= 10 THEN 3
+		        WHEN COMMUNITY_COUNT >= 3  THEN 2
+		        ELSE USER_LEVEL
+		    END
+	</update>
+	
+  </mapper>

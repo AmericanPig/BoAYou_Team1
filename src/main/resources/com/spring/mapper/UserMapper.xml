@@ -32,4 +32,19 @@
 	<delete id="deleteUserById" parameterType="String">
 		delete from user_tb where user_id=#{user_id}
 	</delete>	
+	<select id="getUsersByUserId" resultType="String">
+        SELECT user_id FROM user_tb
+        WHERE user_id LIKE '%' || #{keyword} || '%'
+    </select>
+    <select id="findId" resultType="String">
+   		 SELECT user_id FROM user_tb WHERE name = #{name} AND jumin=#{jumin}
+    </select>
+    <select id="checkUser" resultType="String">
+   		 SELECT pwd FROM user_tb WHERE user_id = #{user_id} AND name = #{name} AND jumin=#{jumin}
+    </select>
+    <update id="updateUserPassword" parameterType="map">
+	    UPDATE user_tb
+	    SET pwd = #{newPassword}
+	    WHERE user_id = #{userId}
+	</update>
   </mapper>

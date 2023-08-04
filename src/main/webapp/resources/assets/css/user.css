@@ -60,10 +60,10 @@
   background-color: white;
 }
 a.btn {
-  width: 150px;  
-  width: 100px;  
+  width: 150px;    
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   text-align: center;
+  backgorund-color:black;
   color: #fff;
   border-radius: 0;
   background: #e2525c;

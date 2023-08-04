@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - About</title>
+<title>MovieInfoPage</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -47,7 +47,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/star.css">   
-<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css?after">   
+<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css">   
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -179,20 +179,26 @@
                      
 
                   </ul></li>
+               <li><a href="community">커뮤니티</a></li>               
                <c:choose>
-                     <c:when test="${not empty sessionScope.loginUser}">
-                       <a> ${sessionScope.loginUser.name}님</a>
-                         <a href="logout">로그아웃</a>
-                         <li><a href="myPage">마이페이지</a></li>
-                       </c:when>
-                       <c:otherwise>
-                        <li><a href="login">로그인</a></li>
-                        <li><a href="join">회원가입</a></li>
-                     </c:otherwise>
-                  </c:choose>
-                  
-                  <li><a href="community">커뮤니티</a></li>            
-            </ul>
+						    <c:when test="${not empty sessionScope.loginUser}">
+						        <a>${sessionScope.loginUser.name} 님</a>						        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <li><a href="myPage">마이페이지</a></li>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+            </ul>           
          </nav>
          <!-- .navbar -->
 
@@ -239,9 +245,11 @@
                      <div class="col-lg-4">
                         <img src="${movieList.posters}" class="img-fluid" alt="">
                         <br>
+                        <c:if test="${not empty sessionScope.loginUser}">
                         <div class="page-wrapper">
                         <a class="btn trigger" href="#">MyMovieList 등록</a>  
-						</div>                        											                     
+						</div>                    
+						</c:if>    											                     
                      </div>
                      <div class="col-lg-5 content">
 
@@ -396,7 +404,8 @@
 			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
 			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
 			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
-          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+          			  <li style="border:.10px solid white; border-radius:15px; list-style-type: none;
+          			  text-align:center; background-color:black;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
         			  </c:forEach>
 			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
 				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       

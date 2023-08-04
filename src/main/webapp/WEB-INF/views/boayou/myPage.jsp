@@ -140,7 +140,7 @@ document.getElementById("updateProfileForm").addEventListener("submit", (event) 
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 	
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/css/user.css?after">
+	href="${pageContext.request.contextPath}/resources/assets/css/user.css">
 	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/pwd.css?after">
@@ -318,20 +318,26 @@ a {
 							
 
 						</ul></li>
-					<c:choose>
-						   <c:when test="${not empty sessionScope.loginUser}">
-						      <a>${sessionScope.loginUser.name} 님</a>
-						       <a href="logout">로그아웃</a>
-						       <li><a href="myPage">마이페이지</a></li>
-							  </c:when>
-							  <c:otherwise>
-						      <li><a href="login">로그인</a></li>
-						      <li><a href="join">회원가입</a></li>
-						   </c:otherwise>
+					<li><a href="community">커뮤니티</a></li>               
+               <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">
+						        <a>${sessionScope.loginUser.name} 님</a>						        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <li><a href="myPage">마이페이지</a></li>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
 						</c:choose>
-						
-						<li><a href="community">커뮤니티</a></li>				
-				</ul>
+            </ul>           
 			</nav>
 			<!-- .navbar -->
 

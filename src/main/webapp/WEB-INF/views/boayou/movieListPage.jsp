@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - Gallery</title>
+<title>MovieListPage</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -131,20 +131,26 @@
                      
 
                   </ul></li>
+               <li><a href="community">커뮤니티</a></li>               
                <c:choose>
-                     <c:when test="${not empty sessionScope.loginUser}">
-                        <a>${sessionScope.loginUser.name}님</a>
-                         <a href="logout">로그아웃</a>
-                         <li><a href="myPage">마이페이지</a></li>
-                       </c:when>
-                       <c:otherwise>
-                        <li><a href="login">로그인</a></li>
-                        <li><a href="join">회원가입</a></li>
-                     </c:otherwise>
-                  </c:choose>
-                  
-                  <li><a href="community">커뮤니티</a></li>            
-            </ul>
+						    <c:when test="${not empty sessionScope.loginUser}">
+						        <a>${sessionScope.loginUser.name} 님</a>						        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <li><a href="myPage">마이페이지</a></li>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+            </ul>           
          </nav>
          <!-- .navbar -->
 
