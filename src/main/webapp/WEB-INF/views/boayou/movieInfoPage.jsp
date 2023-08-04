@@ -304,9 +304,11 @@
                <div class="container">
 
                   <div class="section-header">
-                     <h2>REVIEW</h2>                     
+                     <h2>REVIEW</h2>
+                                                          
                   </div>
                   <section id="contact" class="contact">
+                  <h2 style="text-align:center;"><span style="color:skyblue;">리뷰</span> 평균점수 <span style="color:#ffc107;">${averageStar}</span></h2>     
 			<div class="container">
 
 
@@ -314,7 +316,7 @@
 					
 					<div class="col-lg-9">
 					<c:if test="${not empty sessionScope.loginUser}"><!-- loginUser if문 start -->
-<%-- 						<c:if test = "${ !userReviewState}"> --%>
+
 						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form">		
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span>

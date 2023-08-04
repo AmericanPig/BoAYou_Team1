@@ -459,7 +459,11 @@ public class MovieController {
        }
        List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
        MovieListDTO movieList = service.getDocid(docid);
-       
+       Double averageStar = reviewService.getMovieStarScore(docid);
+       if (averageStar == null) {
+           averageStar = 0.0;
+       }
+       model.addAttribute("averageStar", averageStar);
        model.addAttribute("movieList", movieList);
        model.addAttribute("reviewList", reviewList);
        model.addAttribute("myMovieList", mymovielist);

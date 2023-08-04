@@ -52,7 +52,7 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		
 		//영화 상세페이지 현재 영화의 평점평균 출력
-		public double getMovieStarScore(String docid) {
+		public Double getMovieStarScore(String docid) {
 			return mapper.selectReviewStarAvg(docid);
 		}
 		
