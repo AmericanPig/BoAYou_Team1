@@ -43,7 +43,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/assets/css/IdPwdSearch.css?after">   
+   href="${pageContext.request.contextPath}/resources/assets/css/IdPwdSearch.css">   
 
 
     <!-- =======================================================
@@ -193,9 +193,9 @@ input {
                 <a href="join.html">회원가입</a>
             </div>
             <br>
-            <button class="page-wrapper">
+            
                <a class="btn trigger" href="#">아이디 비밀번호찾기</a>  
-			   </button>
+			
         </div>
         <c:if test="${not empty msg}">
         <p style="text-align: center">${msg}</p>

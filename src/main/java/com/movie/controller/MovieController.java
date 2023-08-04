@@ -482,7 +482,6 @@ public class MovieController {
        model.addAttribute("searchResults", searchResults);
        return generateSearchResultsHtml(searchResults);
    }
-
    private String generateSearchResultsHtml(List<MovieListDTO> searchResults) {
        StringBuilder searchResultsHtml = new StringBuilder();
        searchResultsHtml.append("<ul>");
@@ -650,7 +649,7 @@ public class MovieController {
 	   userProfileService.deleteMyMovieList(mymovielist_no);	   
 	   return "redirect:/boayou/myPage";
    }
-   @GetMapping("search")
+   @GetMapping("searchId")
    public @ResponseBody List<String> searchUsersByUserId(@RequestParam("user_id") String userId) {
 	   System.out.println(UserService.getUsersByUserId(userId));
        return UserService.getUsersByUserId(userId);

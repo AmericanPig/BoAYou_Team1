@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function performSearch(keyword) {
     $.ajax({
-        url: "/controller/boayou/search",
+        url: "/controller/boayou/searchId",
         dataType: "json",
         data: { "user_id": keyword },
         success: function(data) {
