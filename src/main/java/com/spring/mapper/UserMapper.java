@@ -29,4 +29,6 @@ public interface UserMapper {
 	String checkUser(@Param("user_id") String user_id, @Param("name") String name, @Param("jumin") String jumin);
 
 	int updateUserPassword(@Param("userId")String userId, @Param("newPassword")String newPassword);
+	
+	List<UserDTO> selectAllUsers();
 }

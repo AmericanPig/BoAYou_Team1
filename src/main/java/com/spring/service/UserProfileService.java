@@ -21,4 +21,5 @@ public interface UserProfileService {
 
 	int deleteMyMovieList(int mymovielist_no);		
 	
+	List<UserProfileDTO> getAllUserProfiles();
 }

@@ -85,4 +85,9 @@ public class UserServiceImpl implements UserService {
 
         return false; // 업데이트 실패
     }
+	
+	@Override
+	public List<UserDTO> getAllUsers(){
+		return mapper.selectAllUsers();
+	}
 }

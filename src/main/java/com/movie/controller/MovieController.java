@@ -132,11 +132,12 @@ public class MovieController {
 
    @GetMapping("homePage")
    public void movie(Model model) {	  	  	   
-	     
+	     userInit(model);
    }
 
    @GetMapping("community")
    public void community(Model model) {
+	   userInit(model);
        List<CommunityDTO> communityList = communityservice.SelectCommunityList();
        List<CommunityDTO> communityrank = communityservice.CommunityRanking();
        for (CommunityDTO community : communityList) {
@@ -450,7 +451,7 @@ public class MovieController {
 
    @GetMapping("movieInfoPage")
    public void movieInfoPage(@RequestParam("Docid") String docid, Model model, HttpSession session) {
-
+	   userInit(model);
        UserDTO user = (UserDTO) session.getAttribute("loginUser");
        List<MyMovieListDTO> mymovielist = null;
        if (user != null) {
@@ -463,6 +464,10 @@ public class MovieController {
        Double averageStar = reviewService.getMovieStarScore(docid);
        if (averageStar == null) {
            averageStar = 0.0;
+       }
+       
+       for(ReviewDTO review : reviewList) {
+    	   
        }
        model.addAttribute("averageStar", averageStar);
        model.addAttribute("movieList", movieList);
@@ -689,6 +694,16 @@ public class MovieController {
 			return ResponseEntity.ok(response);
    }
    
+   public void userInit(Model model) {
+	   List<UserDTO> userList = UserService.getAllUsers();
+	     List<UserProfileDTO> userProfileList = userProfileService.getAllUserProfiles();
+	     for(UserProfileDTO userProfile : userProfileList){
+	    	 userProfile.setImg(toWebPath(userProfile.getImg()));	    	 
+	     }
+	     model.addAttribute("userList",userList);
+	     model.addAttribute("userProfileList",userProfileList);
+   }
+   
    //절대경로를 이미지 소스용 경로로 변환
    public String toWebPath(String strOriginPath) {
 	   Path originPath = Paths.get(strOriginPath);
@@ -696,5 +711,16 @@ public class MovieController {
 	   String webPath = Paths.get("../resources/assets/img",fileName).toString();
 	   
 	   return webPath;
+   }
+   
+ //이미지 소스용 경로를 절대경로로 변환
+   public String toOriginPath(String strWebPath) {
+	   Path webPath = Paths.get(strWebPath);
+	   String realPath = servletContext.getRealPath("/resources/assets/img/");
+       Path realFileName = webPath.getFileName();
+       String path = Paths.get(realPath + realFileName).toString();
+	   String originPath = Paths.get(path).toString();
+	   
+	   return originPath;
    }
 }

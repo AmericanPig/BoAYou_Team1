@@ -324,7 +324,17 @@ function openCommentPopup(event, community_no) {
 						<c:forEach var="rank" items="${communityRank}" varStatus="status">
 							<div class="swiper-slide">
 								<div class="testimonial-item">
-									<span style="text-align:right;" class="name"><a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${rank.user_id}" class="author">${rank.user_id}</a></span>
+								<c:set var="userProfileImg" value="" />
+					            <c:forEach var="userProfile" items="${userProfileList}">
+					                <c:if test="${userProfile.user_id == rank.user_id}">
+					                    <c:set var="userProfileImg" value="${userProfile.img}" />
+					                </c:if>
+					            </c:forEach>
+									<span style="text-align:right;" class="name">
+									<div class="profile mt-auto" style="display:flex;">
+                                                                                           
+	                              <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${rank.user_id}" class="author"><img src="${userProfileImg}"
+                                    alt="" width = "30px" height="30px" style="margin-right : 5px;"> ${rank.user_id}</a></div></span>
 									<h2>${status.count}위</h2>
 									<h3>${rank.community_title}</h3>																	
 									<div class="profile mt-auto">			

@@ -44,4 +44,7 @@ public interface UserProfileMapper {
 	
 //  user_id와 docid로 나만의 무비리스트 삭제
 	int deleteMyMovieList(@Param("user_id") String user_id, @Param("docid") String docid);
+	
+//	모든 user의 프로필 init
+	List<UserProfileDTO> selectAllUserProfiles();
 }

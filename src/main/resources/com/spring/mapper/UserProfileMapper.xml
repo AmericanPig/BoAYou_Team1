@@ -55,5 +55,9 @@
 	<delete id="deleteMyMovieList">
 	DELETE mymovielist WHERE mymovielist_no = #{mymovielist_no}
 	</delete>
+	
+	<select id="selectAllUserProfiles" resultType="com.spring.domain.UserProfileDTO">
+		SELECT * FROM user_profile
+	</select>
 
   </mapper>

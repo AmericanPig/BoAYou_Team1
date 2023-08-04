@@ -402,8 +402,14 @@
 		                       </c:forEach>
 		                              </div>
 		                      <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${review.user_id}"><h3>작성자:${review.user_id }</h3></a>                                    
+                              <c:set var="userProfileImg" value="" />
+					            <c:forEach var="userProfile" items="${userProfileList}">
+					                <c:if test="${userProfile.user_id == review.user_id}">
+					                    <c:set var="userProfileImg" value="${userProfile.img}" />
+					                </c:if>
+					            </c:forEach>
                               <div class="profile mt-auto">
-                                 <img src="assets/img/testimonials/testimonials-1.jpg"
+                                 <img src="${userProfileImg}"
                                     class="testimonial-img" alt="">                                                               
                               </div>
                               <p>${review.review_content }</p>

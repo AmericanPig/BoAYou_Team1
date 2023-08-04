@@ -28,5 +28,7 @@ public interface UserService {
 	boolean checkUser(String user_id, String name, String jumin);
 
 	boolean updatePasswordForReset(@Param("userId")String userId, @Param("newPassword")String newPassword);
+	
+	List<UserDTO> getAllUsers();
 
 }

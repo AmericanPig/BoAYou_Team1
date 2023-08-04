@@ -85,4 +85,10 @@ public class UserProfileServiceImpl implements UserProfileService{
 	public int deleteMyMovieList(int mymovielist_no) {		
 		return mapper.deleteMyMovieList(mymovielist_no);
 	}
+	
+	//모든 유저 프로필 init
+	@Override
+	public List<UserProfileDTO> getAllUserProfiles(){
+		return mapper.selectAllUserProfiles();
+	}
 }
