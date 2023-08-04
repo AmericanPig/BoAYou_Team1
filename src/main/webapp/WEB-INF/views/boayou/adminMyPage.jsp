@@ -127,10 +127,10 @@
 	  }
 	}
 	
-	document.getElementById("adminnUpdateProfileForm").addEventListener("submit", (event) => {
+	document.getElementById("adminUpdateProfileForm").addEventListener("submit", (event) => {
 	    event.preventDefault();
 	    const formData = new FormData(event.target);
-	    const url = "/controller/boayou/adminnUpdateProfileForm";
+	    const url = "/controller/boayou/adminUpdateProfileForm";
 
 	    fetch(url, {
 	      method: "POST",
@@ -147,6 +147,11 @@
 	      }
 	    });
 	  });
+	  
+	function goToAdminMyPage(event) {
+		  event.stopPropagation(); // 이벤트 버블링 방지
+		    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
+		  }
 
 </script>
 
@@ -207,12 +212,12 @@
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
-							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/adminMyPage">
 									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
 									  ${sessionScope.loginUser.name} 님
 									</a>
-									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToAdminMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToAdminMyPage(event);">
 										${sessionScope.loginUser.user_id} 님
 									</div><br>
 									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
@@ -340,7 +345,7 @@
 			      <h2>프로필 변경</h2>
 			    </div>
 			    <br><br><br><br>
-	  				<form id="adminnUpdateProfileForm" action="${pageContext.request.contextPath}/boayou/adminnUpdateProfileForm" method="post" enctype="multipart/form-data">
+	  				<form id="adminnUpdateProfileForm" action="${pageContext.request.contextPath}/boayou/adminUpdateProfileForm" method="post" enctype="multipart/form-data">
 					  <div style="text-align: center;">
 					    <img id="currentImage" src="${sessionScope.loginUserProfile.img }" style="margin: 0 auto;" width="200" height="200"><br>
 							<label for="profileImage" class="custom-btn">

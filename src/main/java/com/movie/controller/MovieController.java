@@ -279,8 +279,8 @@ public class MovieController {
 
   
    // admin000 관리자 프로필 
-  @PostMapping("/boayou/adminnUpdateProfileForm")
-  public String adminnUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
+  @PostMapping("/boayou/adminUpdateProfileForm")
+  public String adminUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
                                      @RequestParam("profileMessage") String profileMessage,
                                      HttpServletRequest request, HttpSession session) {
       UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
