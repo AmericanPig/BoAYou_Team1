@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +31,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminController {
 
-
 	@Autowired
 	private AdminService adminService;
 	@Autowired
-	private AdminMapper adminmapper;
-	
+	private AdminMapper adminmapper;	
 	
 	@PostMapping(value="/delete")
 	public String userDelete (HttpServletRequest request) {
@@ -89,24 +89,16 @@ public class AdminController {
 		return "boayou/membershipList";
 	}
 	
-	@PostMapping("/updateUserLevelUp")
-	@ResponseBody
-	public Map<String, Object> updateUserLevelUp(MemberShipDTO membershipDTO) {
-	    Map<String, Object> result = new HashMap<>();
-	    try {
-	        adminmapper.updateUserLevel(membershipDTO);
-	        result.put("success", true);
-	        System.out.println("실행중 : true - result: " + result);
-	    } catch (Exception e) {
-	        result.put("success", false);
-	        System.out.println("실행중 : false - result: " + result);
-	        e.printStackTrace(); // 추가: 예외 정보 출력
-	    }
+	// 사용자 레벨 업데이트
+	  @PostMapping("/updateUserLevel")
+	  @ResponseBody
+	  public String updateUserLevel(@RequestParam("user_id") String user_id, @RequestParam("user_level") int user_level) {
+		  System.out.println("user_id: "+user_id);
+		  System.out.println("user_level: "+user_level);
+		  adminService.updateUserLevel(user_id, user_level);
+		  return "boayou/membershipList";
+	  }
 
-	    // 처리된 결괏값 출력
-	    System.out.println("result: " + result);
-	    return result;
-	}
 
-	
+		
 }

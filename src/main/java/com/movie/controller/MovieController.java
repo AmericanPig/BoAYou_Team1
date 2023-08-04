@@ -287,7 +287,7 @@ public class MovieController {
       
       String realPath = "";
       String realFileName = "";
-      try {
+      try {''
           // 파일을 받아와서 저장할 경로 생성
           byte[] bytes = profileImage.getBytes();
           // 실제 경로 얻기
