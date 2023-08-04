@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - Index</title>
+<title>HomPage</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -46,7 +46,8 @@
 
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/searchBox.css?after">
-
+<link rel="stylesheet" type="text/css"
+   href="${pageContext.request.contextPath}/resources/assets/css/serachuser.css?after">   
 
 <!-- =======================================================
   * Template Name: PhotoFolio
@@ -55,10 +56,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<script src="https://code.jquery.com/jquery-3.7.0.js"
-   integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-   crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -144,34 +142,39 @@
 
                         </ul></li>
                   </ul></li>
-               <li><a href="community">커뮤니티</a></li>
-               <div class="page-wrapper">
-               <a class="btn trigger" href="#">유저 검색</a>  
-			   </div>
+
+
+               <li><a href="community">커뮤니티</a></li>               
                <c:choose>
-                  <c:when test="${not empty sessionScope.loginUser}">
-								<!-- ===user profile section start===-->
-						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-								  ${sessionScope.loginUser.name} 님
-								</a>
-								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
-									${sessionScope.loginUser.user_id} 님
-								</div><br>
-								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-								</ul>		
-								</li>								
-								<!-- ===user profile section end=== -->
-                     <li><a href="myPage">마이페이지</a></li>
-                     <li><a href="logout">로그아웃</a></li>
-                  </c:when>
-                  <c:otherwise>
-                     <li><a href="login">로그인</a></li>
-                     <li><a href="join">회원가입</a></li>
-                  </c:otherwise>
-               </c:choose>
-            </ul>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- ===user profile section start===-->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+            </ul>           
          </nav>
          <!-- .navbar -->
 
@@ -188,14 +191,17 @@
       </div>
    </header>
    <!-- End Header -->
-
+<h3 style="margin-top:100px; text-align:center;">
+			   <button class="page-wrapper">
+               <a class="btn trigger" href="#">유저 검색</a>  
+			   </button></h3>
    <!-- ======= Hero Section ======= -->
-   <section id="hero"
+   <section id="hero"style="padding-top:50px; padding-bottom:50px;"
       class="hero d-flex flex-column justify-content-center align-items-center"
       data-aos="fade" data-aos-delay="1500">
       <div class="container">
          <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-auto text-center">
                <h2>Boayou 에 오신걸 환영합니다.</h2>
                <p>Boayou는 영화정보 알려드리고 커뮤니티 소통을 통해 서로의 정보를 공유하는 커뮤니티 사이트입니다.!</p>
 
@@ -566,33 +572,29 @@
          </div>
       </section>
       <!-- End주간박스오피스 -->
-	  <!-- 유저 검색 -->
-	  <div class="modal-wrapper">
-			  <div class="modal">
-			    <div class="head">
-			    <a class="btn-close trigger" href="#">
-			        <i class="fa fa-times" aria-hidden="true"></i>
-			      </a>
-			    <h2>유저 검색</h2>			      
-			    </div>
-			    <div class="listcontent">
-			        <div class="good-job">
-			          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
-			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
-			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
-          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
-        			  </c:forEach>
-			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
-				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
-			          	                
-		            
-		            </form>		            
-			        </div>
-			    </div>
-			  </div>
+		<!-- 유저 검색 -->
+		<div class="modal-wrapper">
+			<div class="modal">
+				<div class="head">
+					<a class="btn-close trigger" href="#"> <i class="fa fa-times"
+						aria-hidden="true"></i>
+					</a>
+					<h2>유저 검색</h2>
+				</div>				
+				<div class="listcontent">
+					<div class="good-job">
+						<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+						<form action="userSearch" method="POST">
+							<input type="text" id="searchBox2" name="user_id"
+								placeholder="USER_ID" autocomplete="off">
+						</form>
+						<!-- 검색 결과 영역 -->
+						<div id="searchResults2"></div>						
+					</div>					
+				</div>				
 			</div>
-			<!-- End유저 검색  -->
+		</div>
+		<!-- End유저 검색  -->
    </main>
    <!-- End #main -->
 
@@ -639,13 +641,14 @@
       src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
    <script
       src="${pageContext.request.contextPath}/resources/assets/js/homePage.js"></script>
-      
-      <script>
-      function goToMyPage(event) {
-    	  event.stopPropagation(); // 이벤트 버블링 방지
-    	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
-    	  }
-      </script>
+   <script
+      src="${pageContext.request.contextPath}/resources/assets/js/searchUser.js"></script>   
+   <script>
+   function goToMyPage(event) {
+ 	  event.stopPropagation(); // 이벤트 버블링 방지
+ 	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+ 	  }
+   </script>
 
 </body>
 

@@ -10,64 +10,64 @@
 
    <select id="koreaMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where nation like '%대한민국%'
+      select docid, posters from movie_list2 where nation like '%대한민국%'
    </select>
 
    <select id="foreignMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where nation not like '%대한민국%'
+      select docid, posters from movie_list2 where nation not like '%대한민국%'
    </select>
 
    <select id="ratingAllMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating like '%전체%'
+      select docid, posters from movie_list2 where rating like '%전체%'
    </select>
 
    <select id="rating12MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating like '%12세%'
+      select docid, posters from movie_list2 where rating like '%12세%'
    </select>
 
    <select id="rating15MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating like '%15세%'
+      select docid, posters from movie_list2 where rating like '%15세%'
    </select>
 
    <select id="rating18MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating like '%18세%'
+      select docid, posters from movie_list2 where rating like '%18세%'
    </select>
 
    <select id="ratingEtcMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where rating is null
+      select docid, posters from movie_list2 where rating is null
    </select>
 
    <select id="repRlsDate2023MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where repRlsDate like '%2023%'
+      select docid, posters from movie_list2 where repRlsDate like '%2023%'
    </select>
 
    <select id="repRlsDate2022MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where repRlsDate like '%2022%'
+      select docid, posters from movie_list2 where repRlsDate like '%2022%'
    </select>
 
    <select id="repRlsDate2021MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where repRlsDate like '%2021%'
+      select docid, posters from movie_list2 where repRlsDate like '%2021%'
    </select>
 
    <select id="repRlsDateBeforeMovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2 where repRlsDate like '%2023%'
+      select docid, posters from movie_list2 where repRlsDate like '%2023%'
       and repRlsDate not like '%2022%'
       and repRlsDate not like '%2021%'
    </select>
 
    <select id="genre1MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2
+      select docid, posters from movie_list2
       where genre LIKE '%드라마%'
       or genre
       LIKE '%가족%'
@@ -76,7 +76,7 @@
 
    <select id="genre2MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2
+      select docid, posters from movie_list2
       where genre LIKE '%멜로%'
       or genre
       LIKE '%로맨스%'
@@ -84,7 +84,7 @@
 
    <select id="genre3MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2
+      select docid, posters from movie_list2
       where genre LIKE '%공포%'
       or genre LIKE '%스릴러%'
       or genre LIKE '%범죄%'
@@ -93,7 +93,7 @@
 
    <select id="genre4MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2
+      select docid, posters from movie_list2
       where genre LIKE '%액션%'
       or genre LIKE '%SF%'
       or genre LIKE '%판타지%'
@@ -101,7 +101,7 @@
 
    <select id="genre5MovieList"
       resultType="com.spring.domain.MovieListDTO">
-      select * from movie_list2
+      select docid, posters from movie_list2
       where genre not LIKE '%드라마%'
       and genre not LIKE '%가족%'
       and genre not LIKE '%코메디%'

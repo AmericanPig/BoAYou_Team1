@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>PhotoFolio Bootstrap Template - Index</title>
+    <title>Login</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -42,6 +42,8 @@
 <!-- Template Main CSS File -->
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
+<link rel="stylesheet" type="text/css"
+   href="${pageContext.request.contextPath}/resources/assets/css/IdPwdSearch.css?after">   
 
 
     <!-- =======================================================
@@ -61,6 +63,8 @@ input {
 
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -135,29 +139,34 @@ input {
                   </ul></li>
             <li><a href="community">커뮤니티</a></li>
                <c:choose>
-                  <c:when test="${not empty sessionScope.loginUser}">
-								<!-- ===user profile section start===-->
-						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-								  ${sessionScope.loginUser.name} 님
-								</a>
-								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
-									${sessionScope.loginUser.user_id} 님
-								</div><br>
-								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-								</ul>		
-								</li>								
-								<!-- ===user profile section end=== -->
-                     <li><a href="myPage">마이페이지</a></li>
-                     <li><a href="logout">로그아웃</a></li>
-
-                  </c:when>
-                  <c:otherwise>
-                     <li><a href="login">로그인</a></li>
-                     <li><a href="join">회원가입</a></li>
-                  </c:otherwise>
-               </c:choose>   
+						    <c:when test="${not empty sessionScope.loginUser}">					
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- ===user profile section start===-->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
+                     				<li><a href="logout">로그아웃</a></li>
+						            </c:otherwise>
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
             </ul>
          </nav>
          <!-- .navbar -->
@@ -195,6 +204,9 @@ input {
                 <a href="join.html">회원가입</a>
             </div>
             <br>
+            <button class="page-wrapper">
+               <a class="btn trigger" href="#">아이디 비밀번호찾기</a>  
+			   </button>
         </div>
         <c:if test="${not empty msg}">
         <p style="text-align: center">${msg}</p>
@@ -202,6 +214,42 @@ input {
     </form>
     </div>
 
+	<!-- 아이디 비밀번호 찾기  -->
+	<div class="modal-wrapper">
+        <div class="modal">
+            <div class="head">
+                <a class="btn-close trigger" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </div>
+            <div class="tab">
+                <ul class="tabnav" style="display:flex;">
+                    <li><a href="#tab1">아이디 찾기</a></li>
+                    <li><a href="#tab2">비밀번호 찾기</a></li>
+                </ul>
+                <div class="tabcontent">
+                    <div id="tab1" style="text-align:center;">
+                        <input id="name1" type="text" placeholder="이름"><br>
+                        <input id="ssn1" type="text" placeholder="주민번호"><br>
+                        <button id="findId">아이디 찾기</button>
+                        <div id="foundId"></div>
+                    </div>
+                    <div id="tab2" style="text-align:center;">
+			        <input id="userId" type="text" placeholder="아이디"><br>
+			        <input id="name2" type="text" placeholder="이름"><br>
+			        <input id="ssn2" type="text" placeholder="주민번호"><br>
+			        <button id="userCheckBtn">확인</button><br>
+			        <div id="resetPassword" style="display:none;">
+			            <input id="newPassword" type="text" placeholder="새 비밀번호"><br>
+			            <button id="resetPasswordBtn">비밀번호 변경</button>
+			        </div>
+			        <div id="statusInfo"></div>
+			    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!-- End아이디 비밀번호 찾기   -->
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="container">
@@ -234,7 +282,8 @@ input {
 
 <!— Template Main JS File —>
 <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-
+<script
+      src="${pageContext.request.contextPath}/resources/assets/js/login.js"></script>
 </body>
 
 </html>

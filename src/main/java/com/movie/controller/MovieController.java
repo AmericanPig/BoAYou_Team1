@@ -10,12 +10,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -61,7 +65,7 @@ import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/boayou/*")
-@RequiredArgsConstructor
+
 @Log4j
 public class MovieController {
    @Autowired
@@ -117,52 +121,18 @@ public class MovieController {
    public List<MovieListDTO> genre4Movie;
 
    public List<MovieListDTO> genre5Movie;
-   
+
    public List<UserProfileDTO> userProfileList;
 
    public Boolean InitState = false;
    
    @Autowired
    private ServletContext servletContext;
-
-   public void listInit() {
-      if(InitState == true) return;
       
-      movie = service.getMovieList();
-      koreaMovie = service.getKoreaMovieList();
-      foreignMovie = service.getForeignMovieList();
-      ratingAllMovie = service.getRatingAllMovieList();
-      rating12Movie = service.getRating12MovieList();
-      rating15Movie = service.getRating15MovieList();
-      rating18Movie = service.getRating18MovieList();
-      ratingEtcMovie = service.getRatingEtcMovieList();
-      repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
-      repRlsDate2022Movie = service.getRepRlsDate2022MovieList();
-      repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
-      repRlsDateBeforeMovie = service.getRepRlsDateBeforeMovieList();
-      genre1Movie = service.getGenre1MovieList();
-      genre2Movie = service.getGenre2MovieList();
-      genre3Movie = service.getGenre3MovieList();
-      genre4Movie = service.getGenre4MovieList();
-      genre5Movie = service.getGenre5MovieList();
-      
-      InitState = true;
-   }
-
-   // http://localhost:8080/controller/movie/movie
-   @GetMapping("movie")
-   public String boardAll(Model model) {
-      listInit();      
-      model.addAttribute("Movie_List", movie);      
-
-      return "movie";
-   }
 
    @GetMapping("homePage")
-   public void movie(Model model) {
-      listInit();
-      log.info("movie");
-      model.addAttribute("Movie_List", movie);
+   public void movie(Model model) {	  	  	   
+	     
    }
 
    @GetMapping("community")
@@ -301,26 +271,83 @@ public class MovieController {
       return result;
    }
 
-   @PostMapping("/loginProcess")
-   public String loginProcess(UserDTO userDTO, HttpSession session, Model model) {
-      UserDTO storedUser = UserService.selectUserById(userDTO.getUser_id());
+   @GetMapping("adminMyPage")
+	public void adminMyPage() {
+		
+	}
+
+  
+   // admin000 관리자 프로필 
+  @PostMapping("/boayou/adminnUpdateProfileForm")
+  public String adminnUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
+                                     @RequestParam("profileMessage") String profileMessage,
+                                     HttpServletRequest request, HttpSession session) {
+      UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
       
-      if (storedUser == null || !UserService.isPasswordMatched(userDTO.getPwd(), storedUser.getPwd())) {
-         model.addAttribute("msg", "아이디나 비밀번호를 확인해주세요.");
-         return "boayou/login";
+      String realPath = "";
+      String realFileName = "";
+      try {
+          // 파일을 받아와서 저장할 경로 생성
+          byte[] bytes = profileImage.getBytes();
+          // 실제 경로 얻기
+          realPath = servletContext.getRealPath("/resources/assets/img/");
+          realFileName = profileImage.getOriginalFilename();
+          Path path = Paths.get(realPath + realFileName);
+          
+          Files.write(path, bytes);
+          loginUserProfile.setImg(path.toString());
+          System.out.println("프로필 이미지 저장 : " + path.toString());
+
+      } catch (Exception e) {
+          e.printStackTrace();
       }
-      UserProfileDTO storedUserProfile = userProfileInit(storedUser.getUser_id(), storedUser.getName());
-      int profileInit = userProfileService.changeUserProfile(storedUserProfile);
-      System.out.println(profileInit + "개의 프로필 로드됨");
+
+      if (profileMessage != null) {
+          loginUserProfile.setIntro(profileMessage);
+          System.out.println("프로필 메시지 변경 : " + profileMessage);
+      }
+
+      userProfileService.changeUserProfile(loginUserProfile);
       
-      String originPath = storedUserProfile.getImg();
+      String originPath = loginUserProfile.getImg();
       String webPath = toWebPath(originPath);
-      storedUserProfile.setImg(webPath);
+      loginUserProfile.setImg(webPath);
       
-      session.setAttribute("loginUser", storedUser);
-      session.setAttribute("loginUserProfile", storedUserProfile);
+      session.setAttribute("loginUserProfile", loginUserProfile);
       return "redirect:/boayou/homePage";
    }
+  
+  // admin00 로그인 추가 
+  @PostMapping("/loginProcess")
+  public String loginProcess(UserDTO userDTO, HttpSession session, Model model) {
+     UserDTO storedUser = UserService.selectUserById(userDTO.getUser_id());
+     
+     if (storedUser == null || !UserService.isPasswordMatched(userDTO.getPwd(), storedUser.getPwd())) {
+        model.addAttribute("msg", "아이디나 비밀번호를 확인해주세요.");
+        return "boayou/login";
+     }
+     UserProfileDTO storedUserProfile = userProfileInit(storedUser.getUser_id(), storedUser.getName());
+     int profileInit = userProfileService.changeUserProfile(storedUserProfile);
+     System.out.println(profileInit + "개의 프로필 로드됨");
+     
+     Path originPath = Paths.get(storedUserProfile.getImg());
+     String fileName = originPath.getFileName().toString();
+     String webPath = Paths.get("../resources/assets/img",fileName).toString();
+     storedUserProfile.setImg(webPath);
+     
+     session.setAttribute("loginUser", storedUser);
+     session.setAttribute("loginUserProfile", storedUserProfile);
+     
+     // check if the logged in user is admin00 and password is admin00admin
+     if ("admin00".equals(userDTO.getUser_id()) && "admin00admin".equals(userDTO.getPwd())) {
+         model.addAttribute("msg", "관리자 계정으로 로그인하셨습니다.");
+         model.addAttribute("confirmPath", "adminMyPage");
+         model.addAttribute("cancelPath", "login");
+         return "boayou/alert";
+     }
+     
+     return "redirect:/boayou/homePage";
+  }
 
    @GetMapping("/logout")
    public String logout(HttpSession session) {
@@ -347,50 +374,107 @@ public class MovieController {
       return redirectView;
    }
 
-   @GetMapping("movieListPage")
-   public void movieListPage(Model model) {
-      listInit();
-      model.addAttribute("getMovie", movie);
+	@GetMapping("movieListPage")
+	public void movieListPage(Model model, @RequestParam(value = "movieNation", required = false) String movieNation,
+			@RequestParam(value = "movieRating", required = false) String movieRating,
+			@RequestParam(value = "movieRepRlsDate", required = false) String movieRepRlsDate,
+			@RequestParam(value = "movieGenre", required = false) String movieGenre) {
 
-      model.addAttribute("getKoreaMovie", koreaMovie);
-      model.addAttribute("getForeignMovie", foreignMovie);
-
-      model.addAttribute("getRatingAllMovie", ratingAllMovie);
-      model.addAttribute("getRating12Movie", rating12Movie);
-      model.addAttribute("getRating15Movie", rating15Movie);
-      model.addAttribute("getRating18Movie", rating18Movie);
-      model.addAttribute("getRatingEtcMovie", ratingEtcMovie);
-
-      model.addAttribute("getRepRlsDate2023Movie", repRlsDate2023Movie);
-      model.addAttribute("getRepRlsDate2022Movie", repRlsDate2022Movie);
-      model.addAttribute("getRepRlsDate2021Movie", repRlsDate2021Movie);
-      model.addAttribute("getRepRlsDateBeforeMovie", repRlsDateBeforeMovie);
-
-      model.addAttribute("getGenre1Movie", genre1Movie);
-      model.addAttribute("getGenre2Movie", genre2Movie);
-      model.addAttribute("getGenre3Movie", genre3Movie);
-      model.addAttribute("getGenre4Movie", genre4Movie);
-      model.addAttribute("getGenre5Movie", genre5Movie);
-
-   }
+		// 공통 영화 목록
+		if (movieNation != null) {
+		if (movieNation.equals("한국영화")) {
+			System.out.println("한국영");
+			koreaMovie = service.getKoreaMovieList();
+			model.addAttribute("getKoreaMovie", koreaMovie);
+		} else if (movieNation.equals("외국영화")) {
+			System.out.println("외국");
+			foreignMovie = service.getForeignMovieList();
+			model.addAttribute("getForeignMovie", foreignMovie);
+		}
+		}
+		// 영화 등급
+		if (movieRating != null) {
+		if (movieRating.equals("전체관람가")) {
+			ratingAllMovie = service.getRatingAllMovieList();
+			model.addAttribute("getRatingAllMovie", ratingAllMovie);
+		} else if (movieRating.equals("12세관람가")) {
+			rating12Movie = service.getRating12MovieList();
+			model.addAttribute("getRating12Movie", rating12Movie);
+		} else if (movieRating.equals("15세관람가")) {
+			rating15Movie = service.getRating15MovieList();
+			model.addAttribute("getRating15Movie", rating15Movie);
+		} else if (movieRating.equals("18세관람가")) {
+			rating18Movie = service.getRating18MovieList();
+			model.addAttribute("getRating18Movie", rating18Movie);
+		} else if (movieRating.equals("기타")) {
+			ratingEtcMovie = service.getRatingEtcMovieList();
+			model.addAttribute("getRatingEtcMovie", ratingEtcMovie);
+		}
+		}
+		// 영화 개봉 연도
+		if (movieRepRlsDate != null) {
+		if (movieRepRlsDate.equals("2023")) {
+			repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
+			model.addAttribute("getRepRlsDate2023Movie", repRlsDate2023Movie);
+		} else if (movieRepRlsDate.equals("2022")) {
+			repRlsDate2023Movie = service.getRepRlsDate2022MovieList();
+			model.addAttribute("getRepRlsDate2022Movie", repRlsDate2022Movie);
+		} else if (movieRepRlsDate.equals("2021")) {
+			repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
+			model.addAttribute("getRepRlsDate2021Movie", repRlsDate2021Movie);
+		} else if (movieRepRlsDate.equals("이전")) {
+			repRlsDateBeforeMovie = service.getRepRlsDateBeforeMovieList();
+			model.addAttribute("getRepRlsDateBeforeMovie", repRlsDateBeforeMovie);
+		}
+		}
+		// 장르
+		if (movieGenre != null) {
+		if (movieGenre.equals("드라마가족코메디")) {
+			genre1Movie = service.getGenre1MovieList();
+			model.addAttribute("getGenre1Movie", genre1Movie);
+		} else if (movieGenre.equals("멜로로맨스")) {
+			genre2Movie = service.getGenre2MovieList();
+			model.addAttribute("getGenre2Movie", genre2Movie);
+		} else if (movieGenre.equals("공포스릴러범죄전쟁")) {
+			genre3Movie = service.getGenre3MovieList();
+			model.addAttribute("getGenre3Movie", genre3Movie);
+		} else if (movieGenre.equals("액션SF판타지")) {
+			genre4Movie = service.getGenre4MovieList();
+			model.addAttribute("getGenre4Movie", genre4Movie);
+		} else if (movieGenre.equals("기타")) {
+			genre4Movie = service.getGenre5MovieList();
+			model.addAttribute("getGenre5Movie", genre5Movie);
+		}
+		}
+	}
 
    @GetMapping("movieInfoPage")
-   public void movieInfoPage(@RequestParam("Docid") String docid, Model model, HttpSession session ) {
-      listInit();
-      UserDTO user = (UserDTO)session.getAttribute("loginUser");
-      List<MyMovieListDTO> mymovielist = userProfileService.selectMyMovieList(user.getUser_id());	   
-      List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
-      MovieListDTO movieList = service.getDocid(docid);
-      System.out.println(movieList);
-      model.addAttribute("movieList", movieList);
-      model.addAttribute("reviewList", reviewList);
-      model.addAttribute("myMovieList", mymovielist);
-      Set<String> uniqueMovieListNames = new LinkedHashSet<>();
-      for (MyMovieListDTO movie : mymovielist) {
-          uniqueMovieListNames.add(movie.getMovielist_name());
-      }
-      model.addAttribute("uniqueMovieListNames", uniqueMovieListNames);
+   public void movieInfoPage(@RequestParam("Docid") String docid, Model model, HttpSession session) {
+
+       UserDTO user = (UserDTO) session.getAttribute("loginUser");
+       List<MyMovieListDTO> mymovielist = null;
+       if (user != null) {
+           mymovielist = userProfileService.selectMyMovieList(user.getUser_id());
+       } else {
+           mymovielist = new ArrayList<>();
+       }
+       List<ReviewDTO> reviewList = reviewService.getMovieReviewList(docid);
+       MovieListDTO movieList = service.getDocid(docid);
+       Double averageStar = reviewService.getMovieStarScore(docid);
+       if (averageStar == null) {
+           averageStar = 0.0;
+       }
+       model.addAttribute("averageStar", averageStar);
+       model.addAttribute("movieList", movieList);
+       model.addAttribute("reviewList", reviewList);
+       model.addAttribute("myMovieList", mymovielist);
+       Set<String> uniqueMovieListNames = new LinkedHashSet<>();
+       for (MyMovieListDTO movie : mymovielist) {
+           uniqueMovieListNames.add(movie.getMovielist_name());
+       }
+       model.addAttribute("uniqueMovieListNames", uniqueMovieListNames);
    }
+
 
    @RequestMapping(value = "/search", produces = "text/html;charset=UTF-8")
    @ResponseBody
@@ -491,7 +575,7 @@ public class MovieController {
    public String deleteUserReview(ReviewDTO reviewDTO, String docid ) {
 	   reviewService.deleteUserReview(reviewDTO);
 	   
-	   return "redirect:/boayo/movieInfoPage?Docid="+docid;
+	   return "redirect:/boayou/movieInfoPage?Docid="+docid;
    }
    
    
@@ -544,7 +628,7 @@ public class MovieController {
    }
    @GetMapping("movieSearchListPage")
    public void movieSearchListPage(@RequestParam("title") String title, Model model) {
-      listInit();
+
       List<MovieListDTO> searchMovie = service.getMovieSearchList(title);
       model.addAttribute("searchMovie", searchMovie);
       // log.info(searchMovie);
@@ -569,13 +653,42 @@ public class MovieController {
 	   userProfileService.deleteMyMovieList(mymovielist_no);	   
 	   return "redirect:/boayou/myPage";
    }
-   @PostMapping("searchUser")
-   public RedirectView searchUser(String user_id) {
-       RedirectView redirectView = new RedirectView();
-       redirectView.setUrl("userPage?user_id=" + user_id);
-       return redirectView;
+   @GetMapping("search")
+   public @ResponseBody List<String> searchUsersByUserId(@RequestParam("user_id") String userId) {
+	   System.out.println(UserService.getUsersByUserId(userId));
+       return UserService.getUsersByUserId(userId);
    }
-
+   @PostMapping("userSearch")
+   public String userSearch(String user_id) {
+	   return "redirect:/boayou/userPage?user_id="+user_id;
+   }
+   @PostMapping("find-id")
+   public ResponseEntity<String> findId(@RequestParam("name") String name, @RequestParam("jumin") String jumin) {
+       String userId = UserService.findId(name, jumin);       
+       return ResponseEntity.ok(userId);
+   }
+   @PostMapping("check-user")
+   public ResponseEntity<Boolean> checkUser(@RequestParam("userId") String userId, @RequestParam("name") String name, @RequestParam("jumin") String jumin) {
+	    boolean isUserValid = UserService.checkUser(userId, name, jumin);
+	    return ResponseEntity.status(isUserValid ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(isUserValid);
+	}
+   @PostMapping("/update-password")
+   public ResponseEntity<?> updatePassword(@RequestParam("userId") String userId,
+           @RequestParam("newPassword") String newPassword) {
+			boolean isUpdated = UserService.updatePasswordForReset(userId, newPassword);
+			Map<String, Object> response = new HashMap<>();
+			
+			if (isUpdated) {
+			response.put("success", true);
+			response.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+			} else {
+			response.put("success", false);
+			response.put("message", "비밀번호 변경에 실패하였습니다. 올바른 정보를 입력해주세요.");
+			}
+			System.out.println("변경완료 ");
+			return ResponseEntity.ok(response);
+   }
+   
    //절대경로를 이미지 소스용 경로로 변환
    public String toWebPath(String strOriginPath) {
 	   Path originPath = Paths.get(strOriginPath);

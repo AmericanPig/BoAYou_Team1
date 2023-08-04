@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - Index</title>
+<title>Community</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -39,7 +39,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min.css">
+	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min2.css">
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
@@ -245,32 +245,37 @@ function openCommentPopup(event, community_no) {
 
 
 						</ul></li>
-					<c:choose>
-						<c:when test="${not empty sessionScope.loginUser}">
-								<!-- ===user profile section start===-->
+					<li><a href="community">커뮤니티</a></li>               
+               <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- ===user profile section start===-->
 						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
 								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
 								  ${sessionScope.loginUser.name} 님
 								</a>
 								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
 									${sessionScope.loginUser.user_id} 님
 								</div><br>
 								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
 								</ul>		
 								</li>								
 								<!-- ===user profile section end=== -->
-						       <a href="logout">로그아웃</a>
-							<li><a href="myPage">마이페이지</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="login">로그인</a></li>
-							<li><a href="join">회원가입</a></li>
-						</c:otherwise>
-					</c:choose>
-
-					<li><a href="community">커뮤니티</a></li>
-				</ul>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+            </ul>           
 			</nav>
 			<!-- .navbar -->
 

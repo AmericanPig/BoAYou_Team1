@@ -30,7 +30,7 @@
   position: relative;
   top: 50%; 
   left: 50%;
-  background: #A566FF;
+  background: #353535;
   opacity: 0;
   transition: all 0.5s ease-in-out;
   border-radius: 15px;
@@ -57,6 +57,7 @@
   display: block;
   float: right;
   color: #fff;
+  background-color: white;
 }
 a.btn {
   width: 212px;  
@@ -71,6 +72,7 @@ a.btn {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius:15px;
 }
 
 .input-wrapper {
@@ -78,5 +80,5 @@ a.btn {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%; /* input 박스가 상위 div의 너비에 맞게 확장됩니다. */
+  width: 100%; /* input 박스가 상위 div의 너비에 맞게 확장됩니다. */  
 }

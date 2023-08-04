@@ -6,8 +6,6 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>community creation</title>
-<title>community creation</title>
-<title>PhotoFolio Bootstrap Template - Gallery Single</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -64,6 +62,10 @@
         document.getElementById('selected_docid').value = docId;
         alert("선택된 영화의 docid: " + docId);
     }
+    function goToMyPage(event) {
+  	  event.stopPropagation(); // 이벤트 버블링 방지
+  	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
+  	  }
 </script>
 </head>
 
@@ -133,32 +135,36 @@
 																		
 								</ul>
 							</li>
-							
-							
-
 						</ul></li>
 					<c:choose>
-						   <c:when test="${not empty sessionScope.loginUser}">
-								<!-- ===user profile section start===-->
+						    <c:when test="${not empty sessionScope.loginUser}">
+						        <a href="logout">로그아웃</a>						
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						               <!-- ===user profile section start===-->
 						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
 								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
 								  ${sessionScope.loginUser.name} 님
 								</a>
 								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
 									${sessionScope.loginUser.user_id} 님
 								</div><br>
 								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
 								</ul>		
 								</li>								
 								<!-- ===user profile section end=== -->
-						       <a href="logout">로그아웃</a>
-						       <li><a href="myPage">마이페이지</a></li>
-							  </c:when>
-							  <c:otherwise>
-						      <li><a href="login">로그인</a></li>
-						      <li><a href="join">회원가입</a></li>
-						   </c:otherwise>
+								<a href="logout">로그아웃</a>
+						            </c:otherwise>
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
 						</c:choose>
 						
 						<li><a href="community">커뮤니티</a></li>				
@@ -218,8 +224,7 @@
 							<div class="row">
 								<div class="form-group mt-3">
 									<input type="text" name="user_id" class="form-control"
-										id=user_id value=${sessionScope.loginUser.user_id
-										}
+										id=user_id value="${sessionScope.loginUser.user_id}"
 										placeholder="${sessionScope.loginUser.user_id}" required
 										readonly>
 								</div>

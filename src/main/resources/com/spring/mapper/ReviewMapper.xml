@@ -43,7 +43,7 @@
 	</select>
 
 <!-- 영화상세페이지 전체리뷰 평점 평균 select -->
-	<select id="selectReviewStarAvg" resultType="double">
+	<select id="selectReviewStarAvg" resultType="Double">
 		select avg(review_star) as StarScore from review where docid= #{docid}
 	</select>
 	</mapper>

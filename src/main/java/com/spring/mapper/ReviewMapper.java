@@ -41,7 +41,7 @@ public interface ReviewMapper {
 	List<ReviewDTO> selectMovieReviewList(String docid);
 	
 	//영화 상세페이지 전체리뷰 평점 평균
-	double selectReviewStarAvg(String docid);
+	Double selectReviewStarAvg(String docid);
 	
 	//마이페이지 나의 리뷰 목록 출력
 	List<ReviewDTO> selectUserReviewList(String user_id);

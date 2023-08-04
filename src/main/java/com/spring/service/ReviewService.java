@@ -27,7 +27,7 @@ public interface ReviewService {
 	List<ReviewDTO> getMovieReviewList(String docid);
 	
 	//영화 상세페이지 현재 영화의 평점평균 출력
-	double getMovieStarScore(String docid);
+	Double getMovieStarScore(String docid);
 	
 	//마이페이지 나의 리뷰 목록 출력
 	List<ReviewDTO> getMyReviewList(String user_id);

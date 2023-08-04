@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>PhotoFolio Bootstrap Template - About</title>
+<title>MovieInfoPage</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -47,31 +47,10 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/star.css">   
-<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css?after">   
+<link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/resources/assets/css/insertMymMovie.css">   
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $("#myform").submit(function (event) {
-      event.preventDefault(); 
-  
-      var formData = $(this).serialize();
-  
-      $.ajax({
-        type: "POST",
-        url: "insertReview",
-        data: formData,
-        contentType: "application/x-www-form-urlencoded",
-        success: function (response) {
-          alert("리뷰 작성 성공");
-          location.reload();
-        },
-        error: function (error) {
-          alert("리뷰 작성 실패");
-        },
-      });
-    });
-  });
+<script> 
   function ReviewDelete() {
       var confirmation = confirm("정말로 삭제하시겠습니까?");
       if (confirmation) {
@@ -99,6 +78,43 @@
       var inputElement = document.querySelector('input[name="movielist_name"]');
       inputElement.value = value;
   }
+
+  function handleSubmit(event) {
+	    event.preventDefault();
+
+	    const ratingInputs = document.getElementsByName("review_star");
+	    let isRatingSelected = false;
+
+	    for (let i = 0; i < ratingInputs.length; i++) {
+	      if (ratingInputs[i].checked) {
+	        isRatingSelected = true;
+	        break;
+	      }
+	    }
+
+	    if (!isRatingSelected) {
+	      alert("별점을 선택해주세요.");
+	      return false;
+	    }
+
+	    // AJAX 요청
+	    var formData = $("#myform").serialize();
+
+	    $.ajax({
+	      type: "POST",
+	      url: "insertReview",
+	      data: formData,
+	      contentType: "application/x-www-form-urlencoded",
+	      success: function (response) {
+	        alert("리뷰 작성 성공");
+	        location.reload();
+	      },
+	      error: function (error) {
+	        alert("리뷰 작성 실패");
+	      },
+	    });
+	  }
+
   function goToMyPage(event) {
 	  event.stopPropagation(); // 이벤트 버블링 방지
 	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
@@ -183,32 +199,37 @@
                      
 
                   </ul></li>
+               <li><a href="community">커뮤니티</a></li>               
                <c:choose>
-                     <c:when test="${not empty sessionScope.loginUser}">
-								<!-- ===user profile section start===-->
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- ===user profile section start===-->
 						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
 								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
 								  ${sessionScope.loginUser.name} 님
 								</a>
 								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="${pageContext.request.contextPath}/boayou/myPage">
+									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
 									${sessionScope.loginUser.user_id} 님
 								</div><br>
 								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
 								</ul>		
 								</li>								
 								<!-- ===user profile section end=== -->
-                         <a href="logout">로그아웃</a>
-                         <li><a href="myPage">마이페이지</a></li>
-                       </c:when>
-                       <c:otherwise>
-                        <li><a href="login">로그인</a></li>
-                        <li><a href="join">회원가입</a></li>
-                     </c:otherwise>
-                  </c:choose>
-                  
-                  <li><a href="community">커뮤니티</a></li>            
-            </ul>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+            </ul>           
          </nav>
          <!-- .navbar -->
 
@@ -255,9 +276,11 @@
                      <div class="col-lg-4">
                         <img src="${movieList.posters}" class="img-fluid" alt="">
                         <br>
+                        <c:if test="${not empty sessionScope.loginUser}">
                         <div class="page-wrapper">
                         <a class="btn trigger" href="#">MyMovieList 등록</a>  
-						</div>                        											                     
+						</div>                    
+						</c:if>    											                     
                      </div>
                      <div class="col-lg-5 content">
 
@@ -312,9 +335,11 @@
                <div class="container">
 
                   <div class="section-header">
-                     <h2>REVIEW</h2>                     
+                     <h2>REVIEW</h2>
+                                                          
                   </div>
                   <section id="contact" class="contact">
+                  <h2 style="text-align:center;"><span style="color:skyblue;">리뷰</span> 평균점수 <span style="color:#ffc107;">${averageStar}</span></h2>     
 			<div class="container">
 
 
@@ -322,8 +347,9 @@
 					
 					<div class="col-lg-9">
 					<c:if test="${not empty sessionScope.loginUser}"><!-- loginUser if문 start -->
-<%-- 						<c:if test = "${ !userReviewState}"> --%>
-						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form">		
+
+						<form action="insertReview" id="myform" method="post" role="form" class="php-email-form" onsubmit="return validateForm()">
+		
 							<fieldset>
 								<span class="text-bold">별점을 선택해주세요</span>
 								<input type="radio" name="review_star" value="5" id="rate1"><label
@@ -353,7 +379,7 @@
 							</div>
 														
 							<div>
-								<button type="submit">등록</button>
+								<button onclick="handleSubmit(event)">등록</button>
 							</div>
 						</form>
 						
@@ -412,7 +438,8 @@
 			          <form action="${pageContext.servletContext.contextPath  }/boayou/insertMyMovieList" method="post">
 			          <input type="text" name="movielist_name" placeholder="MovieListName"><input type="submit" value="등록" onclick="//">	
 			          <c:forEach var="movieListName" items="${uniqueMovieListNames}">
-          			  <li style="border:.5px solid white; list-style-type: none;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
+          			  <li style="border:.10px solid white; border-radius:15px; list-style-type: none;
+          			  text-align:center; background-color:black;"onclick="onItemClick('${movieListName}')">${movieListName}</li>
         			  </c:forEach>
 			          <input type="hidden" name="user_id" value="${sessionScope.loginUser.user_id}">
 				      <input type="hidden" name="docid" value="${movieList.docid}">	         			       
