@@ -43,7 +43,7 @@
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/assets/css/IdPwdSearch.css?after">   
+   href="${pageContext.request.contextPath}/resources/assets/css/IdPwdSearch.css">   
 
 
     <!-- =======================================================
@@ -137,9 +137,8 @@ input {
                      
 
                   </ul></li>
-            <li><a href="community">커뮤니티</a></li>
-               <c:choose>
-						    <c:when test="${not empty sessionScope.loginUser}">					
+             <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
 						                <li><a href="adminMyPage">관리자페이지</a></li>
@@ -158,8 +157,8 @@ input {
 									</ul>		
 									</li>								
 									<!-- ===user profile section end=== -->
-                     				<li><a href="logout">로그아웃</a></li>
-						            </c:otherwise>
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
 						        </c:choose>
 						    </c:when>
 						    <c:otherwise>
@@ -167,7 +166,8 @@ input {
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
-            </ul>
+						<li><a href="community">커뮤니티</a></li> 
+            </ul> 
          </nav>
          <!-- .navbar -->
 
@@ -204,9 +204,9 @@ input {
                 <a href="join.html">회원가입</a>
             </div>
             <br>
-            <button class="page-wrapper">
+            
                <a class="btn trigger" href="#">아이디 비밀번호찾기</a>  
-			   </button>
+			
         </div>
         <c:if test="${not empty msg}">
         <p style="text-align: center">${msg}</p>

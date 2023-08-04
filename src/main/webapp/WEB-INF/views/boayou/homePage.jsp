@@ -144,7 +144,7 @@
                   </ul></li>
 
 
-               <li><a href="community">커뮤니티</a></li>               
+                             
                <c:choose>
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
@@ -174,6 +174,7 @@
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
+						<li><a href="community">커뮤니티</a></li> 
             </ul>           
          </nav>
          <!-- .navbar -->
@@ -191,7 +192,7 @@
       </div>
    </header>
    <!-- End Header -->
-<h3 style="margin-top:100px; text-align:center;">
+<h3 style="margin-top:150px; text-align:center;">
 			   <button class="page-wrapper">
                <a class="btn trigger" href="#">유저 검색</a>  
 			   </button></h3>

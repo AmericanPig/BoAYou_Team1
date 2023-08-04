@@ -156,16 +156,26 @@
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 								</ul></li>
 						</ul></li>
-					<li><a href="community">커뮤니티</a></li>               
-               <c:choose>
-						    <c:when test="${not empty sessionScope.loginUser}">
-						        <a>${sessionScope.loginUser.name} 님</a>						        				
+					 <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
 						                <li><a href="adminMyPage">관리자페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
-						                <li><a href="myPage">마이페이지</a></li>
+						                <!-- ===user profile section start===-->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
 						                <a href="logout">로그아웃</a>	
 						            </c:otherwise>						            
 						        </c:choose>
@@ -175,7 +185,8 @@
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
-            </ul>           
+						<li><a href="community">커뮤니티</a></li> 
+            </ul>            
 			</nav>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> 
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

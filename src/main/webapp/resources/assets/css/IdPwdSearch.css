@@ -63,6 +63,7 @@ a.btn {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   text-align: center;
   border-radius: 0;
+  color:white;
 }
 .listcontent {
   position: absolute;

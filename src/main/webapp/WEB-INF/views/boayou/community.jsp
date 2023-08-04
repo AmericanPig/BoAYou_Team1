@@ -245,8 +245,7 @@ function openCommentPopup(event, community_no) {
 
 
 						</ul></li>
-					<li><a href="community">커뮤니티</a></li>               
-               <c:choose>
+					 <c:choose>
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
@@ -254,18 +253,18 @@ function openCommentPopup(event, community_no) {
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
-						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-								  ${sessionScope.loginUser.name} 님
-								</a>
-								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
-									${sessionScope.loginUser.user_id} 님
-								</div><br>
-								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-								</ul>		
-								</li>								
-								<!-- ===user profile section end=== -->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
 						                <a href="logout">로그아웃</a>	
 						            </c:otherwise>						            
 						        </c:choose>
@@ -275,7 +274,8 @@ function openCommentPopup(event, community_no) {
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
-            </ul>           
+						<li><a href="community">커뮤니티</a></li> 
+            </ul> 
 			</nav>
 			<!-- .navbar -->
 
@@ -331,8 +331,7 @@ function openCommentPopup(event, community_no) {
 					                </c:if>
 					            </c:forEach>
 									<span style="text-align:right;" class="name">
-									<div class="profile mt-auto" style="display:flex;">
-                                                                                           
+									<div class="profile mt-auto" style="display:flex;">                                                              
 	                              <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${rank.user_id}" class="author"><img src="${userProfileImg}"
                                     alt="" width = "30px" height="30px" style="margin-right : 5px;"> ${rank.user_id}</a></div></span>
 									<h2>${status.count}위</h2>
@@ -373,13 +372,20 @@ function openCommentPopup(event, community_no) {
 		<!-- End Testimonials Section -->
 		<!-- ======= Services Section ======= -->
 		<c:forEach var="community" items="${community_List}">
+		<c:set var="userProfileImg" value="" />
+					            <c:forEach var="userProfile" items="${userProfileList}">
+					                <c:if test="${userProfile.user_id == community.user_id}">
+					                    <c:set var="userProfileImg" value="${userProfile.img}" />
+					                </c:if>
+					            </c:forEach>
 			<article class="post">
 				<header>
 					<div class="title">
 						<h2>${community.community_title}</h2>
 					</div>
 					<div class="meta">
-						<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${community.user_id}" class="author"><span class="name">${community.user_id}</span></a>
+						<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${community.user_id}" class="author"><span class="name">
+						<img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 8px;">${community.user_id}</span></a>
 					</div>
 				</header>
 				<c:if test="${not empty community.posters}">
