@@ -26,8 +26,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.SelectCommunityList();
 	}
 	@Override
-	public int DeleteCommunity(CommunityDTO communityDTO) {
-		return mapper.DeleteCommunity(communityDTO);
+	public int DeleteCommunity(int community_no) {
+		return mapper.DeleteCommunity(community_no);
 	}
 	@Override
 	public List<CommunityDTO> CommunityRanking(){

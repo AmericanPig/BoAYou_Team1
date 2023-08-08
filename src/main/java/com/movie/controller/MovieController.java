@@ -526,8 +526,9 @@ public class MovieController {
        return "댓글이 성공적으로 추가되었습니다.";
    }
    @PostMapping("deletecommunity")
-   public String DeleteCommunity(CommunityDTO communityDTO) {
-	   communityservice.DeleteCommunity(communityDTO);
+   public String DeleteCommunity(int community_no) {
+	   System.out.println(community_no);
+	   communityservice.DeleteCommunity(community_no);
 	   return "redirect:/boayou/community";
    }
    @PostMapping("pushcommunityjoayo")
