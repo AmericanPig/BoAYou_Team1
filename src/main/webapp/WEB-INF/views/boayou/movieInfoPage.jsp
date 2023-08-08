@@ -12,7 +12,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>영화 상세페이지</title>
+<title>MovieInfoPage</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -164,10 +164,10 @@
                      <li class="dropdown"><a href="#"><span>관람등급</span> <i
                            class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
-                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
-                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
-                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
-                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+                           <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
                            <li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
                            
                         </ul>
@@ -198,27 +198,27 @@
                      
                      
 
-                  </ul></li>               
+                  </ul></li>
                <c:choose>
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자 페이지</a></li>
+						                <li><a href="adminMyPage">관리자페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
-						   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
-								  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
-								  ${sessionScope.loginUser.name} 님
-								</a>
-								<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
-									<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
-									${sessionScope.loginUser.user_id} 님
-								</div><br>
-								<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
-								</ul>		
-								</li>								
-								<!-- ===user profile section end=== -->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/myPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
 						                <a href="logout">로그아웃</a>	
 						            </c:otherwise>						            
 						        </c:choose>
@@ -228,7 +228,7 @@
 						        <li><a href="join">회원가입</a></li>
 						    </c:otherwise>
 						</c:choose>
-						<li><a href="community">커뮤니티</a></li>
+						<li><a href="community">커뮤니티</a></li> 
             </ul>           
          </nav>
          <!-- .navbar -->
@@ -290,26 +290,26 @@
                         <div class="row">
                            <div class="col-lg-6">
                               <ul>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>감독 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>영화감독:</strong>
                                     <span>${movieList.directornm} </span></li>
 
-                                 <li><i class="bi bi-chevron-right"></i> <strong>주연 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>주연배우명:</strong>
                                     <span>${movieList.actornm} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>국가 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>국가명:</strong>
                                     <span> ${movieList.nation}</span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>제작사 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>제작사:</strong>
                                     <span>${movieList.company}</span></li>
                               </ul>
                            </div>
                            <div class="col-lg-6">
                               <ul>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>관람등급 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>관람등급:</strong>
                                     <span>${movieList.rating} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>개봉일 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>개봉일:</strong>
                                     <span>${movieList.reprlsdate} </span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>상영시간 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>상영시간:</strong>
                                     <span>${movieList.runtime} 분</span></li>
-                                 <li><i class="bi bi-chevron-right"></i> <strong>장르 :</strong>
+                                 <li><i class="bi bi-chevron-right"></i> <strong>장르:</strong>
                                     <span>${movieList.genre}</span></li>
                               </ul>
                            </div>
@@ -339,7 +339,7 @@
                                                           
                   </div>
                   <section id="contact" class="contact">
-                  <h2 style="text-align:center;"><span style="color:skyblue;">리뷰</span> 평점평균 <span style="color:#ffc107;">${averageStar}</span></h2>     
+                  <h2 style="text-align:center;"><span style="color:skyblue;">리뷰</span> 평균점수 <span style="color:#ffc107;">${averageStar}</span></h2>     
 			<div class="container">
 
 
@@ -401,7 +401,7 @@
 		                           <i class="bi bi-star-fill"></i>
 		                       </c:forEach>
 		                              </div>
-		                      <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${review.user_id}"><h3>작성자 :${review.user_id }</h3></a>                                    
+		                      <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${review.user_id}"><h3>작성자:${review.user_id }</h3></a>                                    
                               <c:set var="userProfileImg" value="" />
 					            <c:forEach var="userProfile" items="${userProfileList}">
 					                <c:if test="${userProfile.user_id == review.user_id}">

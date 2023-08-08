@@ -30,8 +30,6 @@
 	href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css">
 
 <!-- Template Main CSS File -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <style>
 body {
 	color: white;
@@ -53,7 +51,7 @@ body {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	height: 30%;
+	height: 35%;
 	background-color: #111111;
 	padding: 15px;
 	box-sizing: border-box;
@@ -75,7 +73,10 @@ body {
 
 .stats li {
 	display: inline;
-	margin-right: 10px;
+	margin-right: 10px;	
+}
+li{
+  list-style-type: none;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -209,18 +210,9 @@ body {
 				    <c:if test="${!isMyPage}">
 				        <c:param name="user_id" value="${comment.user_id}" />
 				    </c:if>
-				</c:url>
-				<nav id="navbar" class="navbar">
-				<ul><li class="dropdown">
-				<a href="${targetPageUrl}" class="author"><img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 0px;">
-				${comment.user_id}</a>
-               	<ul style="width:280px;"><div style="display:flex;" onclick = "window.location.href='${targetPageUrl}'">
-                <img src="${userProfileImg}" class="testimonial-img" alt="" 
-                style="margin-right: 0px; font-size: 20pt; width:60px; height:60px;" onclick="window.location.href='${targetPageUrl}'">
-                <a href="${targetPageUrl}" style="margin-right: 0px;">${comment.user_id}</a>
-                </div><br>
-				<h7 style="margin-right : 50px;">${userProfileIntro}</h7><br><br>
-				</ul></li></ul></nav>
+				</c:url>								
+				<a href="${targetPageUrl}" class="author" style="text-decoration: none;"><img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 0px;">
+				${comment.user_id}</a>               					
 				</div></span></div></div>
 				<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 				<li>
@@ -230,15 +222,15 @@ body {
 				</li>
 				</c:if>
 				<li style="float: right;"><a href="javascript:void(0)"
-					class="icon solid fa-thumbs-down" style="color: white;"
+					class="icon solid fa-thumbs-down" style="color: white; text-decoration: none;"
 					onclick="submitSiroyoForm(this);"
 					data-comment-no="${comment.comment_no}"
 					data-user-id="${sessionScope.loginUser.user_id}">${comment.siroyo}</a></li>
-				<li style="float: right;"><a href="javascript:void(0)"
-					class="icon solid fa-thumbs-up" style="color: white;"
+				<li style="float: right; text-decoration: none;"><a href="javascript:void(0)"
+					class="icon solid fa-thumbs-up" style="color: white; text-decoration: none;"
 					onclick="submitJoayoForm(this);"
 					data-comment-no="${comment.comment_no}"
-					data-user-id="${sessionScope.loginUser.user_id}">${comment.joayo}</a></li>
+					data-user-id="${sessionScope.loginUser.user_id}">${comment.joayo}</a></li>			
 			<div class="comment-box">
 				<p>${comment.comment_content}</p>
 			</div>
@@ -254,8 +246,7 @@ body {
 			<br>
 			<textarea id="comment_content" name="comment_content" rows="4"
 				cols="50" placeholder="comment_content:" required></textarea>
-			<br> <br>
-			<button style="float: right;" type="button" id="submitComment">등록</button>
+			<button style="float: right;" type="button" id="submitComment">등록</button>						
 		</form>
 	</div>
 	</c:if>
