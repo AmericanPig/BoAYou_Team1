@@ -196,13 +196,13 @@ function openCommentPopup(event, community_no) {
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a
 										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 
@@ -249,7 +249,7 @@ function openCommentPopup(event, community_no) {
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
+						                <li><a href="adminMyPage">관리자 페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
@@ -325,15 +325,33 @@ function openCommentPopup(event, community_no) {
 							<div class="swiper-slide">
 								<div class="testimonial-item">
 								<c:set var="userProfileImg" value="" />
+								<c:set var="userProfileIntro" value="" />
 					            <c:forEach var="userProfile" items="${userProfileList}">
 					                <c:if test="${userProfile.user_id == rank.user_id}">
 					                    <c:set var="userProfileImg" value="${userProfile.img}" />
+					                    <c:set var="userProfileIntro" value="${userProfile.intro}" />
 					                </c:if>
-					            </c:forEach>
+					            </c:forEach>				            	
 									<span style="text-align:right;" class="name">
-									<div class="profile mt-auto" style="display:flex;">                                                              
-	                              <a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${rank.user_id}" class="author"><img src="${userProfileImg}"
-                                    alt="" width = "30px" height="30px" style="margin-right : 5px;"> ${rank.user_id}</a></div></span>
+									<div class="profile mt-auto" style="display:flex;">
+									<c:set var="isMyPage" value="${sessionScope.loginUser.user_id == rank.user_id}" />
+									<c:url var="targetPageUrl" value="${isMyPage ? '/boayou/myPage' : '/boayou/userPage'}">
+									    <c:if test="${!isMyPage}">
+									        <c:param name="user_id" value="${rank.user_id}" />
+									    </c:if>
+									</c:url>
+									<nav id="navbar" class="navbar"><ul>
+									<li class="dropdown">
+									<a href="${targetPageUrl}" class="author"><img src="${userProfileImg}"
+                                    alt="" width = "30px" height="30px" style="margin-right : 10px;"> ${rank.user_id}</a>
+                                    <ul style="width:280px;"><div style="display:flex;" onclick = "window.location.href='${targetPageUrl}'">
+                                    <img src="${userProfileImg}" class="testimonial-img" alt="" 
+                                    style="margin-right: 0px; font-size: 20pt; width:60px; height:60px;" onclick="window.location.href='${targetPageUrl}'">
+                                    <a href="${targetPageUrl}" style="margin-right: 200px;">${rank.user_id}</a>
+                                    </div><br>
+									<h7 style="margin-right : 50px;">${userProfileIntro}</h7><br><br>
+									</ul></li></ul></nav>		
+                                    </div></span>
 									<h2>${status.count}위</h2>
 									<h3>${rank.community_title}</h3>																	
 									<div class="profile mt-auto">			
@@ -373,19 +391,36 @@ function openCommentPopup(event, community_no) {
 		<!-- ======= Services Section ======= -->
 		<c:forEach var="community" items="${community_List}">
 		<c:set var="userProfileImg" value="" />
-					            <c:forEach var="userProfile" items="${userProfileList}">
-					                <c:if test="${userProfile.user_id == community.user_id}">
-					                    <c:set var="userProfileImg" value="${userProfile.img}" />
-					                </c:if>
-					            </c:forEach>
+		<c:set var="userProfileIntro" value="" />
+            <c:forEach var="userProfile" items="${userProfileList}">
+                <c:if test="${userProfile.user_id == community.user_id}">
+                    <c:set var="userProfileImg" value="${userProfile.img}" />
+                    <c:set var="userProfileIntro" value="${userProfile.intro}" />
+                </c:if>
+            </c:forEach>
 			<article class="post">
 				<header>
 					<div class="title">
 						<h2>${community.community_title}</h2>
 					</div>
 					<div class="meta">
-						<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${community.user_id}" class="author"><span class="name">
-						<img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 8px;">${community.user_id}</span></a>
+						<c:set var="isMyPage" value="${sessionScope.loginUser.user_id == community.user_id}" />
+						<c:url var="targetPageUrl" value="${isMyPage ? '/boayou/myPage' : '/boayou/userPage'}">
+						    <c:if test="${!isMyPage}">
+						        <c:param name="user_id" value="${community.user_id}" />
+						    </c:if>
+						</c:url>
+						<nav id="navbar" class="navbar"><ul>
+						<li class="dropdown">
+						<a href="${targetPageUrl}" class="author"><img src="${userProfileImg}"
+                                 alt="" width = "30px" height="30px" style="margin-left : 100px; margin-right : 10px;"> ${community.user_id}</a>
+                                 <ul style="width:320px;"><div style="display:flex;" onclick = "window.location.href='${targetPageUrl}'">
+                                 <img src="${userProfileImg}" class="testimonial-img" alt="" 
+                                 style="margin-right: 0px; font-size: 20pt; width:60px; height:60px;" onclick="window.location.href='${targetPageUrl}'">
+                                 <a href="${targetPageUrl}" style="margin-right: 200px;">${community.user_id}</a>
+                                 </div><br>
+						<h7 style="margin-right : 50px;">${userProfileIntro}</h7><br><br>
+						</ul></li></ul></nav>
 					</div>
 				</header>
 				<c:if test="${not empty community.posters}">

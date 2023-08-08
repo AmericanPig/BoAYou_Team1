@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class MovieListDTO {
 
-   private   String docid;
+   private String docid;
    private String title;
    private String directornm;
    private String actornm;

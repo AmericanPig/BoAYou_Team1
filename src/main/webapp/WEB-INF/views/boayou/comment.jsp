@@ -12,6 +12,26 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/main2.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min2.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css">
+
+<!-- Template Main CSS File -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 <style>
 body {
 	color: white;
@@ -172,8 +192,36 @@ body {
 <body>
 	<div id="comments-container">
 		<c:forEach var="comment" items="${comments}">
-			<ul class="stats">
-				<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${comment.user_id}"> <li style="float: reft;">작성자:${comment.user_id }</li></a>
+		<div class="swiper-slide" style="width : 450px; height : 50px;">
+			<div class="testimonial-item">
+			<c:set var="userProfileImg" value="" />
+			<c:set var="userProfileIntro" value="" />
+            <c:forEach var="userProfile" items="${userProfileList}">
+                <c:if test="${userProfile.user_id == comment.user_id}">
+                    <c:set var="userProfileImg" value="${userProfile.img}" />
+                    <c:set var="userProfileIntro" value="${userProfile.intro}" />
+                </c:if>
+            </c:forEach>
+            <span style="text-align:right;" class="name">
+				<div class="profile mt-auto" style="display:flex;">
+				<c:set var="isMyPage" value="${sessionScope.loginUser.user_id == comment.user_id}" />
+				<c:url var="targetPageUrl" value="${isMyPage ? '/boayou/myPage' : '/boayou/userPage'}">
+				    <c:if test="${!isMyPage}">
+				        <c:param name="user_id" value="${comment.user_id}" />
+				    </c:if>
+				</c:url>
+				<nav id="navbar" class="navbar">
+				<ul><li class="dropdown">
+				<a href="${targetPageUrl}" class="author"><img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 0px;">
+				${comment.user_id}</a>
+               	<ul style="width:280px;"><div style="display:flex;" onclick = "window.location.href='${targetPageUrl}'">
+                <img src="${userProfileImg}" class="testimonial-img" alt="" 
+                style="margin-right: 0px; font-size: 20pt; width:60px; height:60px;" onclick="window.location.href='${targetPageUrl}'">
+                <a href="${targetPageUrl}" style="margin-right: 0px;">${comment.user_id}</a>
+                </div><br>
+				<h7 style="margin-right : 50px;">${userProfileIntro}</h7><br><br>
+				</ul></li></ul></nav>
+				</div></span></div></div>
 				<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 				<li>
 					<button type="button" onclick="CommentDelete(this)"
@@ -201,14 +249,14 @@ body {
 	<c:if test="${not empty sessionScope.loginUser}">
 	<div id="comment-form-container">
 		<form id="commentForm">
-			<label for="user_id">User ID:</label><br> <input type="text"
+			<label for="user_id">작성자 :</label><br> <input type="text"
 				id="user_id" name="user_id"
 				value="${sessionScope.loginUser.user_id}" required><br>
 			<br>
 			<textarea id="comment_content" name="comment_content" rows="4"
 				cols="50" placeholder="comment_content:" required></textarea>
 			<br> <br>
-			<button style="float: right;" type="button" id="submitComment">Submit</button>
+			<button style="float: right;" type="button" id="submitComment">등록</button>
 		</form>
 	</div>
 	</c:if>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Admin My Page_MemberShipList</title>
+<title>관리자 회원정보관리</title>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
@@ -57,12 +57,12 @@ table, table td, table th {
 
     // 레벨 값을 선택하지 않은 경우 알림 처리
     if (selectedUserLevel === "선택") {
-      alert("레벨을 선택해주세요.");
+      alert("사용자 등급을 선택해주세요.");
       return;
     }
 
     // 사용자 확인 메시지 표시
-    if (confirm('회원등급변경 ?')) {
+    if (confirm('회원등급을 변경하시겠습니까?')) {
       // AJAX를 사용하여 서버에 요청을 보내고 사용자 레벨을 업데이트합니다.
       $.ajax({
         url: "updateUserLevel",
@@ -72,7 +72,7 @@ table, table td, table th {
           user_level: selectedUserLevel
         },
         success: function (message) {
-          alert("성공알림 :  변경완료");
+          alert("사용자 정보 변경이 완료되었습니다.");
           location.reload();
         },
         error: function (request, status, error) {
@@ -109,10 +109,10 @@ table, table td, table th {
 							<li class="dropdown"><a href="#"><span>관람등급</span>
 							<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="#"><span>개봉연도</span>
@@ -137,7 +137,7 @@ table, table td, table th {
 							<c:when test="${not empty sessionScope.loginUser}">
 								<a>${sessionScope.loginUser.name} 님</a>
 								<a href="logout">로그아웃</a>
-								<li><a href="adminMyPage">관리자페이지</a></li>
+								<li><a href="adminMyPage">관리자 페이지</a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="login">로그인</a></li>
@@ -157,7 +157,7 @@ table, table td, table th {
 			<div class="container position-relative">
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
-						<h3>관리자페이지</h3>
+						<h3>관리자 페이지</h3>
 					</div>
 				</div>
 			</div>
@@ -212,15 +212,15 @@ table, table td, table th {
 							<div class="portfolio-info">
 								<c:choose>
 									<c:when test="${not empty sessionScope.loginUser}">
-										<h3>${sessionScope.loginUser.user_id}님의관리목록</h3>
+										<h3>${sessionScope.loginUser.user_id} 님의 관리목록</h3>
 										<ul>
 											<li><strong>이용회원관리</strong>
-													<span> <a href="userList">가입회원관리</a></span> 
-													<span> <a href="membershipList">가입회원등급관리</a></span>
+													<span> <a href="userList">가입회원 관리</a></span> 
+													<span> <a href="membershipList">가입회원 등급관리</a></span>
 											</li>
-											<li><strong>커뮤니티관리</strong>
-													<span> <a href="communityList">커뮤니티관리</a></span>
-													<span> <a href="#">공지사항띄우기</a></span>
+											<li><strong>커뮤니티 관리</strong>
+													<span> <a href="communityList">커뮤니티 관리</a></span>
+													<span> <a href="#">공지사항 등록</a></span>
 											</li>
 										</ul>
 										<br>

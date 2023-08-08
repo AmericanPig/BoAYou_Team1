@@ -287,7 +287,7 @@ public class MovieController {
       
       String realPath = "";
       String realFileName = "";
-      try {''
+      try {
           // 파일을 받아와서 저장할 경로 생성
           byte[] bytes = profileImage.getBytes();
           // 실제 경로 얻기
@@ -418,7 +418,7 @@ public class MovieController {
 			repRlsDate2023Movie = service.getRepRlsDate2023MovieList();
 			model.addAttribute("getRepRlsDate2023Movie", repRlsDate2023Movie);
 		} else if (movieRepRlsDate.equals("2022")) {
-			repRlsDate2023Movie = service.getRepRlsDate2022MovieList();
+			repRlsDate2022Movie = service.getRepRlsDate2022MovieList();
 			model.addAttribute("getRepRlsDate2022Movie", repRlsDate2022Movie);
 		} else if (movieRepRlsDate.equals("2021")) {
 			repRlsDate2021Movie = service.getRepRlsDate2021MovieList();
@@ -507,6 +507,7 @@ public class MovieController {
 
    @GetMapping("/comments")
    public String getComments(@RequestParam("community_no") int community_no, Model model) {
+	   userInit(model);
        List<CommentDTO> comments = commentservice.getCommentList(community_no);
        model.addAttribute("comments", comments);
        model.addAttribute("community_no", community_no);
@@ -605,7 +606,8 @@ public class MovieController {
    }
    
    @GetMapping("userPage")
-   public void userPage(@RequestParam("user_id")String user_id, Model model) {	
+   public void userPage(@RequestParam("user_id")String user_id, Model model, HttpSession session) {	
+	   
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
 	   userprofile.setImg(toWebPath(userprofile.getImg()));
@@ -663,8 +665,24 @@ public class MovieController {
        return UserService.getUsersByUserId(userId);
    }
    @PostMapping("userSearch")
-   public String userSearch(String user_id) {
-	   return "redirect:/boayou/userPage?user_id="+user_id;
+   public String userSearch(String user_id, HttpSession session, Model model) {
+	   userInit(model);
+	   UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+	   List<UserDTO> userList = (List<UserDTO>)model.getAttribute("userList");
+	   boolean isExist = false;
+	   for(UserDTO user : userList){
+		   
+		   if(user.getUser_id().equals(user_id)) {
+			   isExist = true;
+			   if(loginUser != null && user_id.equals(loginUser.getUser_id())) 
+				   return "redirect:/boayou/myPage";
+		   }
+	   }
+	   if(isExist) return "redirect:/boayou/userPage?user_id="+user_id;
+	   
+	   System.out.println("존재하지않음");
+	   model.addAttribute("alertMessage", "존재하지 않는 유저입니다.");
+	   return "/boayou/homePage";
    }
    @PostMapping("find-id")
    public ResponseEntity<String> findId(@RequestParam("name") String name, @RequestParam("jumin") String jumin) {

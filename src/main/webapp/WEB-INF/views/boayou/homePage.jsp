@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>HomPage</title>
+<title>BoAYou 홈페이지</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -96,14 +96,14 @@
                            class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                            <li><a
-                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
                            <li><a
-                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
                            <li><a
-                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
                            <li><a
-                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
-                           <li><a
+                              href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
+                           <li><a 
                               href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 
                         </ul></li>
@@ -149,7 +149,7 @@
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
+						                <li><a href="adminMyPage">관리자 페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
@@ -194,7 +194,7 @@
    <!-- End Header -->
 <h3 style="margin-top:150px; text-align:center;">
 			   <button class="page-wrapper">
-               <a class="btn trigger" href="#">유저 검색</a>  
+               <a class="btn trigger" href="#">사용자 검색</a>  
 			   </button></h3>
    <!-- ======= Hero Section ======= -->
    <section id="hero"style="padding-top:50px; padding-bottom:50px;"
@@ -204,7 +204,7 @@
          <div class="row justify-content-center">
             <div class="col-lg-auto text-center">
                <h2>Boayou 에 오신걸 환영합니다.</h2>
-               <p>Boayou는 영화정보 알려드리고 커뮤니티 소통을 통해 서로의 정보를 공유하는 커뮤니티 사이트입니다.!</p>
+               <p>Boayou는 영화정보를 검색하고 커뮤니티 소통을 통해 서로의 정보를 공유하는 커뮤니티 사이트입니다</p>
 
             </div>
          </div>
@@ -212,7 +212,7 @@
 
       <!-- 검색창  -->
       <div class="search-container">
-         <input type="text" id="searchBox" placeholder="검색어를 입력하세요"><a
+         <input type="text" id="searchBox" placeholder="검색할 영화명을 입력하세요"><a
             id="searchMove"><button style="border-radius: 5px;">검색</button>
          </a>
          <div id="searchResults"></div>
@@ -580,7 +580,7 @@
 					<a class="btn-close trigger" href="#"> <i class="fa fa-times"
 						aria-hidden="true"></i>
 					</a>
-					<h2>유저 검색</h2>
+					<h2>사용자 찾기</h2>
 				</div>				
 				<div class="listcontent">
 					<div class="good-job">
@@ -649,6 +649,10 @@
  	  event.stopPropagation(); // 이벤트 버블링 방지
  	    location.href = "${pageContext.request.contextPath}/boayou/myPage";
  	  }
+   <c:if test="${not empty alertMessage}">
+	   alert('${alertMessage}');
+	   window.location.href = "/controller/boayou/homePage";
+	</c:if>
    </script>
 
 </body>

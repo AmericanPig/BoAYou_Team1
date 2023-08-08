@@ -63,109 +63,6 @@
 </style>
 
 <script>
-<<<<<<< HEAD
-
-	$(document).ready(function () {
-		  $(".trigger").on("click", function () {
-		    $(".modal-wrapper").toggleClass("open");
-		    $(".page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-	
-	$(document).ready(function () {
-		  $(".pwd-trigger").on("click", function () {
-		    $(".pwd-modal-wrapper").toggleClass("pwd-open");
-		    $(".pwd-page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-		
-	$(document).ready(function () {
-		  $(".profile-trigger").on("click", function () {
-		    $(".profile-modal-wrapper").toggleClass("profile-open");
-		    $(".profile-page-wrapper").toggleClass("blur-it");
-		    return false;
-		  });
-		});
-	
-	$(function(){
-		  $('.tabcontent > div').hide();
-		  $('.tabnav a').click(function () {
-		    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	$(function(){
-		  $('.pwd-tabcontent > div').hide();
-		  $('.pwd-tabnav a').click(function () {
-		    $('.pwd-tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.pwd-tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	$(function(){
-		  $('.profile-tabcontent > div').hide();
-		  $('.profile-tabnav a').click(function () {
-		    $('.profile-tabcontent > div').hide().filter(this.hash).fadeIn();
-		    $('.profile-tabnav a').removeClass('active');
-		    $(this).addClass('active');
-		    return false;
-		  }).filter(':eq(0)').click();
-		  });
-		  
-	function Delete() {
-	var confirmation = confirm("정말로 삭제하시겠습니까?");
-	if (confirmation) {
-	    document.getElementById("deleteForm").submit();
-	}
-	}  
-	
-	function previewImage() {
-	  const preview = document.getElementById('currentImage');
-	  const file = document.getElementById('profileImage').files[0];
-	  const reader = new FileReader();
-	
-	  reader.addEventListener("load", function () {
-	    preview.src = reader.result;
-	  }, false);
-	
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  }
-	}
-	
-	document.getElementById("adminUpdateProfileForm").addEventListener("submit", (event) => {
-	    event.preventDefault();
-	    const formData = new FormData(event.target);
-	    const url = "/controller/boayou/adminUpdateProfileForm";
-
-	    fetch(url, {
-	      method: "POST",
-	      body: formData
-	    })
-	    .then((response) => response.json())
-	    .then((result) => {
-	      if (result.success) {
-	        alert("프로필 변경 완료");
-	        window.opener.location.reload();
-	        window.close();
-	      } else {
-	        alert("프로필 변경 실패");
-	      }
-	    });
-	  });
-	  
-	function goToAdminMyPage(event) {
-		  event.stopPropagation(); // 이벤트 버블링 방지
-		    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
-		  }
-=======
 $(document).ready(function () {
 	  $(".trigger").on("click", function () {
 	    $(".modal-wrapper").toggleClass("open");
@@ -173,7 +70,6 @@ $(document).ready(function () {
 	    return false;
 	  });
 	});
->>>>>>> 6bf2f4c0b4aec8c4ddaf3d11df25e3d580074c4a
 
 $(document).ready(function () {
 	  $(".pwd-trigger").on("click", function () {
@@ -253,7 +149,28 @@ document.addEventListener("mouseover", function (event) {
   }
 });
 
-function goToMyPage(event) {
+document.getElementById("adminUpdateProfileForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const url = "/controller/boayou/adminUpdateProfileForm";
+
+    fetch(url, {
+      method: "POST",
+      body: formData
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        alert("프로필 변경 완료");
+        window.opener.location.reload();
+        window.close();
+      } else {
+        alert("프로필 변경 실패");
+      }
+    });
+  });
+
+function goToAdminMyPage(event) {
 	  event.stopPropagation(); // 이벤트 버블링 방지
 	    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
 	  }
@@ -284,10 +201,10 @@ function goToMyPage(event) {
 							<li class="dropdown"><a href="#"><span>관람등급</span>
 							<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="#"><span>개봉연도</span>
@@ -307,7 +224,6 @@ function goToMyPage(event) {
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션,SF,판타지</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 								</ul></li>
-<<<<<<< HEAD
 						</ul></li>
 					 <c:choose>
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
@@ -340,21 +256,6 @@ function goToMyPage(event) {
 						</c:choose>
 						<li><a href="community">커뮤니티</a></li> 
             </ul> 
-=======
-						</ul></li>	
-					<c:choose>
-						<c:when test="${not empty sessionScope.loginUser}">
-							<a>${sessionScope.loginUser.name} 님</a>
-							<a href="logout">로그아웃</a>
-							<li><a href="adminMyPage">관리자페이지</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="login">로그인</a></li>
-						</c:otherwise>
-					</c:choose>
-					<li><a href="community">커뮤니티</a></li>
-				</ul>
->>>>>>> 6bf2f4c0b4aec8c4ddaf3d11df25e3d580074c4a
 			</nav>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> 
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
