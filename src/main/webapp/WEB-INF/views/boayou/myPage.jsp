@@ -134,7 +134,7 @@ function displayProfileBox() {
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css">
 	
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/css/user.css">
+	href="${pageContext.request.contextPath}/resources/assets/css/user.css?after">
 	
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/assets/css/pwd.css?after">
@@ -380,7 +380,7 @@ a {
 
           <div class="col-lg-8">
             <div class="portfolio-description">
-              <h2>${sessionScope.loginUser.user_id} 님의 프로필 변경하기</h2>
+              <h2>${sessionScope.loginUser.user_id} 님의 프로필</h2>
               <div class="testimonial-item">
                 <div>
                   <img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="">

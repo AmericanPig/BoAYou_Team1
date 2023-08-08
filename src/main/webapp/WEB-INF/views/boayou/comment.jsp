@@ -239,7 +239,6 @@ body {
 					onclick="submitJoayoForm(this);"
 					data-comment-no="${comment.comment_no}"
 					data-user-id="${sessionScope.loginUser.user_id}">${comment.joayo}</a></li>
-			</ul>
 			<div class="comment-box">
 				<p>${comment.comment_content}</p>
 			</div>

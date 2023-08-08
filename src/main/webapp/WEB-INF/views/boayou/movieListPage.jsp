@@ -391,7 +391,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
 
-      <c:when test="${param.movieRating eq '전체 관람가' }">
+      <c:when test="${param.movieRating eq '전체관람가' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -491,7 +491,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
       
-      <c:when test="${param.movieRating eq '12세 관람가' }">
+      <c:when test="${param.movieRating eq '12세관람가' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -591,7 +591,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
       
-      <c:when test="${param.movieRating eq '15세 관람가' }">
+      <c:when test="${param.movieRating eq '15세관람가' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -691,7 +691,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
    
-      <c:when test="${param.movieRating eq '18세 관람가' }">
+      <c:when test="${param.movieRating eq '18세관람가' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -1291,7 +1291,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
    
-      <c:when test="${param.movieGenre eq '드라마/가족코메디' }">
+      <c:when test="${param.movieGenre eq '드라마가족코메디' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -1391,7 +1391,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
       
-      <c:when test="${param.movieGenre eq '멜로/로맨스' }">
+      <c:when test="${param.movieGenre eq '멜로로맨스' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -1491,7 +1491,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
       
-      <c:when test="${param.movieGenre eq '공포/스릴러/범죄/전쟁' }">
+      <c:when test="${param.movieGenre eq '공포스릴러범죄전쟁' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->
@@ -1591,7 +1591,7 @@ function goToMyPage(event) {
          </main>
       </c:when>
    
-      <c:when test="${param.movieGenre eq '액션/SF/판타지' }">
+      <c:when test="${param.movieGenre eq '액션SF판타지' }">
       <main id="main" data-aos="fade" data-aos-delay="1500">
 
             <!-- ======= End Page Header ======= -->

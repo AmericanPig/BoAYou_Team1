@@ -218,7 +218,7 @@ public class MovieController {
                                       @RequestParam("profileMessage") String profileMessage,
                                       HttpServletRequest request, HttpSession session) {
        UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
-       
+       System.out.println(profileImage);
        String realPath = "";
        String realFileName = "";
        try {
@@ -245,7 +245,7 @@ public class MovieController {
 
        userProfileService.changeUserProfile(loginUserProfile);
        
-       String webPath = "../resources/assets/img/" + realFileName;
+       String webPath = toWebPath(loginUserProfile.getImg());
        System.out.println("이미지 세션용 경로 : " + webPath);
        loginUserProfile.setImg(webPath);
        session.setAttribute("loginUserProfile", loginUserProfile);
@@ -443,7 +443,7 @@ public class MovieController {
 			genre4Movie = service.getGenre4MovieList();
 			model.addAttribute("getGenre4Movie", genre4Movie);
 		} else if (movieGenre.equals("기타")) {
-			genre4Movie = service.getGenre5MovieList();
+			genre5Movie = service.getGenre5MovieList();
 			model.addAttribute("getGenre5Movie", genre5Movie);
 		}
 		}
@@ -517,6 +517,7 @@ public class MovieController {
            comment.setJoayo(joayoCount);
            comment.setSiroyo(siroyoCount);
        }
+       
        return "/boayou/comment";
    }
 
@@ -636,20 +637,14 @@ public class MovieController {
    public void movieSearchListPage(@RequestParam("title") String title, Model model) {
 
       List<MovieListDTO> searchMovie = service.getMovieSearchList(title);
-      model.addAttribute("searchMovie", searchMovie);
-      // log.info(searchMovie);
-     // System.out.println("확인");
-     // System.out.println(searchMovie.get(0).getActornm());
-     
-     // System.out.println("확인2");
-     // System.out.println(searchMovie.get(0).getActornm()); 
+      model.addAttribute("searchMovie", searchMovie); 
    }
    @PostMapping("insertMyMovieList")
    public String insertMyMovieList(@RequestParam("movielist_name") String movielist_name, @RequestParam("user_id") String user_id, @RequestParam("docid") String docid, RedirectAttributes redirectAttributes, HttpSession session) {       
        try {
            userProfileService.insertMyMovieList(movielist_name, user_id, docid);
        } catch (DataIntegrityViolationException e) {
-    	    session.setAttribute("errorMessage", "하나의 리스트에 하나의 영화만 등록가능합니다.");
+    	    session.setAttribute("errorMessage", "하나의 리스트에 하나의 영화만 등록 가능합니다.");
     	    return "redirect:/boayou/movieInfoPage?Docid=" + docid;
     	}
        return "redirect:/boayou/movieInfoPage?Docid=" + docid;
