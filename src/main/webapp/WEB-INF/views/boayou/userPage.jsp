@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>User Page</title>
+<title>${user.name} 님의 프로필</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -184,13 +184,13 @@ a {
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
 									<li><a
-										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a
 										href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 
@@ -237,7 +237,7 @@ a {
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
+						                <li><a href="adminMyPage">관리자 페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
@@ -289,7 +289,7 @@ a {
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
 
-						<h2>${user.name}님의페이지</h2>
+						<h2>${user.name} 님의 페이지</h2>
 
 					</div>
 					<section id="gallery-single" class="gallery-single">
@@ -298,7 +298,7 @@ a {
 
 								<div class="col-lg-8">
 									<div class="portfolio-description">
-										<h2>${user.name}님의프로필</h2>
+										<h2>${user.name} 님의 프로필</h2>
 										<div class="testimonial-item">
 											<p>
 												<i class="bi bi-quote quote-icon-left"></i>
@@ -318,7 +318,7 @@ a {
 
 								<div class="col-lg-3">
 									<div class="portfolio-info">
-										<h3>${user.user_id}님의정보</h3>
+										<h3>${user.user_id} 님의 정보</h3>
 										<ul>
 											<li><strong>아이디</strong> <span>${user.user_id}</span></li>
 											<li><strong>이름</strong> <span>${user.name}</span></li>
@@ -411,7 +411,7 @@ a {
 
 				<div class="section-header">
 					<h2>My Selection</h2>
-					<p>리뷰를 작성한 영화</p>
+					<p>리뷰를 남긴 영화목록</p>
 				</div>
 
 				<div class="slides-3 swiper">
@@ -440,7 +440,7 @@ a {
          <div class="container">
          <div class="section-header">
             <h2>My Community</h2>
-            <p>내 커뮤니티</p>
+            <p>커뮤니티 글 목록</p>
          </div>
          
          <table id="communityTable">

@@ -104,10 +104,10 @@
 							<li class="dropdown"><a href="#"><span>관람등급</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 									
 								</ul>
@@ -140,7 +140,7 @@
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
+						                <li><a href="adminMyPage">관리자 페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
@@ -191,7 +191,7 @@
 			<div class="container position-relative">
 				<div class="row d-flex justify-content-center">
 					<div class="col-lg-6 text-center">
-						<h2>community creation</h2>
+						<h2>Community Creation</h2>
 
 					</div>
 				</div>
@@ -236,13 +236,13 @@
 									placeholder="Content" required></textarea>
 							</div>
 							<div class="my-3">
-								<div class="loading">Loading</div>
+								<div class="loading">Loading..</div>
 								<div class="error-message"></div>
-								<div class="sent-message">Your message has been sent.
-									Thank you!</div>
+								<div class="sent-message">문의가 접수되었습니다.
+									소중한 문의 감사드립니다.</div>
 							</div>
 							<div>
-								<button type="submit">Save</button>
+								<button type="submit">등록</button>
 							</div>
 						</form>
 					</div>

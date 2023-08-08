@@ -149,7 +149,28 @@ document.addEventListener("mouseover", function (event) {
   }
 });
 
-function goToMyPage(event) {
+document.getElementById("adminUpdateProfileForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const url = "/controller/boayou/adminUpdateProfileForm";
+
+    fetch(url, {
+      method: "POST",
+      body: formData
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.success) {
+        alert("프로필 변경 완료");
+        window.opener.location.reload();
+        window.close();
+      } else {
+        alert("프로필 변경 실패");
+      }
+    });
+  });
+
+function goToAdminMyPage(event) {
 	  event.stopPropagation(); // 이벤트 버블링 방지
 	    location.href = "${pageContext.request.contextPath}/boayou/adminMyPage";
 	  }
@@ -180,10 +201,10 @@ function goToMyPage(event) {
 							<li class="dropdown"><a href="#"><span>관람등급</span>
 							<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 								</ul></li>
 							<li class="dropdown"><a href="#"><span>개봉연도</span>
@@ -203,19 +224,38 @@ function goToMyPage(event) {
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=액션SF판타지">액션,SF,판타지</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieGenre=기타">기타</a></li>
 								</ul></li>
-						</ul></li>	
-					<c:choose>
-						<c:when test="${not empty sessionScope.loginUser}">
-							<a>${sessionScope.loginUser.name} 님</a>
-							<a href="logout">로그아웃</a>
-							<li><a href="adminMyPage">관리자페이지</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="login">로그인</a></li>
-						</c:otherwise>
-					</c:choose>
-					<li><a href="community">커뮤니티</a></li>
-				</ul>
+						</ul></li>
+					 <c:choose>
+						    <c:when test="${not empty sessionScope.loginUser}">					        				
+						        <c:choose>
+						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
+						                <li><a href="adminMyPage">관리자페이지</a></li>
+						            </c:when>
+						            <c:otherwise>
+						                <!-- ===user profile section start===-->
+							   		<li class="dropdown"><a href="${pageContext.request.contextPath}/boayou/adminMyPage">
+									  <img src="${sessionScope.loginUserProfile.img}" style="margin-right: 10px;" width="30px" height="30px" />
+									  ${sessionScope.loginUser.name} 님
+									</a>
+									<ul style="width:300px;"><div style="display:flex;" onclick = "goToAdminMyPage(event);">
+										<img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="" style="margin-right: 20px; font-size: 10pt; width:60px; height:60px;" onclick="goToAdminMyPage(event);">
+										${sessionScope.loginUser.user_id} 님
+									</div><br>
+									<h7 style="margin-left : 100px;">${sessionScope.loginUserProfile.intro }</h7><br><br>
+									</ul>		
+									</li>								
+									<!-- ===user profile section end=== -->
+						                <a href="logout">로그아웃</a>	
+						            </c:otherwise>						            
+						        </c:choose>
+						    </c:when>
+						    <c:otherwise>
+						        <li><a href="login">로그인</a></li>
+						        <li><a href="join">회원가입</a></li>
+						    </c:otherwise>
+						</c:choose>
+						<li><a href="community">커뮤니티</a></li> 
+            </ul> 
 			</nav>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i> 
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

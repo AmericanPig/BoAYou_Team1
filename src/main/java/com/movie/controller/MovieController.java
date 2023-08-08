@@ -276,46 +276,47 @@ public class MovieController {
 	public void adminMyPage() {
 		
 	}
+
   
    // admin000 관리자 프로필 
-   @PostMapping("/boayou/adminUpdateProfileForm")
-   public String adminUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
-                                      @RequestParam("profileMessage") String profileMessage,
-                                      HttpServletRequest request, HttpSession session) {
-       UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
-       
-       String realPath = "";
-       String realFileName = "";
-       try {
-           // 파일을 받아와서 저장할 경로 생성
-           byte[] bytes = profileImage.getBytes();
-           // 실제 경로 얻기
-           realPath = servletContext.getRealPath("/resources/assets/img/");
-           realFileName = profileImage.getOriginalFilename();
-           Path path = Paths.get(realPath + realFileName);
-           
-           Files.write(path, bytes);
-           loginUserProfile.setImg(path.toString());
-           System.out.println("프로필 이미지 저장 : " + path.toString());
+  @PostMapping("/boayou/adminUpdateProfileForm")
+  public String adminUpdateProfileForm(@RequestParam("profileImage") MultipartFile profileImage,
+                                     @RequestParam("profileMessage") String profileMessage,
+                                     HttpServletRequest request, HttpSession session) {
+      UserProfileDTO loginUserProfile = (UserProfileDTO) session.getAttribute("loginUserProfile");
+      
+      String realPath = "";
+      String realFileName = "";
+      try {
+          // 파일을 받아와서 저장할 경로 생성
+          byte[] bytes = profileImage.getBytes();
+          // 실제 경로 얻기
+          realPath = servletContext.getRealPath("/resources/assets/img/");
+          realFileName = profileImage.getOriginalFilename();
+          Path path = Paths.get(realPath + realFileName);
+          
+          Files.write(path, bytes);
+          loginUserProfile.setImg(path.toString());
+          System.out.println("프로필 이미지 저장 : " + path.toString());
 
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
 
-       if (profileMessage != null) {
-           loginUserProfile.setIntro(profileMessage);
-           System.out.println("프로필 메시지 변경 : " + profileMessage);
-       }
+      if (profileMessage != null) {
+          loginUserProfile.setIntro(profileMessage);
+          System.out.println("프로필 메시지 변경 : " + profileMessage);
+      }
 
-       userProfileService.changeUserProfile(loginUserProfile);
-       
-       String originPath = loginUserProfile.getImg();
-       String webPath = toWebPath(originPath);
-       loginUserProfile.setImg(webPath);
-       
-       session.setAttribute("loginUserProfile", loginUserProfile);
-       return "redirect:/boayou/adminMyPage";
-    }
+      userProfileService.changeUserProfile(loginUserProfile);
+      
+      String originPath = loginUserProfile.getImg();
+      String webPath = toWebPath(originPath);
+      loginUserProfile.setImg(webPath);
+      
+      session.setAttribute("loginUserProfile", loginUserProfile);
+      return "redirect:/boayou/homePage";
+   }
   
   // admin00 로그인 추가 
   @PostMapping("/loginProcess")
@@ -442,7 +443,7 @@ public class MovieController {
 			genre4Movie = service.getGenre4MovieList();
 			model.addAttribute("getGenre4Movie", genre4Movie);
 		} else if (movieGenre.equals("기타")) {
-			genre4Movie = service.getGenre5MovieList();
+			genre5Movie = service.getGenre5MovieList();
 			model.addAttribute("getGenre5Movie", genre5Movie);
 		}
 		}
@@ -506,6 +507,7 @@ public class MovieController {
 
    @GetMapping("/comments")
    public String getComments(@RequestParam("community_no") int community_no, Model model) {
+	   userInit(model);
        List<CommentDTO> comments = commentservice.getCommentList(community_no);
        model.addAttribute("comments", comments);
        model.addAttribute("community_no", community_no);
@@ -604,7 +606,8 @@ public class MovieController {
    }
    
    @GetMapping("userPage")
-   public void userPage(@RequestParam("user_id")String user_id, Model model) {	
+   public void userPage(@RequestParam("user_id")String user_id, Model model, HttpSession session) {	
+	   
 	   UserDTO user = UserService.selectUserById(user_id);
 	   UserProfileDTO userprofile = userProfileService.getUserProfile(user_id);
 	   userprofile.setImg(toWebPath(userprofile.getImg()));
@@ -662,8 +665,24 @@ public class MovieController {
        return UserService.getUsersByUserId(userId);
    }
    @PostMapping("userSearch")
-   public String userSearch(String user_id) {
-	   return "redirect:/boayou/userPage?user_id="+user_id;
+   public String userSearch(String user_id, HttpSession session, Model model) {
+	   userInit(model);
+	   UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+	   List<UserDTO> userList = (List<UserDTO>)model.getAttribute("userList");
+	   boolean isExist = false;
+	   for(UserDTO user : userList){
+		   
+		   if(user.getUser_id().equals(user_id)) {
+			   isExist = true;
+			   if(loginUser != null && user_id.equals(loginUser.getUser_id())) 
+				   return "redirect:/boayou/myPage";
+		   }
+	   }
+	   if(isExist) return "redirect:/boayou/userPage?user_id="+user_id;
+	   
+	   System.out.println("존재하지않음");
+	   model.addAttribute("alertMessage", "존재하지 않는 유저입니다.");
+	   return "/boayou/homePage";
    }
    @PostMapping("find-id")
    public ResponseEntity<String> findId(@RequestParam("name") String name, @RequestParam("jumin") String jumin) {

@@ -12,6 +12,24 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/main2.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/swiper/swiper-bundle.min2.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/glightbox/css/glightbox.min.css">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css">
+
+<!-- Template Main CSS File -->
 <style>
 body {
 	color: white;
@@ -33,7 +51,7 @@ body {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	height: 30%;
+	height: 35%;
 	background-color: #111111;
 	padding: 15px;
 	box-sizing: border-box;
@@ -55,7 +73,10 @@ body {
 
 .stats li {
 	display: inline;
-	margin-right: 10px;
+	margin-right: 10px;	
+}
+li{
+  list-style-type: none;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -172,8 +193,27 @@ body {
 <body>
 	<div id="comments-container">
 		<c:forEach var="comment" items="${comments}">
-			<ul class="stats">
-				<a href="${pageContext.request.contextPath }/boayou/userPage?user_id=${comment.user_id}"> <li style="float: reft;">작성자:${comment.user_id }</li></a>
+		<div class="swiper-slide" style="width : 450px; height : 50px;">
+			<div class="testimonial-item">
+			<c:set var="userProfileImg" value="" />
+			<c:set var="userProfileIntro" value="" />
+            <c:forEach var="userProfile" items="${userProfileList}">
+                <c:if test="${userProfile.user_id == comment.user_id}">
+                    <c:set var="userProfileImg" value="${userProfile.img}" />
+                    <c:set var="userProfileIntro" value="${userProfile.intro}" />
+                </c:if>
+            </c:forEach>
+            <span style="text-align:right;" class="name">
+				<div class="profile mt-auto" style="display:flex;">
+				<c:set var="isMyPage" value="${sessionScope.loginUser.user_id == comment.user_id}" />
+				<c:url var="targetPageUrl" value="${isMyPage ? '/boayou/myPage' : '/boayou/userPage'}">
+				    <c:if test="${!isMyPage}">
+				        <c:param name="user_id" value="${comment.user_id}" />
+				    </c:if>
+				</c:url>								
+				<a href="${targetPageUrl}" class="author" style="text-decoration: none;"><img src="${userProfileImg}" alt="" width = "30px" height="30px" style="margin-right : 0px;">
+				${comment.user_id}</a>               					
+				</div></span></div></div>
 				<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 				<li>
 					<button type="button" onclick="CommentDelete(this)"
@@ -182,16 +222,15 @@ body {
 				</li>
 				</c:if>
 				<li style="float: right;"><a href="javascript:void(0)"
-					class="icon solid fa-thumbs-down" style="color: white;"
+					class="icon solid fa-thumbs-down" style="color: white; text-decoration: none;"
 					onclick="submitSiroyoForm(this);"
 					data-comment-no="${comment.comment_no}"
 					data-user-id="${sessionScope.loginUser.user_id}">${comment.siroyo}</a></li>
-				<li style="float: right;"><a href="javascript:void(0)"
-					class="icon solid fa-thumbs-up" style="color: white;"
+				<li style="float: right; text-decoration: none;"><a href="javascript:void(0)"
+					class="icon solid fa-thumbs-up" style="color: white; text-decoration: none;"
 					onclick="submitJoayoForm(this);"
 					data-comment-no="${comment.comment_no}"
-					data-user-id="${sessionScope.loginUser.user_id}">${comment.joayo}</a></li>
-			</ul>
+					data-user-id="${sessionScope.loginUser.user_id}">${comment.joayo}</a></li>			
 			<div class="comment-box">
 				<p>${comment.comment_content}</p>
 			</div>
@@ -201,14 +240,13 @@ body {
 	<c:if test="${not empty sessionScope.loginUser}">
 	<div id="comment-form-container">
 		<form id="commentForm">
-			<label for="user_id">User ID:</label><br> <input type="text"
+			<label for="user_id">작성자 :</label><br> <input type="text"
 				id="user_id" name="user_id"
 				value="${sessionScope.loginUser.user_id}" required><br>
 			<br>
 			<textarea id="comment_content" name="comment_content" rows="4"
 				cols="50" placeholder="comment_content:" required></textarea>
-			<br> <br>
-			<button style="float: right;" type="button" id="submitComment">Submit</button>
+			<button style="float: right;" type="button" id="submitComment">등록</button>						
 		</form>
 	</div>
 	</c:if>

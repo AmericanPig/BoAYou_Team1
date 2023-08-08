@@ -277,10 +277,10 @@ a {
 							<li class="dropdown"><a href="#"><span>관람등급</span> <i
 									class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세관람가</a></li>
-									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세관람가(청소년관람불가)</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=전체관람가">전체 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=12세관람가">12세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=15세관람가">15세 관람가</a></li>
+									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=18세관람가">18세 관람가(청소년관람불가)</a></li>
 									<li><a href="${pageContext.request.contextPath }/boayou/movieListPage?movieRating=기타">기타</a></li>
 									
 								</ul>
@@ -313,7 +313,7 @@ a {
 						    <c:when test="${not empty sessionScope.loginUser}">					        				
 						        <c:choose>
 						            <c:when test="${sessionScope.loginUser.user_id=='admin00'}">
-						                <li><a href="adminMyPage">관리자페이지</a></li>
+						                <li><a href="adminMyPage">관리자 페이지</a></li>
 						            </c:when>
 						            <c:otherwise>
 						                <!-- ===user profile section start===-->
@@ -380,7 +380,7 @@ a {
 
           <div class="col-lg-8">
             <div class="portfolio-description">
-              <h2>회원님의 프로필 변경하기</h2>
+              <h2>${sessionScope.loginUser.user_id} 님의 프로필 변경하기</h2>
               <div class="testimonial-item">
                 <div>
                   <img src="${sessionScope.loginUserProfile.img}" class="testimonial-img" alt="">
@@ -448,7 +448,7 @@ a {
 				  <div style="text-align: center;">
 				    <img id="currentImage" src="${sessionScope.loginUserProfile.img }" style="margin: 0 auto;" width="200" height="200"><br>
 						<label for="profileImage" class="custom-btn">
-						    사진을 선택하세요
+						    변경할 사진을 선택하세요
 						</label>
 						<input type="file" id="profileImage" name="profileImage" accept="image/png, image/jpeg, image/gif" onchange="previewImage()" style="display:none"/>
 
@@ -472,7 +472,6 @@ a {
 		      </a>
 		      <h2>패스워드 변경</h2>
 		    </div>
-		    <h1 style=" text-align : center; font-size : 15pt;">패스워드 변경하기</h1><br><br>
   				<form id="updateForm" action="${pageContext.request.contextPath}/boayou/updateUserPwd" method="post">
     				<label for="pwd" style="margin-left : 350px">변경할 패스워드 : </label>
     				<input name="pwd" placeholder="변경할 비밀번호 입력" />
@@ -555,7 +554,7 @@ a {
 
 				<div class="section-header">
 					<h2>My Selection</h2>
-					<p>리뷰를 작성한 영화</p>
+					<p>리뷰를 남긴 영화목록</p>
 				</div>
 
 				<div class="slides-3 swiper">
@@ -586,7 +585,7 @@ a {
          <div class="container">
          <div class="section-header">
             <h2>My Community</h2>
-            <p>내 커뮤니티</p>
+            <p>내 커뮤니티 글 목록</p>
          </div>
          
          <table id="communityTable">
