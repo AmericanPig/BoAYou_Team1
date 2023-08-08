@@ -12,7 +12,7 @@ public interface CommunityMapper {
 	
 	List<CommunityDTO> CommunityRanking();
 
-	int DeleteCommunity(CommunityDTO communityDTO);
+	int DeleteCommunity(int community_no);
 
 	List<CommunityDTO> selectCommunityById(String user_id);
 }

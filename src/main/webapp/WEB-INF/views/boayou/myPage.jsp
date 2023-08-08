@@ -421,6 +421,7 @@ a {
 						</div></li>
 						<li></li>
 						<li><a href="logout" style="color : green;">로그아웃</a></li>
+						<li><a href="signout" style="color : red;">회원탈퇴</a></li>
 						<li><div class="page-wrapper">
 						<a class="btn trigger" href="#">MyMovieList</a>
 						</div></li>

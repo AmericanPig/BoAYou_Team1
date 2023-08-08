@@ -92,12 +92,14 @@ function openCommentPopup(event, community_no) {
 	    }
 	  }, 10);
 	}
-	  function confirmDelete() {
-          var confirmation = confirm("정말로 삭제하시겠습니까?");
-          if (confirmation) {
-              document.getElementById("deleteForm").submit();
-          }
-      }	 
+	function confirmDelete(community_no) {
+	    var confirmation = confirm("정말로 삭제하시겠습니까?");
+	    if (confirmation) {
+	        var deleteForm = document.getElementById("deleteForm");
+	        deleteForm.elements["community_no"].value = community_no;
+	        deleteForm.submit();
+	    }
+	}
 	  function submitJoayoForm(element) {
 		  var community_no = $(element).data('community-no');
 		  var user_id = $(element).data('user-id');
@@ -432,14 +434,13 @@ function openCommentPopup(event, community_no) {
 				<footer>
 					<c:if test="${not empty sessionScope.loginUser and sessionScope.loginUser.user_id == community.user_id}">
 					<ul class="actions">
-						<li><button type="button" onclick="confirmDelete()"
-								class="button large">삭제</button></li>
+					    <li><button type="button" onclick="confirmDelete(${community.community_no})"
+					            class="button large">삭제</button></li>
 					</ul>
-					</c:if>
 					<form id="deleteForm" action="deletecommunity" method="POST">
-						<input type="hidden" name="community_no"
-							value="${community.community_no}">
+					    <input type="hidden" name="community_no" value="">
 					</form>
+					</c:if>					
 					<ul class="stats">
 
 						<li><a href="javascript:void(0)"

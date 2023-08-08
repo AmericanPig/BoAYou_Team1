@@ -166,6 +166,11 @@ public class MovieController {
    public void login() {
 
    }
+   
+   @GetMapping("signout")
+   public void signout() {
+	   
+   }
 
    @GetMapping("contact")
    public void contact() {
@@ -350,6 +355,33 @@ public class MovieController {
      return "redirect:/boayou/homePage";
   }
 
+  @PostMapping("/signOutProcess")
+  public String signOutProcess(String pwd, HttpSession session, Model model) {
+     UserDTO storedUser = (UserDTO)session.getAttribute("loginUser");
+     
+     if (storedUser == null) {
+        model.addAttribute("msg", "로그인하지 않았습니다.");
+        return "boayou/login";
+     }
+     UserProfileDTO storedUserProfile = userProfileInit(storedUser.getUser_id(), storedUser.getName());
+     int profileInit = userProfileService.changeUserProfile(storedUserProfile);
+     System.out.println(storedUserProfile + " = 현재프로필");
+     
+     if(UserService.isPasswordMatched(pwd, storedUser.getPwd())) {
+    	 int userDestroy = UserService.deleteUser(storedUser.getUser_id());
+    	 int userProfileDestroy = userProfileService.deleteUserProfile(storedUserProfile);
+    	 System.out.println(userDestroy+ "명의 유저삭제");
+    	 System.out.println(userProfileDestroy+ "명의 유저 프로필삭제");
+    	 session.setAttribute("loginUser", null);
+         session.setAttribute("loginUserProfile", null);
+         
+         return "redirect:/boayou/homePage";
+     }
+     System.out.println(storedUser.getPwd() + " 회원탈퇴실패");
+     model.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
+     return "boayou/signOut";
+  }
+  
    @GetMapping("/logout")
    public String logout(HttpSession session) {
 
@@ -384,7 +416,7 @@ public class MovieController {
 		// 공통 영화 목록
 		if (movieNation != null) {
 		if (movieNation.equals("한국영화")) {
-			System.out.println("한국영");
+			System.out.println("한국");
 			koreaMovie = service.getKoreaMovieList();
 			model.addAttribute("getKoreaMovie", koreaMovie);
 		} else if (movieNation.equals("외국영화")) {
@@ -527,8 +559,9 @@ public class MovieController {
        return "댓글이 성공적으로 추가되었습니다.";
    }
    @PostMapping("deletecommunity")
-   public String DeleteCommunity(CommunityDTO communityDTO) {
-	   communityservice.DeleteCommunity(communityDTO);
+   public String DeleteCommunity(int community_no) {
+	   System.out.println(community_no);
+	   communityservice.DeleteCommunity(community_no);
 	   return "redirect:/boayou/community";
    }
    @PostMapping("pushcommunityjoayo")

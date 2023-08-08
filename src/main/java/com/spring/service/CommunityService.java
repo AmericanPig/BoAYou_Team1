@@ -10,7 +10,7 @@ public interface CommunityService {
 
 	List<CommunityDTO> SelectCommunityList();
 
-	int DeleteCommunity(CommunityDTO communityDTO);
+	int DeleteCommunity(int community_no);
 
 	List<CommunityDTO> CommunityRanking();
 	

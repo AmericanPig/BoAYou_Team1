@@ -32,7 +32,7 @@
   	
 <!--   	user_id의 UserProfile 삭제 -->
   	<delete id="deleteUserProfile">
-  		DELETE from user_profile where user_id = ${user_id}
+  		DELETE from user_profile where user_id = #{user_id}
   	</delete>
 <!--	user_id로 나만의 무비리스트를 검색 -->
 	<select id="selectMyMovieList"  resultType="com.spring.domain.MyMovieListDTO">
