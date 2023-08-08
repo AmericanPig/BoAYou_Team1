@@ -29,10 +29,6 @@ public class AdminServiceImpl implements AdminService {
         return adminmapper.selectUserList(pageMaker);
     }
     
-	@Override
-	public List<MemberShipDTO> membershipList(PageMaker pageMaker) {
-		return adminmapper.membershipList(pageMaker);
-	}
 
     @Override
     public int deleteUserList(Map<String, Object> paramMap) {
@@ -45,9 +41,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
 	@Override
-	public int updateUserLevel(MemberShipDTO membershipDTO) {
-		return adminmapper.updateUserLevel(membershipDTO);
+	public List<MemberShipDTO> membershipList(PageMaker pageMaker) {
+		return adminmapper.membershipList(pageMaker);
 	}
 
+	@Override
+	public int updateUserLevel(String user_id, int user_level) {
+		return adminmapper.updateUserLevel(user_id, user_level);
+	}
+
+
+   
 	
 }

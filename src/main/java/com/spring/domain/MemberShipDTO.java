@@ -9,9 +9,10 @@ import lombok.ToString;
 @ToString
 public class MemberShipDTO {
 	
-	private String user_id; //                  varchar2(30) 
-	private String name; //            not null varchar2(30) 
-	private int community_count; //          number       
-	private int user_level; //               number    
+	  private String user_id;
+	  private String name;
+	  private int age;
+	  private int user_level;
+	  private int community_count;
 
 }
